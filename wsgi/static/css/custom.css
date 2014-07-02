@@ -1,0 +1,99 @@
+/* Move down content because we have a fixed navbar that is 50px tall */
+body {
+  padding-top: 60px;
+  padding-bottom: 20px;
+  background-color: #e5e4e2;
+}
+
+a.navbar-brand {
+	font-size: 24px;
+}
+
+a.dropdown-toggle {
+	font-size: 18px;
+}
+
+h3.dateline {
+	font-size: 0.9em;
+	font-weight: lighter;
+	color: #dc3409;
+	margin: 0 0 10px 0;
+}
+
+div.row {
+	margin-right: 0px;
+	margin-left: 0px;
+}
+
+img.front-page {
+	display:block;
+	width:75%;
+	max-width: 200px;
+	margin-right: auto;
+	margin-left: auto;
+}
+
+p.end-story-links {
+	border-bottom: 4px solid #cccccc;
+	margin-bottom: 15px !important;
+	font-size: 0.9em;
+}
+
+/* responsive images */
+div.col-md-4 img {
+      display: block;
+      height: auto;
+      /*max-width: 100%;*/
+      width: 85%;
+      margin-left: auto;
+      margin-right: auto;
+      padding: 5px 5px 5px 5px;
+      background-color: #dddddd;
+}
+
+div.col-md-4 p {
+	width: 85%;
+	margin-left: auto;
+    margin-right: auto;
+    padding-bottom: 5px;
+	text-align: center;
+	background-color: #dddddd;
+}
+
+p.intro:first-letter {
+	font-size: 1.4em;
+	/*letter-spacing: -1px;*/
+}
+
+div.newstile {
+	background-color: #e7e7e7;
+	padding-bottom: 8%;
+	margin-top:10px;
+	margin-bottom:10px;
+	max-width: 200px;
+	height:250px;
+}
+
+div.newstile img {
+	max-width:84%;
+	display:block;
+	margin-left:auto;
+	margin-right:auto;
+	margin-top:auto;
+	margin-bottom:auto;
+	padding-top:8%;
+	padding-bottom:8%;
+}
+
+div.newstile p {
+	width:84%;
+	background-color: #d0d0d0;
+	color: #999999;
+	text-align: center;
+	margin-left:auto;
+	margin-right: auto;
+}
+
+div.container.alert {
+	margin-bottom: 10px;
+}

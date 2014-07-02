@@ -1,0 +1,51 @@
+    .close {
+		position: absolute;
+		top: 3px;
+		right: 3px;
+		font-size: 20px;
+		color: #fff;
+		opacity: 0.75;
+		font-weight: normal;
+}
+
+.mycaption {
+	margin: -10px 20px 5px 15px;
+}
+
+    .gall {
+      width: 100%;
+    }
+
+    #thumbs {
+    	margin:10px;
+    }
+
+    .carousel-caption {
+    	background-color: rgba(0,0,0,0.25);
+    	right: 15%;
+    	left: 15%;
+    	font-size: 16px;
+    }
+
+    @media (max-width: 767px) {
+    	.carousel-caption {
+    		font-size: 14px;
+    	}
+    }
+
+    @media (max-width: 480px) { 
+		.carousel-caption {
+    	
+    		font-size: 12px;
+    	}
+
+    .carousel-indicators li {
+    	width:6px;
+    	height: 6px;
+    }
+
+    .carousel-indicators .active {
+    	width:8px;
+    	height:8px;
+    }
+    }
