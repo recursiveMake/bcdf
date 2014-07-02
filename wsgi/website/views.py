@@ -132,7 +132,7 @@ def news_newsletter_by_month(request, year, month):
     newsletter_list = NewsLetter.objects.all()
     newsletter_list = newsletter_list.filter(pub_date__year=year)
     # MongoDB does not support month/day queries
-    # newsletter_list = newsletter_list.filter(pub_date__month=month)
+    newsletter_list = newsletter_list.filter(pub_date__month=month)
     context = {'newsletter_list': newsletter_list}
     update_context(request, context)
     return render(request, 'website/news/newsletter.html', context)
@@ -157,7 +157,7 @@ def contact_form(request):
 # helpers
 def article_parse(request, response):
     split_content = parse_text(response.articlecontent.full)
-    response.first_paragraph = split_content[0]
+    response.first_paragraph = split_content[0] if len(split_content) > 0 else ''
     if len(split_content) > 1:
         response.rest_of_paragraphs = split_content[1:]
     context = {'article': response}
@@ -211,7 +211,7 @@ def viewed_campaign(request):
 
 def news_years():
     """get list of years with news"""
-    # article_dates = NewsArticle.objects.dates('pub_date','year')
-    # return sorted([date.year for date in article_dates], reverse=True)
-    return [x for x in range(2014, 2007, -1)]
+    article_dates = NewsArticle.objects.dates('pub_date','year')
+    return sorted([date.year for date in article_dates], reverse=True)
+    # return [x for x in range(2014, 2007, -1)]
 
