@@ -1,4 +1,5 @@
 from django.db import models
+import os
 
 
 # Create your models here.
@@ -84,7 +85,7 @@ class HomePageCampaign(Campaign):
 
 class NewsLetter(Document):
     type = models.CharField(max_length=2, choices=Document.DocumentTypes, default=Document.NEWSLETTER)
-    pdf = models.FileField(upload_to='newsletter\\pdf\\')
+    pdf = models.FileField(upload_to=os.path.join('newsletter', 'pdf'))
     issue_number = models.IntegerField()
 
 
@@ -113,7 +114,7 @@ class SpecialArticle(Document):
 
 class SpecialImage(models.Model):
     article = models.ForeignKey(SpecialArticle)
-    image = models.ImageField(upload_to="images\\special\\")
+    image = models.ImageField(upload_to=os.path.join("images", "special"))
     title = models.CharField(max_length=128, blank=True)
     description = models.CharField(max_length=1024, blank=True)
     alt = models.CharField(max_length=64, blank=True)
@@ -121,7 +122,7 @@ class SpecialImage(models.Model):
 
 class GalleryImage(models.Model):
     article = models.ForeignKey(GalleryArticle)
-    image = models.ImageField(upload_to='images\\gallery\\')
+    image = models.ImageField(upload_to=os.path.join('images', 'gallery'))
     description = models.CharField(max_length=512, blank=True)
     alt = models.CharField(max_length=64, blank=True)
 
@@ -130,7 +131,7 @@ class GalleryImage(models.Model):
 
 
 class Image(ImageBase):
-    image = models.ImageField(upload_to='images\\full_size\\')
+    image = models.ImageField(upload_to=os.path.join('images', 'full_size'))
 
     banner_campaign = models.OneToOneField(BannerCampaign, blank=True, null=True)
     home_page_campaign = models.OneToOneField(HomePageCampaign, blank=True, null=True)
@@ -140,7 +141,7 @@ class Image(ImageBase):
 
 
 class Thumb(ImageBase):
-    image = models.ImageField(upload_to='images\\thumbnails\\')
+    image = models.ImageField(upload_to=os.path.join('images', 'thumbnails'))
 
     newsletter = models.OneToOneField(NewsLetter, blank=True, null=True)
     news_article = models.OneToOneField(NewsArticle, blank=True, null=True)
