@@ -1,0 +1,95 @@
+{% extends "website/base.html" %}
+{% block title %}{% endblock %}
+{% block description %}{% endblock %}
+{% block keywords %}{% endblock %}
+
+{% block content %}
+
+{% if article_list %}
+
+    {% for article in article_list %}
+
+        {% if article.thumb %}
+
+            {% if article.thumb.position == article.thumb.LEFT %}
+
+                <div class="row">
+                    <div class="col-md-4">
+                        <img src="{{article.thumb.image.url}}" alt="{{article.thumb.alt}}" align="center"/>
+                        <p>
+                            <b>{{article.thumb.title}}</b>
+                            {% if article.thumb.description %}
+                            <br><span>{{ article.thumb.description }}</span>
+                            {% endif %}
+                        </p>
+                    </div>
+                    <div class="col-md-8">
+                        <h1>{{ article.title }}</h1>
+                        {% block article_date %}
+                        <h3 class="dateline">{{ article.pub_date }}</h3>
+                        {% endblock %}
+                        <p class="intro">{{ article.articlecontent.short }}</p>
+                        <p class="end-story-links">
+
+                            <a href="{% url url_namespace article.slug %}">{{ read_on_message }}</a>
+
+                        </p>
+                    </div>
+                </div>
+
+            {% else %}
+
+                <div class="row">
+                    <div class="col-md-8">
+                        <h1>{{ article.title }}</h1>
+                        {% block article_date_2 %}
+                        <h3 class="dateline">{{ article.pub_date }}</h3>
+                        {% endblock %}
+                        <p class="intro">{{ article.articlecontent.short }}</p>
+                        <p class="end-story-links">
+
+                            <a href="{% url url_namespace article.slug %}">{{ read_on_message }}</a>
+
+                        </p>
+                    </div>
+                    <div class="col-md-4">
+                        <img src="{{ article.thumb.image.url }}" alt="{{ article.thumb.alt }}" align="center"/>
+                        <p>
+                            <b>{{ article.thumb.title }}</b>
+                            {% if article.thumb.description %}
+                            <br><span>{{ article.thumb.description }}</span>
+                            {% endif %}
+                        </p>
+                    </div>
+                </div>
+
+            {% endif %}
+
+        {% else %}
+
+            <div class="row">
+                <div class="col-md-12">
+                    <h1>{{ article.title }}</h1>
+                    {% block article_date_3 %}
+                    <h3 class="dateline">{{ article.pub_date }}</h3>
+                    {% endblock %}
+                    <p class="intro">{{ article.articlecontent.short }}</p>
+                    <p class="end-story-links">
+
+                        <a href="{% url url_namespace article.slug %}">{{ read_on_message }}</a>
+
+                    </p>
+                </div>
+            </div>
+
+        {% endif %}
+
+    {% endfor %}
+
+{% else %}
+
+    <p>No articles are available.</p>
+
+{% endif %}
+
+{% endblock %}

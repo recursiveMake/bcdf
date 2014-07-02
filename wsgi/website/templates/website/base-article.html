@@ -1,0 +1,67 @@
+{% extends "website/base.html" %}
+{% load filters %}
+
+{% block title %}{{ article.title }}{% endblock %}
+
+{% block content %}
+{% if viewed_campaign %}
+    {% for campaign in viewed_campaign %}
+        <script type="text/javascript">
+            SetCookie('{{ campaign.slug }}','CLICKED','{{ campaign.snooze_long }}');
+        </script>
+    {% endfor %}
+{% endif %}
+
+<div class="row">
+    {% if article %}
+        {% block article_content_head %}
+            <div class="col-md-12">
+        {% endblock %}
+
+        {% block article_content_mid %}
+                <h1>{{ article.title }}</h1>
+        {% block article_author %}
+                <h3>{{ article.author }}</h3>
+        {% endblock %}
+        {% block article_date %}
+                <h3 class="dateline">{{ article.pub_date }}</h3>
+        {% endblock %}
+                <p class="intro">{% render_as_template article.first_paragraph %}</p>
+        {% endblock %}
+
+        {% block article_content_after_mid %}
+        {% endblock %}
+
+        {% block article_content_late %}
+                            </div>
+    </div>
+        <div class="row">
+            <div class="col-md-12">
+
+            {% if article.rest_of_paragraphs %}
+                </div>
+                <div class="col-md-12">
+                    {% for paragraph in article.rest_of_paragraphs %}
+                        <p>{% render_as_template paragraph %}</p>
+                    {% endfor %}
+            {% endif %}
+
+        {% endblock %}
+
+        {% block article_content_foot %}
+                    <!-- article content foot -->
+        {% endblock %}
+<!-- Tail -->
+        {% block article_content_tail %}
+                <p class="end-story-links">{% render_as_template article.articlecontent.end %}</p>
+            </div>
+        {% endblock %}
+
+    {% else %}
+        <p>No article is available.</p>
+    {% endif %}
+
+</div>
+        </div>
+
+{% endblock %}

@@ -1,0 +1,46 @@
+{% extends "website/base-article.html" %}
+
+{% block article_content_head %}
+    {% if article.image %}
+        {% if article.image.position == article.image.LEFT %}
+            <div class="col-md-4">
+                <img src="{{ article.image.image.url }}" alt="{{ article.image.alt }}">
+                <p><b>{{ article.image.title }}</b>
+                    <br><span>{{ article.image.description }}</span></p>
+            </div>
+            <div class="col-md-8">
+        {% elif article.image.position == article.image.RIGHT %}
+            <div class="col-md-8">
+        {% elif article.image.position == article.image.CENTER %}
+            <div class="col-md-12">
+        {% endif %}
+    {% else %}
+        <div class="col-md-12">
+    {% endif %}
+{% endblock %}
+
+{% block article_content_after_mid %}
+    {% if article.image %}
+        {% if article.image.position == article.image.RIGHT %}
+            </div>
+            <div class="col-md-4">
+                <img src="{{ article.image.image.url }}" alt="{{ article.image.alt }}">
+                <p><b>{{ article.image.title }}</b>
+                    <br><span>{{ article.image.description }}</span></p>
+            </div>
+            <div class="col-md-12">
+        {% elif article.image.position == article.image.CENTER %}
+            </div>
+            <div class="row">
+                <div class="col-md-offset-1 col-md-10">
+                    <h3 class="text-center">{{ article.image.title }}</h3>
+                    <p><br><span>{{ article.image.description }}</span></p>
+                    <img src="{{ article.image.image.url }}" alt="{{ article.image.alt }}"
+                            class="img-responsive" style="display:block; margin-left:auto; margin-right:auto;">
+                </div>
+            </div>
+            <div class="col-md-12">
+                <p><br></p>
+        {% endif %}
+    {% endif %}
+{% endblock %}

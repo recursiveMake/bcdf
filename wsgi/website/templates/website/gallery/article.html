@@ -1,0 +1,86 @@
+{% extends "website/base.html" %}
+{% load filters %}
+{% load staticfiles %}
+
+{% block title %}BCDF Picture Gallery{% endblock %}
+{% block description %}Pictures from the BCDF{% endblock %}
+{% block keywords %}gallery, images, BCDF{% endblock %}
+{% block header %}<link href="{% static "css/gallery.css" %}" rel="stylesheet">{% endblock %}
+{% block content %}
+{% if article %}
+<div class="col-md-12">
+    <h2>{{ article.title }}</h2>
+    <h3 class="dateline">{{ article.pub_date }}</h3>
+
+    <div class="row">
+        <div class="col-md-offset-2 col-md-8">
+            <div id="gallery-carousel" class="carousel slide" data-interval="5000" data-pause="hover">
+
+
+                <!-- Indicators -->
+                <ol class="carousel-indicators">
+{% for image in article.galleryimage_set.all %}
+                    <li data-target="#gallery-carousel" data-slide-to="{{forloop.counter0}}"
+{% if forloop.first %}
+                        class="active"
+{% endif %}
+                    ></li>
+{% endfor %}
+                </ol>
+
+                <!-- Wrapper for slides -->
+                <div class="carousel-inner">
+{% for image in article.galleryimage_set.all %}
+                    <div class="item{% if forloop.first %} active{% endif %}">
+                        <img src="{{ image.image.url }}"
+                             alt="{{ image.alt }}"
+                             title=""
+                             class="thumbnail gall" >
+{% if image.description %}
+                        <div class="carousel-caption">
+                            <a class="close" data-dismiss="alert" href="#" aria-hidden="true">&times;</a>
+                            <p class="mycaption">
+                                {{ image.description }}
+                            </p>
+                        </div>
+{% endif %}
+                    </div>
+{% endfor %}
+                </div>
+
+                <!-- Controls -->
+                <a class="left carousel-control" href="#gallery-carousel" data-slide="prev">
+                    <span class="icon-prev"></span>
+                </a>
+                <a class="right carousel-control" href="#gallery-carousel" data-slide="next">
+                    <span class="icon-next"></span>
+                </a>
+            </div>
+        </div>
+        <div class="row">
+            <br>
+        </div>
+
+        <div class="row">
+{% for image in article.galleryimage_set.all %}
+            <div class="col-xs-3 col-md-2" id="thumbs">
+                <a href="#gallery-carousel" data-slide-to="{{ forloop.counter0 }}">
+                    <img src="{{ image.image.url }}"
+                         alt="{{ image.alt }}"
+                         title=""
+                         class="thumbnail" />
+                </a>
+            </div>
+{% endfor %}
+        </div>
+    </div>
+</div>
+
+ <script type='text/javascript'>
+    window.onload=function(){$('.carousel').carousel()};
+
+ </script>
+{% else %}
+<p>No article is available</p>
+{% endif %}
+{% endblock %}

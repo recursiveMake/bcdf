@@ -1,0 +1,62 @@
+{% extends "website/base.html" %}
+{% load filters %}
+{% load staticfiles %}
+
+{% block title %}BCDF Home Page{% endblock %}
+{% block description %}Website of the BCDF{% endblock %}
+{% block keywords %}BCDF, news, education, diabetes, cancer{% endblock %}
+{% block header %}<link href="{% static "css/banner.css" %}" rel="stylesheet">{% endblock %}
+{% block pre_alert_content %}
+
+<div class="jumbotron" style="margin-top:-10px; margin-bottom:10px;">
+    <!-- Carousel -->
+    <div id="myCarousel" class="carousel slide" data-interval="7500" data-pause="hover">
+        <!-- Indicators -->
+        <ol class="carousel-indicators">
+{% for campaign in banner_campaigns %}
+            <li data-target="#myCarousel" data-slide-to="{{ forloop.counter0 }}"
+{% if forloop.first %}
+                class="active"
+{% endif %}
+            ></li>
+{% endfor %}
+        </ol>
+        <div class="carousel-inner">
+
+{% for campaign in banner_campaigns %}
+            <div class="item {% if forloop.first %}active{% endif %}">
+                <img src="{{ campaign.image.image.url }}" alt="{{ campaign.image.image.alt }}">
+                <div class="container">
+                    <div class="carousel-caption">
+                        <h1>{{ campaign.title }}</h1>
+                        <p class="lead">{{ campaign.blurb }}</p>
+                        <a class="btn btn-large btn-primary" href="{{ campaign.article }}">{{ campaign.button_text }}</a>
+                    </div>
+                </div>
+            </div>
+{% endfor %}
+        </div>
+        <a class="left carousel-control" href="#myCarousel" data-slide="prev">&lsaquo;</a>
+        <a class="right carousel-control" href="#myCarousel" data-slide="next">&rsaquo;</a>
+    </div>
+    <!-- /.carousel -->
+
+    <script type='text/javascript'>
+        window.onload=function(){$('.carousel').carousel()};
+
+    </script>
+</div>
+{% endblock %}
+
+{% block content %}
+{% for campaign in home_page_campaigns %}
+<div class="col-md-3">
+    <img class="front-page" src="{{ campaign.image.image.url }}" alt="{{ campaign.image.alt }}" title="{{ campaign.title}}" />
+    <h1 style="text-align:center;">{{ campaign.title }}</h1>
+    <p class="text-center">{{ campaign.blurb }}</p>
+    <p class="text-center">
+        <a class="btn btn-default" href="{{ campaign.article }}">{{ campaign.button_text }}</a>
+    </p>
+</div>
+{% endfor %}
+{% endblock %}
