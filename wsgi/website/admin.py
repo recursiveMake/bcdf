@@ -121,8 +121,19 @@ class EducationalArticleAdmin(admin.ModelAdmin):
     exclude = ('type', )
 
 
+class NewsLetterThumbInline(admin.StackedInline):
+    model = Thumb
+    exclude = ('news_article', 'gallery_article', 'educational_article', 'special_article')
+
+
+class NewsLetterAdmin(admin.ModelAdmin):
+    inlines = [NewsLetterThumbInline]
+    exclude = ('type',)
+
+
 admin.site.register(NewsArticle, NewsArticleAdmin)
-admin.site.register(NewsLetter)
+
+admin.site.register(NewsLetter, NewsLetterAdmin)
 
 admin.site.register(EducationalArticle, EducationalArticleAdmin)
 
