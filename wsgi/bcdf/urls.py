@@ -1,6 +1,7 @@
 from django.conf.urls import patterns, include, url
 from django.conf import settings
 from django.conf.urls.static import static
+import os
 
 # Uncomment the next two lines to enable the admin:
 from django.contrib import admin
@@ -25,3 +26,11 @@ urlpatterns = patterns('',
     url(r'^gallery/', include('website.urls.gallery', namespace="gallery")),
     url(r'^', include('website.urls.special', namespace="special")),
 )
+
+
+ON_OPENSHIFT = False
+if os.environ.has_key('OPENSHIFT_REPO_DIR'):
+    ON_OPENSHIFT = True
+
+if not ON_OPENSHIFT:
+    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
