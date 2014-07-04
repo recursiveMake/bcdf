@@ -1,10 +1,14 @@
 from django.shortcuts import render, get_object_or_404, redirect
 from website.models import NewsArticle, AlertCampaign, NewsLetter, EducationalArticle, BannerCampaign, HomePageCampaign
 from website.models import GalleryArticle, SpecialArticle
+from website.forms import ContactForm
 from django.db.models import Q
 from django.utils.safestring import mark_safe
 from django.utils.html import escape
 from django.contrib import messages
+from django.core.mail import send_mail
+from utils import recaptcha, ip
+from utils.recaptcha_keys import public_key, private_key
 from datetime import datetime
 
 
@@ -25,6 +29,39 @@ def gallery_article(request, article_id):
     context = {'article': article}
     update_context(request, context)
     return render(request, 'website/gallery/article.html', context)
+
+
+def contact_form(request):
+    if request.method == 'POST':
+        form = ContactForm(request.POST)
+        if form.is_valid():
+            captcha_resp = recaptcha.submit(
+                form.cleaned_data['recaptcha_challenge_field'],
+                form.cleaned_data['recaptcha_response_field'],
+                private_key,
+                ip.get_client_ip(request)
+            )
+            if captcha_resp.is_valid:
+                send_mail(
+                    subject='Contact Page message',
+                    message=form.cleaned_data['comments'],
+                    from_email=form.cleaned_data['email'],
+                    recipient_list=['bcdfoundation@gmail.com']
+                )
+                messages.success(request, "Thank you for your email.")
+                return redirect('home:index')
+            else:
+                messages.error(request, "Invalid reCAPTCHA response.")
+        else:
+            messages.error(request, "Invalid form data.")
+    else:
+        form = ContactForm()
+    context = {
+        'form': form,
+        'recaptcha': recaptcha.displayhtml(public_key=public_key)
+    }
+    update_context(request, context)
+    return render(request, 'website/special/contact.html', context)
 
 
 def home_index(request):
@@ -156,13 +193,6 @@ def special_article(request, article_id):
         return render(request, 'website/special/article.html', context)
     if response.template == SpecialArticle.MULTI_IMAGE:
         return render(request, 'website/special/multi-image.html', context)
-
-
-def contact_form(request):
-    response = get_object_or_404(SpecialArticle, slug='contact')
-    context = {'article': response}
-    update_context(request, context)
-    return render(request, 'website/special/contact.html', context)
 
 
 # helpers

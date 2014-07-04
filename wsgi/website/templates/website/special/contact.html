@@ -1,0 +1,48 @@
+{% extends "website/base.html" %}
+{% load filters %}
+{% block title %}Contact Form{% endblock %}
+{% block description %}Contact the BCDF{% endblock %}
+{% block keywords %}contact, email, diabetes, cancer{% endblock %}
+
+{% block content %}
+        <div class="col-md-12">
+            <form class="form-horizontal" role="form" method="post">
+                <fieldset>
+                    {% csrf_token %}
+                    <legend>Contact us</legend>
+                    {% for field in form.visible_fields %}
+                    <!-- Text input-->
+                    <div class="row">
+                        <div class="form-group">
+                            <label class="col-md-2 control-label" for="{{ field.id_for_label }}">{{ field.label }}</label>
+                            <div class="col-md-8">
+                                {{ field }}
+                            </div>
+                        </div>
+                    </div>
+                    {% endfor %}
+                    <div class="row">
+                        <div class="form-group">
+                            <label class="col-md-2 control-label" for="recaptcha-challenge-field">Are you human?</label>
+                            <div class="col-md-8">
+                                {% render_as_template recaptcha %}
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="form-group">
+                            <label class="col-md-2 control-label" for="submit"></label>
+                            <div class="col-md-offset-1 col-md-2">
+                                <button id="submit" name="submit" class="btn btn-primary" >Send Message</button>
+                            </div>
+                        </div>
+                    </div>
+                </fieldset>
+            </form>
+        </div>
+        <div class="col-md-12">
+            <p class="end-story-links"><a href="{% url 'news:article' 'recaptcha' %}">
+                What is reCAPTCHA, and why do I have to fill it?
+            </p>
+        </div>
+{% endblock %}

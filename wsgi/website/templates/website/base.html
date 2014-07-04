@@ -85,11 +85,22 @@
     {% block pre_alert_content %}{% endblock %}
     {% if messages %}
         {% for message in messages %}
+            {% if 'error' in message.tags %}
             <div class="container alert alert-danger alert-dismissable" style="margin-top:0px;">
+            {% elif 'success' in message.tags %}
+            <div class="container alert alert-success alert-dismissable" style="margin-top:0px;">
+            {% else %}
+            <div class="container alert alert-dismissable" style="margin-top:0px;">
+            {% endif %}
                 <button type="button" class="close" data-dismiss="alert" aria-hidden="true">
                     &times;
                 </button>
-                <strong>Error: </strong> {{ message }}
+                {% if 'error' in message.tags %}
+                <strong>Error: </strong>
+                {% elif 'success' in message.tags %}
+                <strong>Success: </strong>
+                {% endif %}
+                {{ message }}
             </div>
         {% endfor %}
     {% endif %}
