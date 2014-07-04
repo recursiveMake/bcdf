@@ -83,6 +83,16 @@
     </div>
   </div>
     {% block pre_alert_content %}{% endblock %}
+    {% if messages %}
+        {% for message in messages %}
+            <div class="container alert alert-danger alert-dismissable" style="margin-top:0px;">
+                <button type="button" class="close" data-dismiss="alert" aria-hidden="true">
+                    &times;
+                </button>
+                <strong>Error: </strong> {{ message }}
+            </div>
+        {% endfor %}
+    {% endif %}
     {% if alert_campaign %}
         {% for campaign in alert_campaign %}
             <div class="container alert alert-info alert-dismissable" style="margin-top:0px;">

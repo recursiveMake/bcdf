@@ -1,9 +1,10 @@
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import render, get_object_or_404, redirect
 from website.models import NewsArticle, AlertCampaign, NewsLetter, EducationalArticle, BannerCampaign, HomePageCampaign
 from website.models import GalleryArticle, SpecialArticle
 from django.db.models import Q
 from django.utils.safestring import mark_safe
 from django.utils.html import escape
+from django.contrib import messages
 from datetime import datetime
 
 
@@ -41,6 +42,16 @@ def home_index(request):
     }
     update_context(request, context)
     return render(request, 'website/home/index.html', context)
+
+
+def handle404(request):
+    messages.error(request, "The requested page was not found.")
+    return redirect('home:index')
+
+
+def handle500(request):
+    messages.error(request, "An error has occurred on the server.")
+    return redirect('home:index')
 
 
 def news_index(request):

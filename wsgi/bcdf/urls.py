@@ -2,6 +2,7 @@ from django.conf.urls import patterns, include, url
 from django.conf import settings
 from django.conf.urls.static import static
 import os
+import website
 
 # Uncomment the next two lines to enable the admin:
 from django.contrib import admin
@@ -27,6 +28,10 @@ urlpatterns = patterns('',
     url(r'^', include('website.urls.special', namespace="special")),
 )
 
+
+handler404 = website.views.handle404
+
+handler500 = website.views.handle500
 
 ON_OPENSHIFT = False
 if os.environ.has_key('OPENSHIFT_REPO_DIR'):
