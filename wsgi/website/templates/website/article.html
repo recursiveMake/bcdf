@@ -3,14 +3,14 @@
 {% block article_content_head %}
     {% if article.image %}
         {% if article.image.position == article.image.LEFT %}
-            <div class="col-md-4">
+            <div class="col-md-4 vcenter">
                 <img src="{{ article.image.image.url }}" alt="{{ article.image.alt }}">
                 <p><b>{{ article.image.title }}</b>
                     <br><span>{{ article.image.description }}</span></p>
-            </div>
-            <div class="col-md-8">
+            </div><!--
+         --><div class="col-md-8 vcenter">
         {% elif article.image.position == article.image.RIGHT %}
-            <div class="col-md-8">
+            <div class="col-md-8 vcenter">
         {% elif article.image.position == article.image.CENTER %}
             <div class="col-md-12">
         {% endif %}
@@ -22,8 +22,8 @@
 {% block article_content_after_mid %}
     {% if article.image %}
         {% if article.image.position == article.image.RIGHT %}
-            </div>
-            <div class="col-md-4">
+            </div><!--
+         --><div class="col-md-4 vcenter">
                 <img src="{{ article.image.image.url }}" alt="{{ article.image.alt }}">
                 <p><b>{{ article.image.title }}</b>
                     <br><span>{{ article.image.description }}</span></p>

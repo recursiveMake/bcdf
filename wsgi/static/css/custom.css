@@ -97,3 +97,9 @@ div.newstile p {
 div.container.alert {
 	margin-bottom: 10px;
 }
+
+.vcenter {
+    display: inline-block;
+    vertical-align: middle;
+    float: none;
+}

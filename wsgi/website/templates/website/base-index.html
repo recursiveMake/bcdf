@@ -14,7 +14,7 @@
             {% if article.thumb.position == article.thumb.LEFT %}
 
                 <div class="row">
-                    <div class="col-md-4">
+                    <div class="col-md-4 vcenter">
                         <img src="{{article.thumb.image.url}}" alt="{{article.thumb.alt}}" align="center"/>
                         <p>
                             <b>{{article.thumb.title}}</b>
@@ -22,8 +22,8 @@
                             <br><span>{{ article.thumb.description }}</span>
                             {% endif %}
                         </p>
-                    </div>
-                    <div class="col-md-8">
+                    </div><!--
+                 --><div class="col-md-8 vcenter">
                         <h1>{{ article.title }}</h1>
                         {% block article_date %}
                         <h3 class="dateline">{{ article.pub_date }}</h3>
@@ -40,7 +40,7 @@
             {% else %}
 
                 <div class="row">
-                    <div class="col-md-8">
+                    <div class="col-md-8 vcenter">
                         <h1>{{ article.title }}</h1>
                         {% block article_date_2 %}
                         <h3 class="dateline">{{ article.pub_date }}</h3>
@@ -51,8 +51,8 @@
                             <a href="{% url url_namespace article.slug %}">{{ read_on_message }}</a>
 
                         </p>
-                    </div>
-                    <div class="col-md-4">
+                    </div><!--
+                 --><div class="col-md-4 vcenter">
                         <img src="{{ article.thumb.image.url }}" alt="{{ article.thumb.alt }}" align="center"/>
                         <p>
                             <b>{{ article.thumb.title }}</b>
