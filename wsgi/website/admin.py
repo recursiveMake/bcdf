@@ -1,7 +1,7 @@
 __author__ = 'adonis'
 
 from django.contrib import admin
-from website.models import ArticleContent, Thumb, Image, GalleryImage, SpecialImage
+from website.models import ArticleContent, ArticleFile, Thumb, Image, GalleryImage, SpecialImage
 from website.models import EducationalArticle, NewsArticle, GalleryArticle, NewsLetter, SpecialArticle
 from website.models import BannerCampaign, AlertCampaign, HomePageCampaign
 
@@ -29,8 +29,13 @@ class SpecialContentInline(admin.StackedInline):
     extra = 1
 
 
+class SpecialFileInline(admin.StackedInline):
+    model = ArticleFile
+    exclude = ('news_article', 'educational_article')
+    extra = 1
+
 class SpecialArticleAdmin(admin.ModelAdmin):
-    inlines = [SpecialContentInline, SpecialThumbInline, SpecialImageInline, SpecialMultiImageInline]
+    inlines = [SpecialContentInline, SpecialThumbInline, SpecialImageInline, SpecialMultiImageInline, SpecialFileInline]
     exclude = ('type', )
 
 
@@ -94,8 +99,13 @@ class NewsArticleContentInline(admin.StackedInline):
     extra = 1
 
 
+class NewsArticleFileInline(admin.StackedInline):
+    model = ArticleFile
+    exclude = ('special_article', 'educational_article')
+    extra = 1
+
 class NewsArticleAdmin(admin.ModelAdmin):
-    inlines = [NewsArticleContentInline, NewsImageInline, NewsThumbInline]
+    inlines = [NewsArticleContentInline, NewsImageInline, NewsThumbInline, NewsArticleFileInline]
     exclude = ('type', )
 
 class EducationalThumbInline(admin.StackedInline):
@@ -116,8 +126,15 @@ class EducationalArticleContentInline(admin.StackedInline):
     extra = 1
 
 
+class EducationalArticleFileInline(admin.StackedInline):
+    model = ArticleFile
+    exclude = ('news_article', 'special_article')
+    extra = 1
+
+
 class EducationalArticleAdmin(admin.ModelAdmin):
-    inlines = [EducationalArticleContentInline, EducationalImageInline, EducationalThumbInline]
+    inlines = [EducationalArticleContentInline, EducationalImageInline, EducationalThumbInline,
+               EducationalArticleFileInline]
     exclude = ('type', )
 
 
