@@ -26,7 +26,7 @@
                  --><div class="col-md-8 vcenter">
                         <h1>{{ article.title }}</h1>
                         {% block article_date %}
-                        <h3 class="dateline">{{ article.pub_date }}</h3>
+                        <h3 class="dateline">{{ article.pub_date|date:'l, F jS, Y' }}</h3>
                         {% endblock %}
                         <p class="intro">{{ article.articlecontent.short }}</p>
                         <p class="end-story-links">
@@ -43,7 +43,7 @@
                     <div class="col-md-8 vcenter">
                         <h1>{{ article.title }}</h1>
                         {% block article_date_2 %}
-                        <h3 class="dateline">{{ article.pub_date }}</h3>
+                        <h3 class="dateline">{{ article.pub_date|date:'l, F jS, Y' }}</h3>
                         {% endblock %}
                         <p class="intro">{{ article.articlecontent.short }}</p>
                         <p class="end-story-links">
@@ -71,7 +71,7 @@
                 <div class="col-md-12">
                     <h1>{{ article.title }}</h1>
                     {% block article_date_3 %}
-                    <h3 class="dateline">{{ article.pub_date }}</h3>
+                    <h3 class="dateline">{{ article.pub_date|date:'l, F jS, Y' }}</h3>
                     {% endblock %}
                     <p class="intro">{{ article.articlecontent.short }}</p>
                     <p class="end-story-links">

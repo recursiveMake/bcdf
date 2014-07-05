@@ -24,7 +24,7 @@
                         <h3>{{ article.author }}</h3>
                 {% endblock %}
                 {% block article_date %}
-                        <h3 class="dateline">{{ article.pub_date }}</h3>
+                        <h3 class="dateline">{{ article.pub_date|date:'l, F jS, Y' }}</h3>
                 {% endblock %}
                         <p class="intro">{% render_as_template article.first_paragraph %}</p>
                 {% endblock %}
