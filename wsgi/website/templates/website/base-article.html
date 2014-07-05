@@ -21,7 +21,7 @@
                 {% block article_content_mid %}
                         <h1>{{ article.title }}</h1>
                 {% block article_author %}
-                        <h3>{{ article.author }}</h3>
+                        <h4> by {{ article.author }}</h4>
                 {% endblock %}
                 {% block article_date %}
                         <h3 class="dateline">{{ article.pub_date|date:'l, F jS, Y' }}</h3>
