@@ -51,7 +51,7 @@ else:
 # Hosts/domain names that are valid for this site; required if DEBUG is False
 # See https://docs.djangoproject.com/en/1.5/ref/settings/#allowed-hosts
 if ON_OPENSHIFT:
-    ALLOWED_HOSTS = ['web-bcdf.rhcloud.com']
+    ALLOWED_HOSTS = ['web-bcdf.rhcloud.com', 'bovellfoundation.org', 'bovellcancerdiabetesfoundation.org']
 else:
     ALLOWED_HOSTS = ['*']
 
