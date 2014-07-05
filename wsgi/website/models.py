@@ -169,6 +169,6 @@ class ArticleFile(models.Model):
     file = models.FileField(upload_to="files")
     blurb = models.CharField(max_length=256)
 
-    educational_article = models.OneToOneField(EducationalArticle, blank=True, null=True)
-    news_article = models.OneToOneField(NewsArticle, blank=True, null=True)
-    special_article = models.OneToOneField(SpecialArticle, blank=True, null=True)
+    educational_article = models.ForeignKey(EducationalArticle, blank=True, null=True)
+    news_article = models.ForeignKey(NewsArticle, blank=True, null=True)
+    special_article = models.ForeignKey(SpecialArticle, blank=True, null=True)

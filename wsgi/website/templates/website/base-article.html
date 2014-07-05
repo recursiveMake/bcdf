@@ -54,9 +54,9 @@
         <!-- Tail -->
                 {% block article_content_tail %}
                         <p class="end-story-links">
-                            {% if article.articlefile %}
-                            <a href="{{ article.articlefile.file.url }}">{{ article.articlefile.blurb }}</a>
-                            {% endif %}
+                            {% for download_file in article.articlefile_set.all %}
+                            <a href="{{ download_file.file.url }}">{{ download_file.blurb }}</a>
+                            {% endfor %}
                             {% render_as_template article.articlecontent.end %}</p>
                     </div>
                 {% endblock %}
