@@ -11,7 +11,7 @@ class RecaptchaKey():
         elif 'web-bcdf.rhcloud.com' in host:
             self.host = 3
         else:
-            self.host = 0
+            self.host = 1
 
     @property
     def public_key(self):
