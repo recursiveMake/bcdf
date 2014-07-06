@@ -145,6 +145,30 @@ def rss_limit(request, count):
     return render(request, 'website/rss/index.xml', context)
 
 
+def gallery_xml(request, article_id):
+    response = get_object_or_404(GalleryArticle, slug=article_id)
+    context = {
+        'article': response
+    }
+    return render(request, 'website/rss/gallery.xml', context)
+
+
+def photos_xml(request):
+    article_list = GalleryArticle.objects.all().order_by('-pub_date')
+    context = {
+        'article_list': article_list
+    }
+    return render(request, 'website/rss/photos.xml', context)
+
+
+def education_xml(request, count):
+    article_list = EducationalArticle.objects.all().order_by('-pub_date')[:count]
+    context = {
+        'article_list': article_list
+    }
+    return render(request, 'website/rss/education.xml', context)
+
+
 def education_index(request):
     article_list = EducationalArticle.objects.all().order_by('-pub_date')[:10]
     context = {

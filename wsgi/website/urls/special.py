@@ -29,5 +29,14 @@ urlpatterns = patterns('',
     url(r'^(funding)/$', views.special_article, name='funding'),
 
     # /donate/
-    url(r'^(donate)/$', views.special_article, name='donate')
+    url(r'^(donate)/$', views.special_article, name='donate'),
+
+    # /news.xml
+    url(r'^news.xml$', views.rss_limit, {'count': 10}, name='newsxml'),
+
+    # /education.xml
+    url(r'^education.xml$', views.education_xml, {'count': 10}, name='educationxml'),
+
+    # /photos.xml
+    url(r'^photos.xml$', views.photos_xml, name='photosxml')
 )

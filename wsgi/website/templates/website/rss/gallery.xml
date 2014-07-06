@@ -1,0 +1,26 @@
+<?xml version="1.0"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+{% load staticfiles %}
+    <channel>
+        <title>Bovell Cancer Diabetes Foundation Photo Gallery</title>
+        <description>Photo Gallery from the Bovell Cancer Diabetes Foundation</description>
+        <link>http://{{ request.get_host }}{% url 'gallery:article' article.slug %}</link>
+        <ttl>60</ttl>
+        <atom:link href="{{ request.build_absolute_uri }}" rel="self" type="application/rss+xml" />
+        <image>
+            <title>{{ article.title }}</title>
+            <description>{{ article.articlecontent.blurb }}</description>
+            <url>http://{{ request.get_host }}{{ article.thumb.image.url }}</url>
+            <link>http://{{ request.get_host }}{% url 'gallery:article' article.slug %}</link>
+        </image>
+
+        {% for image in article.galleryimage_set.all %}
+            <item>
+                <title></title>
+                <description>{{ image.description }}</description>
+                <image>http://{{ request.get_host }}{{ image.image.url }}</image>
+            </item>
+        {% endfor %}
+
+    </channel>
+</rss>
