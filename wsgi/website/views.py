@@ -8,7 +8,7 @@ from django.utils.html import escape
 from django.contrib import messages
 from django.core.mail import send_mail
 from utils import recaptcha, ip
-from utils.recaptcha_keys import public_key, private_key
+from utils.recaptcha_keys import RecaptchaKey
 from datetime import datetime
 
 
@@ -35,10 +35,11 @@ def contact_form(request):
     if request.method == 'POST':
         form = ContactForm(request.POST)
         if form.is_valid():
+            keys = RecaptchaKey(request)
             captcha_resp = recaptcha.submit(
                 form.cleaned_data['recaptcha_challenge_field'],
                 form.cleaned_data['recaptcha_response_field'],
-                private_key,
+                keys.private_key,
                 ip.get_client_ip(request)
             )
             if captcha_resp.is_valid:
@@ -56,9 +57,10 @@ def contact_form(request):
             messages.error(request, "Invalid form data.")
     else:
         form = ContactForm()
+    keys = RecaptchaKey(request)
     context = {
         'form': form,
-        'recaptcha': recaptcha.displayhtml(public_key=public_key)
+        'recaptcha': recaptcha.displayhtml(public_key=keys.public_key)
     }
     update_context(request, context)
     return render(request, 'website/special/contact.html', context)
