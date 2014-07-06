@@ -222,3 +222,12 @@ TEMPLATE_CONTEXT_PROCESSORS = (
 
 if not ON_OPENSHIFT:
     TEMPLATE_CONTEXT_PROCESSORS += ("django.core.context_processors.debug", )
+
+if ON_OPENSHIFT:
+    DEFAULT_FROM_EMAIL = os.environ['GMAIL_USER']
+    SERVER_EMAIL = os.environ['GMAIL_USER']
+    EMAIL_USE_TLS = True
+    EMAIL_HOST = 'smtp.gmail.com'
+    EMAIL_PORT = 587
+    EMAIL_HOST_USER = os.environ['GMAIL_USER']
+    EMAIL_HOST_PASSWORD = os.environ['GMAIL_PASS']
