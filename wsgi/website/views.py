@@ -183,6 +183,9 @@ def education_index(request):
 def education_article(request, article_id):
     response = get_object_or_404(EducationalArticle, slug=article_id)
     (request, context) = article_parse(request, response)
+    if response.specialimage_set.all():
+        # has multi-images
+        return render(request, 'website/education/multi-image.html', context)
     return render(request, 'website/education/article.html', context)
 
 

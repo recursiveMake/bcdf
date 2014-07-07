@@ -8,6 +8,7 @@ from website.models import BannerCampaign, AlertCampaign, HomePageCampaign
 
 class SpecialMultiImageInline(admin.StackedInline):
     model = SpecialImage
+    exclude = ('educational_article', )
     extra = 4
 
 
@@ -120,6 +121,12 @@ class EducationalImageInline(admin.StackedInline):
     extra = 1
 
 
+class EducationalMultiImageInline(admin.StackedInline):
+    model = SpecialImage
+    exclude = ('special_article', )
+    extra = 1
+
+
 class EducationalArticleContentInline(admin.StackedInline):
     model = ArticleContent
     exclude = ('news_article', 'gallery_article', 'special_article')
@@ -134,7 +141,7 @@ class EducationalArticleFileInline(admin.StackedInline):
 
 class EducationalArticleAdmin(admin.ModelAdmin):
     inlines = [EducationalArticleContentInline, EducationalImageInline, EducationalThumbInline,
-               EducationalArticleFileInline]
+               EducationalArticleFileInline, EducationalMultiImageInline]
     exclude = ('type', )
 
 

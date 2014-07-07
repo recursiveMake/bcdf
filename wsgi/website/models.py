@@ -113,7 +113,11 @@ class SpecialArticle(Document):
 
 
 class SpecialImage(models.Model):
-    article = models.ForeignKey(SpecialArticle)
+    ''' Multiple image article, also used in Educational Articles
+    '''
+    special_article = models.ForeignKey(SpecialArticle, blank=True, null=True)
+    educational_article = models.ForeignKey(EducationalArticle, blank=True, null=True)
+
     image = models.ImageField(upload_to=os.path.join("images", "special"))
     title = models.CharField(max_length=128, blank=True)
     description = models.CharField(max_length=1024, blank=True)
