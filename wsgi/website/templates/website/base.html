@@ -10,6 +10,7 @@
     <meta http-equiv="Expires" content="Tue, 01 Jan 1980 1:00:00 GMT">
     <meta http-equiv="Pragma" content="no-cache">
     <link rel="shortcut icon" href="http://{{ request.get_host }}{% static "images/favicon.ico" %}" type="image/x-icon">
+    <link rel="alternate" type="application/rss+xml" title="RSS 2.0" href="http://{{request.get_host}}{% url 'rss:index' %}">
 
     <!-- Bootstrap CSS -->
     <link href="{% static "css/bootstrap.css" %}" rel="stylesheet">
@@ -67,7 +68,7 @@
         <li><a href="{% url 'education:index' %}">Educational</a></li>
         <li><a href="{% url 'special:funding' 'funding' %}">Funding</a></li>
         <li><a href="{% url 'special:donate' 'donate' %}">Donate</a></li>
-        <li><a href="{% url 'gallery:index' %}">Multimedia</a></li>
+        <li><a href="{% url 'gallery:index' %}">Photos</a></li>
       </ul>
       </li>
       </ul>
