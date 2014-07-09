@@ -65,10 +65,19 @@
           <ul class="dropdown-menu">
                           <li><a href="{% url 'special:about' 'about' %}">About</a></li>
           <li><a href="{% url 'special:contact' %}">Contact</a></li>
-        <li><a href="{% url 'education:index' %}">Educational</a></li>
+        <li class="divider"></li>
+        <li class="dropdown-header">Educational</li>
+        <li><a href="{% url 'education:index' %}">Recent</a></li>
+        {% for year in education_years %}
+        <li><a href="{% url 'education:year_index' year %}">{{ year }}</a></li>
+        {% endfor %}
+        <li class="divider"></li>
+        <li class="dropdown-header">Multimedia</li>
+        <li><a href="{% url 'gallery:index' %}">Photos</a></li>
+        <li class="divider"></li>
         <li><a href="{% url 'special:funding' 'funding' %}">Funding</a></li>
         <li><a href="{% url 'special:donate' 'donate' %}">Donate</a></li>
-        <li><a href="{% url 'gallery:index' %}">Photos</a></li>
+
       </ul>
       </li>
       </ul>

@@ -180,6 +180,18 @@ def education_index(request):
     return render(request, 'website/education/index.html', context)
 
 
+def education_index_by_year(request, year):
+    article_list = EducationalArticle.objects.all().order_by('-pub_date')
+    article_list = article_list.filter(pub_date__year=year)
+    context = {
+        'article_list': article_list,
+        'url_namespace': 'education:article',
+        'read_on_message': 'Read on for more details...'
+    }
+    update_context(request, context)
+    return render(request, 'website/education/index.html', context)
+
+
 def education_article(request, article_id):
     response = get_object_or_404(EducationalArticle, slug=article_id)
     (request, context) = article_parse(request, response)
@@ -257,6 +269,7 @@ def update_context(request, context):
     context['alert_campaign'] = alert_campaign(request)
     context['viewed_campaign'] = viewed_campaign(request)
     context['news_years'] = news_years()
+    context['education_years'] = education_years()
     return context
 
 
@@ -284,4 +297,10 @@ def news_years():
     article_dates = NewsArticle.objects.dates('pub_date','year')
     return sorted([date.year for date in article_dates], reverse=True)
     # return [x for x in range(2014, 2007, -1)]
+
+
+def education_years():
+    """get list of years with educational articles"""
+    article_dates = EducationalArticle.objects.dates('pub_date','year')
+    return sorted([date.year for date in article_dates], reverse=True)
 
