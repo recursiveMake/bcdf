@@ -3,6 +3,7 @@ from django.conf import settings
 from django.conf.urls.static import static
 import os
 import website
+from website.urls.sitemap import sitemaps
 
 # Uncomment the next two lines to enable the admin:
 from django.contrib import admin
@@ -26,6 +27,7 @@ urlpatterns = patterns('',
     url(r'^rss/', include('website.urls.rss', namespace="rss")),
     url(r'^gallery/', include('website.urls.gallery', namespace="gallery")),
     url(r'^', include('website.urls.special', namespace="special")),
+    (r'^sitemap\.xml$', 'django.contrib.sitemaps.views.sitemap', {'sitemaps': sitemaps})
 )
 
 
