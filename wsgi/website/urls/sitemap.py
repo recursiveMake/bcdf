@@ -1,69 +1,104 @@
 __author__ = 'adonis'
 
 
-from django.contrib.sitemaps import Sitemap
+from django.contrib.sitemaps import GenericSitemap
+from django.contrib.sites.models import Site
+from django.contrib.sitemaps.views import sitemap as django_sitemap
 from django.core.urlresolvers import reverse
+from django.conf.urls import patterns, url
 from website.models import NewsArticle, EducationalArticle, GalleryArticle, SpecialArticle
 
 
-class NewsSiteMap(Sitemap):
-    changefreq = "daily"
-    priority = 0.75
+class CustomSitemap(GenericSitemap):
 
-    def items(self):
-        return NewsArticle.objects.all()
+    def __init__(self, site, namespace, *args, **kwargs):
+        self.site = site
+        self.namespace = namespace
+        super(CustomSitemap, self).__init__(*args, **kwargs)
 
-    def lastmod(self, obj):
-        return obj.pub_date
-
-    def location(self, obj):
-        return reverse('news:article', args=(obj.slug,))
-
-
-class EducationSiteMap(Sitemap):
-    changefreq = "weekly"
-    priority = 0.5
-
-    def items(self):
-        return EducationalArticle.objects.all()
-
-    def lastmod(self, obj):
-        return obj.pub_date
+    def get_urls(self, page=1, site=None, protocol=None):
+        return super(CustomSitemap, self).get_urls(page, self.site, protocol=None)
 
     def location(self, obj):
-        return reverse('education:article', args=(obj.slug,))
+        return reverse(self.namespace, args=(obj.slug, ))
 
 
-class GallerySiteMap(Sitemap):
-    changefreq = "monthly"
-    priority = 0.5
+class IndexSitemap(CustomSitemap):
 
     def items(self):
-        return GalleryArticle.objects.all()
-
-    def lastmod(self, obj):
-        return obj.pub_date
+        return ['news', 'gallery', 'education']
 
     def location(self, obj):
-        return reverse('gallery:article', args=(obj.slug,))
+        return reverse(obj + ':' + 'index')
 
 
-class SpecialSiteMap(Sitemap):
-    changefreq = "yearly"
-    priority = 0.25
-
-    def items(self):
-        return SpecialArticle.objects.all()
-
-    def lastmod(self, obj):
-        return obj.pub_date
+class SpecialSitemap(CustomSitemap):
 
     def location(self, obj):
         return reverse('special:' + obj.slug, args=(obj.slug,))
 
-sitemaps = {
-    'news': NewsSiteMap,
-    'education': EducationSiteMap,
-    'gallery': GallerySiteMap,
-    'flatpages': SpecialSiteMap
-}
+
+def sitemap_view(request):
+    index_sitemap = IndexSitemap(
+        site=Site(domain=request.get_host()),
+        namespace=None,
+        info_dict={
+            'queryset': None,
+        },
+        priority=1,
+        changefreq="daily"
+    )
+    news_sitemap = CustomSitemap(
+        site=Site(domain=request.get_host()),
+        namespace='news:article',
+        info_dict={
+            'queryset': NewsArticle.objects.all(),
+            'date_field': 'pub_date'
+        },
+        priority=0.75,
+        changefreq="daily"
+    )
+    education_sitemap = CustomSitemap(
+        site=Site(domain=request.get_host()),
+        namespace='education:article',
+        info_dict={
+            'queryset': EducationalArticle.objects.all(),
+            'date_field': 'pub_date'
+        },
+        priority=0.75,
+        changefreq="weekly"
+    )
+    gallery_sitemap = CustomSitemap(
+        site=Site(domain=request.get_host()),
+        namespace='gallery:article',
+        info_dict={
+            'queryset': GalleryArticle.objects.all(),
+            'date_field': 'pub_date'
+        },
+        priority=0.75,
+        changefreq="monthly"
+    )
+    special_sitemap = SpecialSitemap(
+        site=Site(domain=request.get_host()),
+        namespace=None,
+        info_dict={
+            'queryset': SpecialArticle.objects.all(),
+            'date_field': 'pub_date'
+        },
+        priority=0.5,
+        changefreq="yearly"
+    )
+    sitemaps = {
+        'index': index_sitemap,
+        'news': news_sitemap,
+        'education': education_sitemap,
+        'gallery': gallery_sitemap,
+        'flatpages': special_sitemap
+    }
+    return django_sitemap(request, sitemaps)
+
+
+urlpatterns = patterns(
+    '',
+    url(r'^$', sitemap_view, name='index'),
+)
