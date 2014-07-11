@@ -49,8 +49,8 @@
             <ul class="dropdown-menu">
             <li class="dropdown-header">News</li>
               <li><a href="{% url 'news:index' %}">New Articles</a></li>
-              <li><a href="{% url 'special:calendar' 'calendar' %}">Upcoming Events</a></li>
-              <li><a href="{% url 'news:newsletter' %}">Newsletter</a></li>
+              <li><a href="{% url 'special:calendar'%}">Upcoming Events</a></li>
+              <li><a href="{% url 'newsletter:index' %}">Newsletter</a></li>
               <li><a href="{% url 'news:article' 'bcdf-in-news' %}">BCDF In the News</a></li>
               <li class="divider"></li>
               <li class="dropdown-header">Archives</li>
@@ -63,7 +63,7 @@
         <li class="dropdown">
           <a href="#" class="dropdown-toggle" data-toggle="dropdown">Site Navigation<b class="caret"></b></a>
           <ul class="dropdown-menu">
-                          <li><a href="{% url 'special:about' 'about' %}">About</a></li>
+                          <li><a href="{% url 'special:about'%}">About</a></li>
           <li><a href="{% url 'special:contact' %}">Contact</a></li>
         <li class="divider"></li>
         <li class="dropdown-header">Educational</li>
@@ -75,8 +75,8 @@
         <li class="dropdown-header">Multimedia</li>
         <li><a href="{% url 'gallery:index' %}">Photos</a></li>
         <li class="divider"></li>
-        <li><a href="{% url 'special:funding' 'funding' %}">Funding</a></li>
-        <li><a href="{% url 'special:donate' 'donate' %}">Donate</a></li>
+        <li><a href="{% url 'special:funding'%}">Funding</a></li>
+        <li><a href="{% url 'special:donate'%}">Donate</a></li>
 
       </ul>
       </li>

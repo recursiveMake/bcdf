@@ -2,33 +2,25 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
 {% load staticfiles %}
     <channel>
-        <title>Bovell Cancer Diabetes Foundation Feed</title>
-        <description>Feed from the Bovell Cancer Diabetes Foundation</description>
-        <link>http://{{ request.get_host }}</link>
+        <title>Bovell Cancer Diabetes Foundation News</title>
+        <description>News feed from the Bovell Cancer Diabetes Foundation</description>
+        <link>http://{{ request.get_host }}{% url 'news:index' %}</link>
         <ttl>60</ttl>
         <atom:link href="{{ request.build_absolute_uri }}" rel="self" type="application/rss+xml" />
         <image>
-            <title>Bovell Cancer Diabetes Foundation Feed</title>
+            <title>Bovell Cancer Diabetes Foundation News</title>
             <description>News feed from the Bovell Cancer Diabetes Foundation</description>
             <url>http://{{ request.get_host }}{% static "images/logo-shield.jpg" %}</url>
             <width>85</width>
             <height>110</height>
-            <link>http://{{ request.get_host }}</link>
+            <link>http://{{ request.get_host }}{% url 'news:index' %}</link>
         </image>
 
         {% for article in article_list %}
             <item>
                 <title>{{ article.title }}</title>
                 <description>{{ article.articlecontent.blurb }}</description>
-                {% if article.type == article.NEWS %}
                 <link>http://{{ request.get_host }}{% url 'news:article' article.slug %}</link>
-                {% elif article.type == article.EDUCATION %}
-                <link>http://{{ request.get_host }}{% url 'education:article' article.slug %}</link>
-                {% elif article.type == article.GALLERY %}
-                <link>http://{{ request.get_host }}{% url 'gallery:article' article.slug %}</link>
-                {% elif article.type == article.NEWSLETTER %
-                <link>http://{{ request.get_host }}{% url 'news:article' article.slug %}</link>}
-                {% endif %}
                 <guid isPermaLink="false">{{ article.slug }}</guid>
                 <pubDate>{{ article.pub_date|date:"D, j M Y" }} 00:00:00 EST</pubDate>
             </item>

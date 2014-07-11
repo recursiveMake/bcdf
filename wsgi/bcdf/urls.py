@@ -25,8 +25,9 @@ urlpatterns = patterns('',
     url(r'^education/', include('website.urls.education', namespace="education")),
     url(r'^rss/', include('website.urls.rss', namespace="rss")),
     url(r'^gallery/', include('website.urls.gallery', namespace="gallery")),
+    url(r'^newsletter/', include('website.urls.newsletter', namespace='newsletter')),
+    url(r'^sitemap\.xml', include('website.urls.sitemap', namespace='sitemap')),
     url(r'^', include('website.urls.special', namespace="special")),
-    url(r'^sitemap\.xml', include('website.urls.sitemap', namespace='sitemap'))
 )
 
 
