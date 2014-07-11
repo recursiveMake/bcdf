@@ -26,8 +26,8 @@
                 <link>http://{{ request.get_host }}{% url 'education:article' article.slug %}</link>
                 {% elif article.type == article.GALLERY %}
                 <link>http://{{ request.get_host }}{% url 'gallery:article' article.slug %}</link>
-                {% elif article.type == article.NEWSLETTER %
-                <link>http://{{ request.get_host }}{% url 'news:article' article.slug %}</link>}
+                {% elif article.type == article.NEWSLETTER %}
+                <link>http://{{ request.get_host }}{% url 'newsletter:article' article.slug %}</link>}
                 {% endif %}
                 <guid isPermaLink="false">{{ article.slug }}</guid>
                 <pubDate>{{ article.pub_date|date:"D, j M Y" }} 00:00:00 EST</pubDate>

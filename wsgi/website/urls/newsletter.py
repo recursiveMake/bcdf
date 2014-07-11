@@ -19,5 +19,5 @@ urlpatterns = patterns('',
     url(r'^(?P<year>\d{4})/(?P<month>\d{1,2})/$', views.news_newsletter_by_month, name='month'),
 
     # /newsletter/slug
-    url(r'^(?P<article_id>[A-Za-z_\-]+)$', views.news_newsletter_by_slug, name='article'),
+    url(r'^(?P<article_id>[A-Za-z0-9_\-]+)$', views.news_newsletter_by_slug, name='article'),
     )

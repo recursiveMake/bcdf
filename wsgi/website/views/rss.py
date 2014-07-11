@@ -1,19 +1,21 @@
 __author__ = 'adonis'
 
 
-from website.models import NewsArticle, GalleryArticle, EducationalArticle
-from django.shortcuts import render, get_object_or_404
+from website.models import NewsArticle, GalleryArticle, EducationalArticle, NewsLetter
+from django.shortcuts import render
+from django.http import Http404
 
 
 def rss_index(request):
     return rss_limit(request)
 
 def rss_limit(request, count=None):
+    count = int(count) if count else None
     news_article_list = NewsArticle.objects.all().order_by('-pub_date')[:count]
     gallery_article_list = GalleryArticle.objects.all().order_by('-pub_date')[:count]
     educational_article_list = EducationalArticle.objects.all().order_by('-pub_date')[:count]
     article_list = sorted(
-        news_article_list + gallery_article_list + educational_article_list,
+        list(news_article_list) + list(gallery_article_list) + list(educational_article_list),
         key=lambda x : x.pub_date,
         reverse=True
     )[:count]
@@ -26,6 +28,7 @@ def rss_feed(request, feed):
     return rss_feed_limit(request, feed)
 
 def rss_feed_limit(request, feed, count=None):
+    count = int(count) if count else None
     feed = feed.lower()
     if feed == 'photos':
         return photos_xml(request, count)
@@ -33,6 +36,10 @@ def rss_feed_limit(request, feed, count=None):
         return education_xml(request, count)
     elif feed == 'news':
         return news_xml(request, count)
+    elif feed == 'newsletter':
+        return newsletter_xml(request, count)
+    else:
+        raise Http404
 
 def photos_xml(request, count=None):
     article_list = GalleryArticle.objects.all().order_by('-pub_date')[:count]
@@ -48,9 +55,16 @@ def education_xml(request, count=None):
     }
     return render(request, 'website/rss/education.xml', context)
 
-def news_xml(request):
-    article_list = NewsArticle.objects.all().order_by('-pub_date')
+def news_xml(request, count=None):
+    article_list = NewsArticle.objects.all().order_by('-pub_date')[:count]
     context = {
         'article_list': article_list
     }
     return render(request, 'website/rss/news.xml', context)
+
+def newsletter_xml(request, count=None):
+    article_list = NewsLetter.objects.all().order_by('-pub_date')[:count]
+    context = {
+        'article_list': article_list
+    }
+    return render(request, 'website/rss/newsletter.xml', context)
