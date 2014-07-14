@@ -6,7 +6,7 @@ from django.contrib.sites.models import Site
 from django.contrib.sitemaps.views import sitemap as django_sitemap
 from django.core.urlresolvers import reverse
 from django.conf.urls import patterns, url
-from website.models import NewsArticle, EducationalArticle, GalleryArticle, SpecialArticle
+from website.models import NewsArticle, EducationalArticle, GalleryArticle, SpecialArticle, NewsLetter
 
 
 class CustomSitemap(GenericSitemap):
@@ -26,7 +26,7 @@ class CustomSitemap(GenericSitemap):
 class IndexSitemap(CustomSitemap):
 
     def items(self):
-        return ['news', 'gallery', 'education']
+        return ['news', 'gallery', 'education', 'newsletter']
 
     def location(self, obj):
         return reverse(obj + ':' + 'index')
@@ -35,7 +35,7 @@ class IndexSitemap(CustomSitemap):
 class SpecialSitemap(CustomSitemap):
 
     def location(self, obj):
-        return reverse('special:' + obj.slug, args=(obj.slug,))
+        return reverse(self.namespace + obj.slug)
 
 
 def sitemap_view(request):
@@ -68,6 +68,16 @@ def sitemap_view(request):
         priority=0.75,
         changefreq="weekly"
     )
+    newsletter_sitemap = CustomSitemap(
+        site=Site(domain=request.get_host()),
+        namespace='newsletter:article',
+        info_dict={
+            'queryset': NewsLetter.objects.all(),
+            'date_field': 'pub_date'
+        },
+        priority=0.75,
+        changefreq="monthly"
+    )
     gallery_sitemap = CustomSitemap(
         site=Site(domain=request.get_host()),
         namespace='gallery:article',
@@ -80,7 +90,7 @@ def sitemap_view(request):
     )
     special_sitemap = SpecialSitemap(
         site=Site(domain=request.get_host()),
-        namespace=None,
+        namespace='special:',
         info_dict={
             'queryset': SpecialArticle.objects.all(),
             'date_field': 'pub_date'
@@ -92,6 +102,7 @@ def sitemap_view(request):
         'index': index_sitemap,
         'news': news_sitemap,
         'education': education_sitemap,
+        'newsletter': newsletter_sitemap,
         'gallery': gallery_sitemap,
         'flatpages': special_sitemap
     }
