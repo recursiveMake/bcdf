@@ -10,7 +10,7 @@ urlpatterns = patterns('',
     url(r'^$', views.news_newsletter, name='index'),
 
     # /newsletter/2/
-    url(r'^(?P<issue>\d{1,2})/$', views.news_newsletter_by_issue, name='issue'),
+    url(r'^(?P<issue>\d{1,2})$', views.news_newsletter_by_issue, name='issue'),
 
     # /newsletter/2009/
     url(r'^(?P<year>\d{4})/$', views.news_newsletter_by_year, name='year'),

@@ -14,7 +14,7 @@ def news_newsletter(request):
 
 def news_newsletter_by_issue(request, issue):
     newsletter_list = NewsLetter.objects.all()
-    newsletter_list = newsletter_list.filter(issue_number=issue)
+    newsletter_list = newsletter_list.filter(issue_number=int(issue))
     context = {'newsletter_list': newsletter_list}
     update_context(request, context)
     return render(request, 'website/news/newsletter.html', context)
