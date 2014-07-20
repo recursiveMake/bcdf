@@ -29,6 +29,7 @@ def home_index(request):
     update_context(request, context)
     return render(request, 'website/home/index.html', context)
 
+
 def contact_form(request):
     if request.method == 'POST':
         form = ContactForm(request.POST)
@@ -62,6 +63,7 @@ def contact_form(request):
     }
     update_context(request, context)
     return render(request, 'website/special/contact.html', context)
+
 
 def special_article(request, article_id):
     response = get_object_or_404(SpecialArticle, slug=article_id)
