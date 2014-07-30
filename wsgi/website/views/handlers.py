@@ -7,7 +7,7 @@ from django.shortcuts import redirect
 
 def handle404(request):
     messages.error(request, "The requested page was not found.")
-    return redirect('home:index')
+    return redirect('special:broken')
 
 
 def handle500(request):
