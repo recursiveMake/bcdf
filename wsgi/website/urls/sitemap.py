@@ -6,6 +6,7 @@ from django.contrib.sites.models import Site
 from django.contrib.sitemaps.views import sitemap as django_sitemap
 from django.core.urlresolvers import reverse
 from django.conf.urls import patterns, url
+from django.db.models import Q
 from website.models import NewsArticle, EducationalArticle, GalleryArticle, SpecialArticle, NewsLetter
 
 
@@ -92,7 +93,7 @@ def sitemap_view(request):
         site=Site(domain=request.get_host()),
         namespace='special:',
         info_dict={
-            'queryset': SpecialArticle.objects.all(),
+            'queryset': SpecialArticle.objects.filter(~Q(slug__startswith='broken-')),
             'date_field': 'pub_date'
         },
         priority=0.5,
