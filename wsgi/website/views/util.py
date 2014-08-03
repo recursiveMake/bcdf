@@ -6,6 +6,7 @@ from django.utils.html import escape
 from datetime import datetime
 from django.db.models import Q
 
+
 def article_parse(request, response):
     split_content = parse_text(response.articlecontent.full)
     response.first_paragraph = split_content[0] if len(split_content) > 0 else ''
@@ -50,6 +51,8 @@ def alert_campaign(request):
     )
     for cookie in request.COOKIES:
         campaigns = campaigns.exclude(slug=cookie)
+    if campaigns.count() > 1:
+        campaigns = [campaigns[0]]
     return campaigns
 
 
@@ -59,6 +62,7 @@ def viewed_campaign(request):
         article=request.path
     )
     return campaigns
+
 
 def news_years():
     """get list of years with news"""
