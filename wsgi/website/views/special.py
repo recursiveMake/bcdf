@@ -11,6 +11,7 @@ from django.contrib import messages
 from django.db.models import Q
 from django.shortcuts import redirect, render, get_object_or_404
 from datetime import datetime
+import random
 
 
 def home_index(request):
@@ -21,7 +22,11 @@ def home_index(request):
     home_page_campaigns = HomePageCampaign.objects.all().filter(
         Q(expiry__gte=datetime.today()) |
         Q(expiry__isnull=True)
-    )[:4]
+    )
+    n = home_page_campaigns.count()
+    if n > 4:
+        indices = sorted(random.sample(range(0, n), 4))
+        home_page_campaigns = [home_page_campaigns[idx] for idx in indices]
     context = {
         'banner_campaigns': banner_campaigns,
         'home_page_campaigns': home_page_campaigns
