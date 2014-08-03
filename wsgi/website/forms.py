@@ -40,13 +40,13 @@ class ContactForm(forms.Form):
     )
     recaptcha_challenge_field = forms.CharField(widget=forms.HiddenInput())
     recaptcha_response_field = forms.CharField(widget=forms.HiddenInput())
-    '''
-    recaptcha = forms.CharField(
-        labels='Are you human?',
-        widget=forms.Textarea
-    )
-    '''
 
 
 class SearchForm(forms.Form):
     pass
+
+
+class PaypalForm(forms.Form):
+    cmd = forms.CharField(widget=forms.HiddenInput(attrs={'value': '_s-xclick'}))
+    hosted_button_id = forms.CharField(widget=forms.HiddenInput(attrs={'value': 'VYYB7YQFFMS4J'}))
+    submit = forms.ImageField()
