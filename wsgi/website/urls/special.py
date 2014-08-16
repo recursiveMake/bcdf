@@ -25,4 +25,6 @@ urlpatterns = patterns('',
 
     # /news.xml/10
     url(r'^(?P<feed>[A-Za-z]+).xml/(?P<count>\d{1,2})$', views.rss_feed_limit, name='rss_limit'),
+
+    url(r'^newsletter.php$', views.news_newsletter, name='newsletter')
 )
