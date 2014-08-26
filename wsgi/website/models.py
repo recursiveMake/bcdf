@@ -78,6 +78,12 @@ class AlertCampaign(Campaign):
     click_text = models.CharField(max_length=32, default='Click here.')
 
 
+'''
+class TipCampaign(Campaign):
+    blurb = models.CharField(max_length=1024)
+'''
+
+
 class HomePageCampaign(Campaign):
     blurb = models.CharField(max_length=512)
     button_text = models.CharField(max_length=32, default='Read on')

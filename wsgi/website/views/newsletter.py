@@ -12,6 +12,7 @@ def news_newsletter(request):
     update_context(request, context)
     return render(request, 'website/news/newsletter.html', context)
 
+
 def news_newsletter_by_issue(request, issue):
     newsletter_list = NewsLetter.objects.all()
     newsletter_list = newsletter_list.filter(issue_number=int(issue))
@@ -27,11 +28,13 @@ def news_newsletter_by_year(request, year):
     update_context(request, context)
     return render(request, 'website/news/newsletter.html', context)
 
+
 def news_newsletter_by_slug(request, article_id):
     newsletter_list = [get_object_or_404(NewsLetter, slug=article_id)]
     context = {'newsletter_list': newsletter_list}
     update_context(request, context)
     return render(request, 'website/news/newsletter.html', context)
+
 
 def news_newsletter_by_month(request, year, month):
     newsletter_list = NewsLetter.objects.all()

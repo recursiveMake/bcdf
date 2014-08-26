@@ -5,6 +5,20 @@ from django.utils.safestring import mark_safe
 from django.utils.html import escape
 from datetime import datetime
 from django.db.models import Q
+from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
+
+
+def paginate(request, obj_list, items_per_page=10):
+    paginator = Paginator(obj_list, items_per_page)
+    page = request.GET.get('page')
+    try:
+        result = paginator.page(page)
+    except PageNotAnInteger:
+        result = paginator.page(1)
+    except EmptyPage:
+        result = paginator.page(paginator.num_pages)
+    return result
+
 
 def article_parse(request, response):
     split_content = parse_text(response.articlecontent.full)
@@ -50,6 +64,8 @@ def alert_campaign(request):
     )
     for cookie in request.COOKIES:
         campaigns = campaigns.exclude(slug=cookie)
+    if campaigns.count() > 1:
+        campaigns = [campaigns[0]]
     return campaigns
 
 
@@ -59,6 +75,7 @@ def viewed_campaign(request):
         article=request.path
     )
     return campaigns
+
 
 def news_years():
     """get list of years with news"""
