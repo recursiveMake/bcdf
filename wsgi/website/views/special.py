@@ -70,6 +70,12 @@ def contact_form(request):
     return render(request, 'website/special/contact.html', context)
 
 
+def donate_form(request):
+    response = get_object_or_404(SpecialArticle, slug='donate')
+    (request, context) = article_parse(request, response)
+    return render(request, 'website/special/donate.html', context)
+
+
 def special_article(request, article_id):
     response = get_object_or_404(SpecialArticle, slug=article_id)
     (request, context) = article_parse(request, response)

@@ -18,7 +18,7 @@ urlpatterns = patterns('',
     url(r'^funding/$', views.special_article, {'article_id': 'funding'}, name='funding'),
 
     # /donate/
-    url(r'^donate/$', views.special_article, {'article_id': 'donate'}, name='donate'),
+    url(r'^donate/$', views.donate_form, name='donate'),
 
     # /news.xml
     url(r'^(?P<feed>[A-Za-z]+).xml$', views.rss_feed_limit, {'count': 10}, name='rss'),

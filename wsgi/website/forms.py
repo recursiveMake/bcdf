@@ -45,8 +45,3 @@ class ContactForm(forms.Form):
 class SearchForm(forms.Form):
     pass
 
-
-class PaypalForm(forms.Form):
-    cmd = forms.CharField(widget=forms.HiddenInput(attrs={'value': '_s-xclick'}))
-    hosted_button_id = forms.CharField(widget=forms.HiddenInput(attrs={'value': 'VYYB7YQFFMS4J'}))
-    submit = forms.ImageField()
