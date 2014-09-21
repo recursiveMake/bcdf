@@ -5,6 +5,18 @@ body {
   background-color: #e5e4e2;
 }
 
+div.white-tile {
+  padding-top:10px;
+  padding-bottom:10px;
+  background-color: #ffffff;
+}
+
+* {
+  -webkit-border-radius: 0 !important;
+     -moz-border-radius: 0 !important;
+          border-radius: 0 !important;
+}
+
 a.navbar-brand {
 	font-size: 24px;
 }
