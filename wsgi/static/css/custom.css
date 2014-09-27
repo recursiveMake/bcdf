@@ -3,12 +3,22 @@ body {
   padding-top: 60px;
   padding-bottom: 20px;
   background-color: #e5e4e2;
+  position: relative;
 }
 
 div.white-tile {
   padding-top:10px;
   padding-bottom:10px;
   background-color: #ffffff;
+}
+
+h1 {
+  padding-top:60px;
+  margin-top:-40px;
+}
+
+div.border-box {
+  margin: 0 10px 0 10px;
 }
 
 * {

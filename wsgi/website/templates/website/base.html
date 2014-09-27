@@ -1,98 +1,8 @@
-<!DOCTYPE html>
+{% extends "website/universal-base.html" %}
 {% load staticfiles %}
-<html>
-<head lang="en">
-    <title>{% block title %}Bovell Cancer-Diabetes Foundation{% endblock %}</title>
-    <meta name="Description" content="{% block description %}{% endblock %}">
-    <meta name="Keywords" content="{% block keywords %}{% endblock %}">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="content-type" content="text/html; charset=utf-8">
-    <meta http-equiv="Expires" content="Tue, 01 Jan 1980 1:00:00 GMT">
-    <meta http-equiv="Pragma" content="no-cache">
-    <link rel="shortcut icon" href="http://{{ request.get_host }}{% static "images/favicon.ico" %}" type="image/x-icon">
-    <link rel="alternate" type="application/rss+xml" title="RSS 2.0" href="http://{{request.get_host}}{% url 'rss:index' %}">
 
-    <!-- Bootstrap CSS -->
-    <link href="{% static "css/bootstrap.css" %}" rel="stylesheet">
-    <!-- Custom styles for this template -->
-    <link href="{% static "css/custom.css" %}" rel="stylesheet">
-
-    <!-- Cookies -->
-    <script src="{% static "js/cookie.js" %}"></script>
-
-    <!-- Facebook -->
-    <script src="{% static "js/facebook.js" %}"></script>
-    {% block header %}{% endblock %}
-
-</head>
-
-<body>
-    <!-- Fixed navbar -->
-  <div class="navbar navbar-default navbar-fixed-top">
-    <div class="container">
-      <div class="navbar-header">
-        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-          <span class="icon-bar"></span>
-          <span class="icon-bar"></span>
-          <span class="icon-bar"></span>
-        </button>
-        <a class="navbar-brand" href="{% url 'home:index' %}">
-            <img class="navbar-img" src="{% static "images/bcdf-logo-header.gif" %}" style="height:22px;"> BCDF
-        </a>
-      </div>
-      <div class="navbar-collapse collapse">
-        <ul class="nav navbar-nav">
-          <!-- TODO: add php script to autodetect populate li class="active" in template include -->
-
-          <li class="dropdown">
-            <a href="#" class="dropdown-toggle" data-toggle="dropdown">News<b class="caret"></b></a>
-            <ul class="dropdown-menu">
-            <li class="dropdown-header">News</li>
-              <li><a href="{% url 'news:index' %}">New Articles</a></li>
-              <li><a href="{% url 'special:calendar'%}">Upcoming Events</a></li>
-              <li><a href="{% url 'newsletter:index' %}">Newsletter</a></li>
-              <li><a href="{% url 'news:article' 'bcdf-in-news' %}">BCDF In the News</a></li>
-              <li class="divider"></li>
-              <li class="dropdown-header">Archives</li>
-              {% for year in news_years %}
-                  <li><a href="{% url 'news:year_index' year %}">{{ year }}</a></li>
-              {% endfor %}
-            </ul>
-          </li>
-
-        <li class="dropdown">
-          <a href="#" class="dropdown-toggle" data-toggle="dropdown">Site Navigation<b class="caret"></b></a>
-          <ul class="dropdown-menu">
-                          <li><a href="{% url 'special:about'%}">About</a></li>
-          <li><a href="{% url 'special:contact' %}">Contact</a></li>
-        <li class="divider"></li>
-        <li class="dropdown-header">Educational</li>
-        <li><a href="{% url 'education:index' %}">Recent</a></li>
-        {% for year in education_years %}
-        <li><a href="{% url 'education:year_index' year %}">{{ year }}</a></li>
-        {% endfor %}
-        <li class="divider"></li>
-        <li class="dropdown-header">Multimedia</li>
-        <li><a href="{% url 'gallery:index' %}">Photos</a></li>
-        <li class="divider"></li>
-        <li><a href="{% url 'special:funding'%}">Funding</a></li>
-        <li><a href="{% url 'special:donate'%}">Donate</a></li>
-
-      </ul>
-      </li>
-      </ul>
-        <form class="navbar-form navbar-right"
-              method="get" action="http://www.google.com/search"
-              onsubmit="q.value = q.value + ' site:www.bovellcancerdiabetesfoundation.org'">
-        <div class="form-group">
-          <input type="text" placeholder="Search BCDF" class="form-control" name="q">
-        </div>
-        <button type="submit" class="btn btn-success">Search</button>
-      </form>
-       </div><!--/.nav-collapse -->
-    </div>
-  </div>
-    {% block pre_alert_content %}{% endblock %}
+{% block title %}Bovell Cancer-Diabetes Foundation{% endblock %}
+{% block message_block %}
     {% if messages %}
         {% for message in messages %}
             {% if 'error' in message.tags %}
@@ -114,6 +24,8 @@
             </div>
         {% endfor %}
     {% endif %}
+{% endblock %}
+{% block alert_block %}
     {% if alert_campaign %}
         {% for campaign in alert_campaign %}
             <div class="container alert alert-info alert-dismissable" style="margin-top:0px;">
@@ -127,11 +39,14 @@
             </div>
         {% endfor %}
     {% endif %}
+{% endblock %}
 
-    <div class="container" style="padding-top:10px; padding-bottom:10px; background-color: #ffffff;">
+{% block content_block %}
+    <div class="container white-tile">
         <div class="row">
-            {% block content %}{% endblock %}
+    {% block content %}{% endblock %}
         </div>
+    {% block facebook_block %}
         <div class="row">
             <div class="col-md-12">
                 <div class="fb-like"
@@ -142,11 +57,11 @@
                 </div>
             </div>
         </div>
+    {% endblock %}
     </div>
-
+{% endblock %}
   <!-- Bootstrap JavaScript -->
   <script src="{% static "js/jquery.js" %}"></script>
   <script src="{% static "js/bootstrap.min.js" %}"></script>
 
-</body>
 </html>

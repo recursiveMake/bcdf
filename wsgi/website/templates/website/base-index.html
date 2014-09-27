@@ -1,10 +1,14 @@
 {% extends "website/base.html" %}
+{% load staticfiles %}
 {% block title %}{% endblock %}
 {% block description %}{% endblock %}
 {% block keywords %}{% endblock %}
+{% block main_content_lg_size %}col-lg-9{% endblock %}
+{% block comp_content_lg_size %}col-lg-3{% endblock %}
 
+{% block header %}<script src="{% static 'js/twitter.js' %}"></script>{% endblock %}
 {% block content %}
-
+<div>
 {% if article_list %}
 
     {% for article in article_list %}
@@ -24,7 +28,7 @@
                         </p>
                     </div><!--
                  --><div class="col-md-8 vcenter">
-                        <h1>{{ article.title }}</h1>
+                        <h1 id="{{ article.slug }}">{{ article.title }}</h1>
                         {% block article_date %}
                         <h3 class="dateline">{{ article.pub_date|date:'l, F jS, Y' }}</h3>
                         {% endblock %}
@@ -41,7 +45,7 @@
 
                 <div class="row">
                     <div class="col-md-8 vcenter">
-                        <h1>{{ article.title }}</h1>
+                        <h1 id="{{ article.slug }}">{{ article.title }}</h1>
                         {% block article_date_2 %}
                         <h3 class="dateline">{{ article.pub_date|date:'l, F jS, Y' }}</h3>
                         {% endblock %}
@@ -69,7 +73,7 @@
 
             <div class="row">
                 <div class="col-md-12">
-                    <h1>{{ article.title }}</h1>
+                    <h1 id="{{ article.slug }}">{{ article.title }}</h1>
                     {% block article_date_3 %}
                     <h3 class="dateline">{{ article.pub_date|date:'l, F jS, Y' }}</h3>
                     {% endblock %}
@@ -117,5 +121,55 @@
     <p>No articles are available.</p>
 
 {% endif %}
+</div>
+{% endblock %}
+{% block complementary_content %}
+        <div class="white-tile affix" id="tabNav">
+            <div class="border-box">
+                <!-- Nav tabs -->
+                <ul class="nav nav-tabs" role="tablist">
+                  <li class="active"><a href="#BCDF" role="tab" data-toggle="tab">BCDF</a></li>
+                  <li><a href="#twitter" role="tab" data-toggle="tab">Twitter</a></li>
+                  <li><a href="#facebook" role="tab" data-toggle="tab">Facebook</a></li>
+                </ul>
 
+                <!-- Tab panes -->
+                <div class="tab-content" id="tabNavInner">
+                    <!-- Spy for list -->
+                  <div class="tab-pane active" id="BCDF">
+                    <div id="scrollspy">
+                        <ul class="nav nav-pills" id="scrollNav">
+                            {% for article in article_list %}
+                            {% if forloop.first %}<li class="active" style="width:100%;"><a href="#{{ article.slug }}">{{ article.title }}</a></li>
+                            {% else %}<li  style="width:100%;"><a href="#{{ article.slug }}">{{ article.title }}</a></li>
+                            {% endif %}
+                            {% endfor %}
+                        </ul>
+                    </div>
+                  </div>
+
+                    <!-- Twitter feed -->
+                  <div class="tab-pane" id="twitter">
+                    <a class="twitter-timeline"
+                       href="https://twitter.com/adonisbee/lists/science"
+                       data-widget-id="513561454415314944">
+                        Tweets from https://twitter.com/adonisbee/lists/science
+                    </a>
+                  </div>
+
+                    <!-- Facebook -->
+                  <div class="tab-pane" id="facebook">
+                  <div class="fb-like-box"
+                     data-href="https://www.facebook.com/pages/Bovell-Cancer-Diabetes-Foundation/109253079221608"
+                     data-width="300"
+                     data-height="600"
+                     data-colorscheme="light"
+                     data-show-faces="false"
+                     data-header="false"
+                     data-stream="true"
+                     data-show-border="false"></div>
+                    </div>
+                  </div>
+                </div>
+        </div>
 {% endblock %}
