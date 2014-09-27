@@ -96,10 +96,12 @@
                         <li class="disabled"><a href="#">&laquo;</a></li>
                     {% endif %}
                     {% for page in article_list.paginator.page_range %}
-                        {% if page == article_list.number %}
-                            <li class="active"><a href="?page={{ page }}">{{ page }}</a></li>
-                        {% else %}
-                            <li><a href="?page={{ page }}">{{ page }}</a></li>
+                        {% if page|add:"0" >= article_list.number|add:"-2" and page|add:"0" <= article_list.number|add:"2" %}
+                            {% if page == article_list.number %}
+                                <li class="active"><a href="?page={{ page }}">{{ page }}</a></li>
+                            {% else %}
+                                <li><a href="?page={{ page }}">{{ page }}</a></li>
+                            {% endif %}
                         {% endif %}
                     {% endfor %}
                     {% if article_list.has_next %}
