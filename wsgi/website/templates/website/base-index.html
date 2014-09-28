@@ -6,9 +6,8 @@
 {% block main_content_lg_size %}col-lg-9{% endblock %}
 {% block comp_content_lg_size %}col-lg-3{% endblock %}
 
-{% block header %}
-<script src="{% static 'js/twitter.js' %}"></script>
-{% endblock %}
+{% block header %}<script src="{% static 'js/twitter.js' %}"></script>{% endblock %}
+{% block scroll_spy %}data-spy="scroll" data-target="#scrollspy" data-offset="90"{% endblock %}
 {% block content %}
 <div>
 {% if article_list %}
@@ -153,4 +152,14 @@
                 </div>
             </div>
         </div>
+{% endblock %}
+
+{% block post_scripts %}
+<script>
+    $('#scrollNav.nav li a').click(function(event) {
+        event.preventDefault();
+        $($(this).attr('href'))[0].scrollIntoView();
+        scrollBy(0, -80);
+    });
+</script>
 {% endblock %}

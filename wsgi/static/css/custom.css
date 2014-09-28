@@ -12,11 +12,6 @@ div.white-tile {
   background-color: #ffffff;
 }
 
-h1 {
-  padding-top:60px;
-  margin-top:-40px;
-}
-
 div.border-box {
   margin: 0 10px 0 10px;
 }
@@ -116,7 +111,7 @@ div.newstile p {
 	margin-right: auto;
 }
 
-div.container.alert {
+div.alert {
 	margin-bottom: 10px;
 }
 

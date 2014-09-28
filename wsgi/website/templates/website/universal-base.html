@@ -23,7 +23,7 @@
 
 </head>
 
-<body data-spy="scroll" data-target="#scrollspy" data-offset="60">
+<body {% block scroll_spy %}{% endblock %}>
     <!-- Fixed navbar -->
   <div class="navbar navbar-default navbar-fixed-top">
     <div class="container">
@@ -106,6 +106,7 @@
   <!-- Bootstrap JavaScript -->
   <script src="{% static "js/jquery.js" %}"></script>
   <script src="{% static "js/bootstrap.min.js" %}"></script>
+  {% block post_scripts %}{% endblock %}
 
 </body>
 </html>
