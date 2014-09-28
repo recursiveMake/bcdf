@@ -103,13 +103,17 @@
 </div>
 {% endblock %}
 {% block complementary_content %}
-        <div class="white-tile affix" id="tabNav" style="width:320px;">
+        <div class="white-tile affix" id="tabNav" style="width:330px;">
             <div class="border-box">
                 <!-- Nav tabs -->
                 <ul class="nav nav-tabs" role="tablist">
-                    <li class="active"><a href="#BCDF" role="tab" data-toggle="tab">BCDF</a></li>
-                    <li><a href="#twitter" role="tab" data-toggle="tab">Twitter</a></li>
-                    <li><a href="#facebook" role="tab" data-toggle="tab">Facebook</a></li>
+                    <li class="active"><a href="#BCDF" role="tab" data-toggle="tab"><strong>BCDF</strong></a></li>
+                    <li><a href="#twitter" role="tab" data-toggle="tab">
+                        <img src="{% static 'images/twitter.jpg' %}">
+                        <strong>Twitter</strong></a></li>
+                    <li><a href="#facebook" role="tab" data-toggle="tab">
+                        <img src="{% static 'images/facebook.jpg' %}">
+                        <strong>Facebook</strong></a></li>
                 </ul>
 
                 <!-- Tab panes -->
@@ -140,7 +144,7 @@
                     <div class="tab-pane" id="facebook">
                         <div class="fb-like-box"
                              data-href="https://www.facebook.com/pages/Bovell-Cancer-Diabetes-Foundation/109253079221608"
-                             data-width="300"
+                             data-width="310"
                              data-height="600"
                              data-colorscheme="light"
                              data-show-faces="false"
