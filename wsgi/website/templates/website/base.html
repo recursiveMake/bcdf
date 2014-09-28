@@ -6,11 +6,11 @@
     {% if messages %}
         {% for message in messages %}
             {% if 'error' in message.tags %}
-            <div class="container alert alert-danger alert-dismissable" style="margin-top:0px;">
+            <div class="alert alert-danger alert-dismissable" style="margin-top:0px;">
             {% elif 'success' in message.tags %}
-            <div class="container alert alert-success alert-dismissable" style="margin-top:0px;">
+            <div class="alert alert-success alert-dismissable" style="margin-top:0px;">
             {% else %}
-            <div class="container alert alert-dismissable" style="margin-top:0px;">
+            <div class="alert alert-dismissable" style="margin-top:0px;">
             {% endif %}
                 <button type="button" class="close" data-dismiss="alert" aria-hidden="true">
                     &times;
@@ -28,7 +28,7 @@
 {% block alert_block %}
     {% if alert_campaign %}
         {% for campaign in alert_campaign %}
-            <div class="container alert alert-info alert-dismissable" style="margin-top:0px;">
+            <div class="alert alert-info alert-dismissable" style="margin-top:0px;">
                 <button type="button" class="close" data-dismiss="alert" aria-hidden="true">
                     <a onClick="SetCookie('{{ campaign.slug }}','CLICKED','{{ campaign.snooze_short }}')">&times;</a>
                 </button>
@@ -42,7 +42,7 @@
 {% endblock %}
 
 {% block content_block %}
-    <div class="container white-tile">
+    <div class="white-tile">
         <div class="row">
     {% block content %}{% endblock %}
         </div>
