@@ -4,10 +4,10 @@ from setuptools import setup
 
 setup(
     name='BCDF',
-    version='0.1',
+    version='1.0',
     description='BCDF Web App',
     author='Adonis Bovell',
     author_email='yoshimitsu12@gmail.com',
     url='http://www.python.org/sigs/distutils-sig/',
-    install_requires=['Django==1.5.8', 'pil==1.1.7'],
+    install_requires=['Django==1.5.8', 'pil==1.1.7', 'django_compressor==1.4'],
 )

@@ -1,11 +1,16 @@
 {% extends "website/base.html" %}
 {% load filters %}
 {% load staticfiles %}
+{% load compress %}
 
 {% block title %}BCDF Home Page{% endblock %}
 {% block description %}Website of the BCDF{% endblock %}
 {% block keywords %}BCDF, news, education, diabetes, cancer{% endblock %}
-{% block header %}<link href="{% static "css/banner.css" %}" rel="stylesheet">{% endblock %}
+{% block header %}
+{% compress css %}
+<link href="{% static "css/banner.css" %}" rel="stylesheet">
+{% endcompress %}
+{% endblock %}
 {% block pre_alert_content %}
 
 <div class="jumbotron" style="margin-top:-10px; margin-bottom:10px;">

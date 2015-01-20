@@ -134,6 +134,7 @@ STATICFILES_FINDERS = (
     'django.contrib.staticfiles.finders.FileSystemFinder',
     'django.contrib.staticfiles.finders.AppDirectoriesFinder',
     #'django.contrib.staticfiles.finders.DefaultStorageFinder',
+    'compressor.finders.CompressorFinder'
 )
 
 # Make a dictionary of default keys
@@ -184,7 +185,8 @@ INSTALLED_APPS = (
     # Uncomment the next line to enable admin documentation:
     # 'django.contrib.admindocs',
     'website',
-    'django.contrib.sitemaps'
+    'django.contrib.sitemaps',
+    'compressor'
 )
 
 # A sample logging configuration. The only tangible logging
@@ -232,3 +234,10 @@ if ON_OPENSHIFT:
     EMAIL_PORT = 80
     EMAIL_HOST_USER = os.environ['EMAIL_USER']
     EMAIL_HOST_PASSWORD = os.environ['EMAIL_PASS']
+
+COMPRESS_ENABLED = True
+
+COMPRESS_CSS_FILTERS = (
+    'compressor.filters.css_default.CssAbsoluteFilter',
+    'compressor.filters.cssmin.CSSMinFilter',
+)

@@ -1,5 +1,6 @@
 {% extends "website/universal-base.html" %}
 {% load staticfiles %}
+{% load compress %}
 
 {% block title %}Bovell Cancer-Diabetes Foundation{% endblock %}
 {% block message_block %}
@@ -61,7 +62,8 @@
     </div>
 {% endblock %}
   <!-- Bootstrap JavaScript -->
+{% compress js %}
   <script src="{% static "js/jquery.js" %}"></script>
   <script src="{% static "js/bootstrap.min.js" %}"></script>
-
+{% endcompress %}
 </html>
