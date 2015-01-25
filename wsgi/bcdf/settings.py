@@ -258,3 +258,5 @@ else:
             'BACKEND': 'django.core.cache.backends.dummy.DummyCache'
         }
     }
+
+TEST_RUNNER = 'django.test.runner.DiscoverRunner'
