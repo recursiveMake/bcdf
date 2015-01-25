@@ -18,3 +18,7 @@ fi
 
 echo "Executing 'python $OPENSHIFT_REPO_DIR/wsgi/bcdf/manage.py collectstatic --noinput'"
 python "$OPENSHIFT_REPO_DIR"wsgi/bcdf/manage.py collectstatic --noinput
+
+# start cache
+cd $OPENSHIFT_DATA_DIR/installs/memcached/bin
+./memcached -d -s $OPENSHIFT_TMP_DIR/cache_file.sock

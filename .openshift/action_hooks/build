@@ -6,8 +6,36 @@
 
 # Activate VirtualEnv in order to use the correct libraries
 
+# Setup media directory
 if [ ! -d $OPENSHIFT_DATA_DIR/media ]; then
     mkdir $OPENSHIFT_DATA_DIR/media
 fi
-
 ln -sf $OPENSHIFT_DATA_DIR/media $OPENSHIFT_REPO_DIR/wsgi/static/media
+
+
+# Get memcached
+if [ ! -d $OPENSHIFT_DATA_DIR/downloads ]; then
+    mkdir $OPENSHIFT_DATA_DIR/downloads
+fi
+
+if [ ! -f $OPENSHIFT_DATA_DIR/downloads/memcached-1.4.22.tar.gz ]; then
+    cd $OPENSHIFT_DATA_DIR/downloads
+    wget http://memcached.org/files/memcached-1.4.22.tar.gz
+    tar -zxvf memcached-1.4.22.tar.gz
+fi
+
+# Install memcached
+if [ ! -d $OPENSHIFT_DATA_DIR/installs ]; then
+    mkdir $OPENSHIFT_DATA_DIR/installs
+fi
+
+if [ ! -d $OPENSHIFT_DATA_DIR/installs/memcached ]; then
+    mkdir $OPENSHIFT_DATA_DIR/installs/memcached
+fi
+
+if [ ! -d $OPENSHIFT_DATA_DIR/installs/memcached/bin ]; then
+    cd $OPENSHIFT_DATA_DIR/downloads/memcached-1.4.22
+    ./configure --prefix=$OPENSHIFT_DATA_DIR/installs/memcached
+    make
+    make install
+fi
