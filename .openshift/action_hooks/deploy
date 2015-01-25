@@ -16,6 +16,9 @@ else
     python "$OPENSHIFT_REPO_DIR"wsgi/bcdf/manage.py syncdb # --noinput
 fi
 
+echo "Executing 'python $OPENSHIFT_REPO_DIR/wsgi/bcdf/manage.py migrate'"
+python "$OPENSHIFT_REPO_DIR"wsgi/bcdf/manage.py migrate
+
 echo "Executing 'python $OPENSHIFT_REPO_DIR/wsgi/bcdf/manage.py collectstatic --noinput'"
 python "$OPENSHIFT_REPO_DIR"wsgi/bcdf/manage.py collectstatic --noinput
 
