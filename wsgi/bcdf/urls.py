@@ -26,6 +26,7 @@ urlpatterns = patterns('',
     url(r'^rss/', include('website.urls.rss', namespace="rss")),
     url(r'^gallery/', include('website.urls.gallery', namespace="gallery")),
     url(r'^newsletter/', include('website.urls.newsletter', namespace='newsletter')),
+    url(r'^calendar/', include('website.urls.calendar', namespace='calendar')),
     url(r'^sitemap\.xml', include('website.urls.sitemap', namespace='sitemap')),
     url(r'^', include('website.urls.special', namespace="special")),
 )

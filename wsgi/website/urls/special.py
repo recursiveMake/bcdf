@@ -9,7 +9,7 @@ urlpatterns = patterns('',
     url(r'^about/$', views.special_article, {'article_id': 'about'}, name='about'),
 
     # /calendar/
-    url(r'^calendar/$', views.special_article, {'article_id': 'calendar'}, name='calendar'),
+    # url(r'^calendar/$', views.special_article, {'article_id': 'calendar'}, name='calendar'),
 
     # /contact/
     url(r'^contact/$', views.contact_form, name='contact'),

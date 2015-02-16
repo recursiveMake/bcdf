@@ -3,7 +3,7 @@ __author__ = 'adonis'
 from django.contrib import admin
 from website.models import ArticleContent, ArticleFile, Thumb, Image, GalleryImage, SpecialImage
 from website.models import EducationalArticle, NewsArticle, GalleryArticle, NewsLetter, SpecialArticle
-from website.models import BannerCampaign, AlertCampaign, HomePageCampaign
+from website.models import BannerCampaign, AlertCampaign, HomePageCampaign, CalendarCampaign
 
 
 class SpecialMultiImageInline(admin.StackedInline):
@@ -34,6 +34,7 @@ class SpecialFileInline(admin.StackedInline):
     model = ArticleFile
     exclude = ('news_article', 'educational_article')
     extra = 1
+
 
 class SpecialArticleAdmin(admin.ModelAdmin):
     inlines = [SpecialContentInline, SpecialThumbInline, SpecialImageInline, SpecialMultiImageInline, SpecialFileInline]
@@ -105,9 +106,11 @@ class NewsArticleFileInline(admin.StackedInline):
     exclude = ('special_article', 'educational_article')
     extra = 1
 
+
 class NewsArticleAdmin(admin.ModelAdmin):
     inlines = [NewsArticleContentInline, NewsImageInline, NewsThumbInline, NewsArticleFileInline]
     exclude = ('type', )
+
 
 class EducationalThumbInline(admin.StackedInline):
     model = Thumb
@@ -168,6 +171,8 @@ admin.site.register(SpecialArticle, SpecialArticleAdmin)
 admin.site.register(BannerCampaign, BannerCampaignAdmin)
 
 admin.site.register(AlertCampaign)
+
+admin.site.register(CalendarCampaign)
 
 admin.site.register(HomePageCampaign, HomePageCampaignAdmin)
 

@@ -78,6 +78,11 @@ class AlertCampaign(Campaign):
     click_text = models.CharField(max_length=32, default='Click here.')
 
 
+class CalendarCampaign(Campaign):
+    blurb = models.TextField()
+    recurring = models.BooleanField(default=False)
+
+
 '''
 class TipCampaign(Campaign):
     blurb = models.CharField(max_length=1024)

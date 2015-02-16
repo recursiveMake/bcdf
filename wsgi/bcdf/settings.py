@@ -8,12 +8,15 @@ if os.environ.has_key('OPENSHIFT_REPO_DIR'):
     ON_OPENSHIFT = True
 
 PROJECT_DIR = os.path.dirname(os.path.realpath(__file__))
+
 if ON_OPENSHIFT:
-    DEBUG = bool(os.environ.get('DEBUG', False))
-    if DEBUG:
-        print("WARNING: The DEBUG environment is set to True.")
+    DEBUG = False
 else:
     DEBUG = True
+
+if DEBUG:
+    print("WARNING: The DEBUG environment is set to True.")
+
 TEMPLATE_DEBUG = DEBUG
 
 ADMINS = (
@@ -214,7 +217,6 @@ LOGGING = {
 
 TEMPLATE_CONTEXT_PROCESSORS = (
     "django.contrib.auth.context_processors.auth",
-    # "django.core.context_processors.debug",
     "django.core.context_processors.i18n",
     "django.core.context_processors.media",
     "django.core.context_processors.static",
@@ -235,7 +237,10 @@ if ON_OPENSHIFT:
     EMAIL_HOST_USER = os.environ['EMAIL_USER']
     EMAIL_HOST_PASSWORD = os.environ['EMAIL_PASS']
 
-COMPRESS_ENABLED = True
+if ON_OPENSHIFT:
+    COMPRESS_ENABLED = True
+else:
+    COMPRESS_ENABLED = False
 
 COMPRESS_CSS_FILTERS = (
     'compressor.filters.css_default.CssAbsoluteFilter',

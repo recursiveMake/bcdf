@@ -8,3 +8,4 @@ from website.views.special import *
 from website.views.education import *
 from website.views.rss import *
 from website.views.newsletter import *
+from website.views.calendar import *
