@@ -11,7 +11,7 @@ import datetime
 def get_article(calendar_item):
     article = None
     try:
-        article = NewsArticle.objects.get(slug=calendar_item.link)
+        article = NewsArticle.objects.get(slug=calendar_item.article_slug)
     except (NewsArticle.DoesNotExist, NewsArticle.MultipleObjectsReturned):
         pass
     return article
