@@ -35,6 +35,8 @@ class Document(models.Model):
 class Campaign(models.Model):
     title = models.CharField(max_length=256)
     expiry = models.DateField(blank=True, null=True)
+    article_namespace = models.CharField(max_length=64, blank=True)
+    article_slug = models.CharField(max_length=64, blank=True)
     article = models.CharField(max_length=256)
     slug = models.CharField(max_length=64, unique=True)
 
