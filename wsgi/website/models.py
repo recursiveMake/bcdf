@@ -79,9 +79,9 @@ class AlertCampaign(Campaign):
 
 
 class CalendarCampaign(Campaign):
-    blurb = models.TextField()
+    blurb = models.TextField(null=True)
     recurring = models.BooleanField(default=False)
-
+    link = models.CharField(max_length=64)
 
 '''
 class TipCampaign(Campaign):
