@@ -34,7 +34,9 @@
                     <a onClick="SetCookie('{{ campaign.slug }}','CLICKED','{{ campaign.snooze_short }}')">&times;</a>
                 </button>
                 <strong>{{ campaign.title }}</strong> {{ campaign.blurb }}
-                <a class="alert-link" href="{% url campaign.article_namespace campaign.article_slug %}" onClick="SetCookie('{{ campaign.slug }}','CLICKED','{{campaign.snooze_long}}')">
+                <a class="alert-link"
+                   href="{% if campaign.article_slug %}{% url campaign.article_namespace campaign.article_slug %}{% else %}{% url campaign.article_namespace %}{% endif %}"
+                   onClick="SetCookie('{{ campaign.slug }}','CLICKED','{{campaign.snooze_long}}')">
                     {{campaign.click_text}}
                 </a>
             </div>

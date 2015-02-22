@@ -35,7 +35,9 @@
                 <div class="carousel-caption">
                     <h1>{{ campaign.title }}</h1>
                     <p class="lead">{{ campaign.blurb }}</p>
-                    <a class="btn btn-large btn-primary" href="{% url campaign.article_namespace campaign.article_slug %}">{{ campaign.button_text }}</a>
+                    <a class="btn btn-large btn-primary"
+                       href="{% if campaign.article_slug %}{% url campaign.article_namespace campaign.article_slug %}{% else %}{% url campaign.article_namespace %}{% endif %}">
+                        {{ campaign.button_text }}</a>
                 </div>
                 </div>
             </div>
@@ -60,7 +62,9 @@
     <h1 style="text-align:center;">{{ campaign.title }}</h1>
     <p class="text-center">{{ campaign.blurb }}</p>
     <p class="text-center">
-        <a class="btn btn-default" href="{% url campaign.article_namespace campaign.article_slug %}">{{ campaign.button_text }}</a>
+        <a class="btn btn-default"
+           href="{% if campaign.article_slug %}{% url campaign.article_namespace campaign.article_slug %}{% else %}{% url campaign.article_namespace %}{% endif %}">
+            {{ campaign.button_text }}</a>
     </p>
 </div>
 {% endfor %}

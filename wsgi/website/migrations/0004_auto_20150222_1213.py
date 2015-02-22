@@ -29,7 +29,7 @@ def get_namespace_from_url(url):
     if namespace == 'donate':
         return 'special:donate', ''
     if namespace == 'about':
-        return 'special:about', 'about'
+        return 'special:about', ''
     return '', ''
 
 
