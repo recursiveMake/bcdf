@@ -71,8 +71,15 @@ def alert_campaign(request):
 
 def viewed_campaign(request):
     """set cookie for direct visit of alert campaign url"""
+    slug = ''
+    if request.resolver_match.args:
+        slug = request.resolver_match.args[0]
+    elif request.resolver_match.kwargs:
+        key = list(request.resolver_match.kwargs.keys())[0]
+        slug = request.resolver_match.kwargs[key]
     campaigns = AlertCampaign.objects.filter(
-        article=request.path
+        article_namespace=request.resolver_match.view_name,
+        article_slug=slug
     )
     return campaigns
 
