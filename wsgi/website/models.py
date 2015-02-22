@@ -37,7 +37,6 @@ class Campaign(models.Model):
     expiry = models.DateField(blank=True, null=True)
     article_namespace = models.CharField(max_length=64, blank=True)
     article_slug = models.CharField(max_length=64, blank=True)
-    article = models.CharField(max_length=256)
     slug = models.CharField(max_length=64, unique=True)
 
     class Meta:
@@ -83,7 +82,6 @@ class AlertCampaign(Campaign):
 class CalendarCampaign(Campaign):
     blurb = models.TextField(blank=True)
     recurring = models.BooleanField(default=False)
-    link = models.CharField(max_length=64)
 
 '''
 class TipCampaign(Campaign):
