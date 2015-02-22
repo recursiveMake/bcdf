@@ -3,8 +3,7 @@ __author__ = 'adonis'
 
 from website.models import CalendarCampaign
 from website.models import NewsArticle
-from website.views.util import update_context, paginate
-from django.shortcuts import render
+from website.views.util import render, paginate
 import datetime
 
 
@@ -39,5 +38,4 @@ def calendar_index(request):
         'url_namespace': 'news:article',
         'read_on_message': 'Read on for more details...'
     }
-    update_context(request, context)
     return render(request, 'website/calendar/index.html', context)

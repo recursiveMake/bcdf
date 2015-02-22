@@ -2,8 +2,8 @@ __author__ = 'adonis'
 
 
 from website.models import NewsArticle
-from website.views.util import update_context, article_parse, paginate
-from django.shortcuts import render, get_object_or_404
+from website.views.util import render, article_parse, paginate
+from django.shortcuts import get_object_or_404
 
 
 def news_index(request):
@@ -14,7 +14,6 @@ def news_index(request):
         'url_namespace': 'news:article',
         'read_on_message': 'Read on for more details...'
     }
-    update_context(request, context)
     return render(request, 'website/news/index.html', context)
 
 
@@ -27,7 +26,6 @@ def news_index_by_year(request, year):
         'url_namespace': 'news:article',
         'read_on_message': 'Read on for more details...'
     }
-    update_context(request, context)
     return render(request, 'website/news/index.html', context)
 
 

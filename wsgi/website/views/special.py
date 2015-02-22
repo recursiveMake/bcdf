@@ -3,13 +3,13 @@ __author__ = 'adonis'
 
 from website.models import SpecialArticle, BannerCampaign, HomePageCampaign
 from website.forms import ContactForm
-from website.views.util import update_context, article_parse
+from website.views.util import render, article_parse
 from utils.recaptcha_keys import RecaptchaKey
 from utils import recaptcha, ip
 from django.core.mail import send_mail
 from django.contrib import messages
 from django.db.models import Q
-from django.shortcuts import redirect, render, get_object_or_404
+from django.shortcuts import redirect, get_object_or_404
 from datetime import datetime
 import random
 
@@ -31,7 +31,6 @@ def home_index(request):
         'banner_campaigns': banner_campaigns,
         'home_page_campaigns': home_page_campaigns
     }
-    update_context(request, context)
     return render(request, 'website/home/index.html', context)
 
 
@@ -66,7 +65,6 @@ def contact_form(request):
         'form': form,
         'recaptcha': recaptcha.displayhtml(public_key=keys.public_key)
     }
-    update_context(request, context)
     return render(request, 'website/special/contact.html', context)
 
 

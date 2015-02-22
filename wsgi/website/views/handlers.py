@@ -2,9 +2,9 @@ __author__ = 'adonis'
 
 
 from django.contrib import messages
-from django.shortcuts import get_object_or_404, render, redirect
+from django.shortcuts import get_object_or_404
 from website.models import SpecialArticle
-from website.views.util import article_parse
+from website.views.util import article_parse, render
 
 
 def handle404(request):

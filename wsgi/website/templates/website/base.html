@@ -31,12 +31,11 @@
         {% for campaign in alert_campaign %}
             <div class="alert alert-info alert-dismissable" style="margin-top:0px;">
                 <button type="button" class="close" data-dismiss="alert" aria-hidden="true">
-                    <a onClick="SetCookie('{{ campaign.slug }}','CLICKED','{{ campaign.snooze_short }}')">&times;</a>
+                    <a onClick="SetCookie('{{ campaign.slug }}','CLEARED','{{ campaign.snooze_short }}')">&times;</a>
                 </button>
                 <strong>{{ campaign.title }}</strong> {{ campaign.blurb }}
                 <a class="alert-link"
-                   href="{% if campaign.article_slug %}{% url campaign.article_namespace campaign.article_slug %}{% else %}{% url campaign.article_namespace %}{% endif %}"
-                   onClick="SetCookie('{{ campaign.slug }}','CLICKED','{{campaign.snooze_long}}')">
+                   href="{% if campaign.article_slug %}{% url campaign.article_namespace campaign.article_slug %}{% else %}{% url campaign.article_namespace %}{% endif %}">
                     {{campaign.click_text}}
                 </a>
             </div>

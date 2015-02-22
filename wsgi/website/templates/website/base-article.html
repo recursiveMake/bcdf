@@ -4,14 +4,6 @@
 {% block title %}{{ article.title }}{% endblock %}
 
 {% block content %}
-{% if viewed_campaign %}
-    {% for campaign in viewed_campaign %}
-        <script type="text/javascript">
-            SetCookie('{{ campaign.slug }}','CLICKED','{{ campaign.snooze_long }}');
-        </script>
-    {% endfor %}
-{% endif %}
-
         <div class="row">
             {% if article %}
                 {% block article_content_head %}

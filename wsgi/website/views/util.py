@@ -3,9 +3,10 @@ __author__ = 'adonis'
 from website.models import AlertCampaign, EducationalArticle, NewsArticle
 from django.utils.safestring import mark_safe
 from django.utils.html import escape
-from datetime import datetime
+from datetime import datetime, timedelta
 from django.db.models import Q
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
+from django.shortcuts import render as shortcut_render
 
 
 def paginate(request, obj_list, items_per_page=10):
@@ -26,7 +27,6 @@ def article_parse(request, response):
     if len(split_content) > 1:
         response.rest_of_paragraphs = split_content[1:]
     context = {'article': response}
-    update_context(request, context)
     return request, context
 
 
@@ -50,7 +50,6 @@ def parse_text(content):
 def update_context(request, context):
     """adds fields to context for templates"""
     context['alert_campaign'] = alert_campaign(request)
-    context['viewed_campaign'] = viewed_campaign(request)
     context['news_years'] = news_years()
     context['education_years'] = education_years()
     return context
@@ -64,13 +63,16 @@ def alert_campaign(request):
     )
     for cookie in request.COOKIES:
         campaigns = campaigns.exclude(slug=cookie)
+    viewed_campaigns = viewed_campaign(request)
+    for campaign in viewed_campaigns:
+        campaigns = campaigns.exclude(slug=campaign.slug)
     if campaigns.count() > 1:
         campaigns = [campaigns[0]]
     return campaigns
 
 
 def viewed_campaign(request):
-    """set cookie for direct visit of alert campaign url"""
+    """list of viewed campaigns on current page"""
     slug = ''
     if request.resolver_match.args:
         slug = request.resolver_match.args[0]
@@ -84,6 +86,18 @@ def viewed_campaign(request):
     return campaigns
 
 
+def update_response(request, response):
+    """set cookie for direct visit of alert campaign url"""
+    campaigns = viewed_campaign(request)
+    for campaign in campaigns:
+        response.set_cookie(
+            key=campaign.slug,
+            value='VIEWED',
+            expires=datetime.now() + timedelta(days=campaign.snooze_long)
+        )
+    return response
+
+
 def news_years():
     """get list of years with news"""
     article_dates = NewsArticle.objects.dates('pub_date','year')
@@ -95,3 +109,9 @@ def education_years():
     """get list of years with educational articles"""
     article_dates = EducationalArticle.objects.dates('pub_date','year')
     return sorted([date.year for date in article_dates], reverse=True)
+
+
+def render(request, template, context):
+    update_context(request, context)
+    response = shortcut_render(request, template, context)
+    return update_response(request, response)
