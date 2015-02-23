@@ -1,6 +1,8 @@
 __author__ = 'adonis'
 
+from django import forms
 from django.contrib import admin
+from django.core.urlresolvers import reverse, NoReverseMatch
 from website.models import ArticleContent, ArticleFile, Thumb, Image, GalleryImage, SpecialImage
 from website.models import EducationalArticle, NewsArticle, GalleryArticle, NewsLetter, SpecialArticle
 from website.models import BannerCampaign, AlertCampaign, HomePageCampaign, CalendarCampaign
@@ -63,6 +65,23 @@ class GalleryArticleAdmin(admin.ModelAdmin):
     exclude = ('type', )
 
 
+class CampaignAdminForm(forms.ModelForm):
+    def clean(self):
+        cleaned_data = super(CampaignAdminForm, self).clean()
+        namespace = cleaned_data.get('article_namespace')
+        slug = cleaned_data.get('article_slug')
+        if slug:
+            try:
+                reverse(namespace, args=(slug, ))
+            except NoReverseMatch:
+                raise forms.ValidationError('No reverse match for slug')
+        else:
+            try:
+                reverse(namespace)
+            except NoReverseMatch:
+                raise forms.ValidationError('No reverse match for namespace')
+
+
 class HomePageImageInline(admin.StackedInline):
     model = Image
     exclude = ('banner_campaign', 'news_article', 'educational_article', 'special_article')
@@ -71,6 +90,7 @@ class HomePageImageInline(admin.StackedInline):
 
 class HomePageCampaignAdmin(admin.ModelAdmin):
     inlines = [HomePageImageInline]
+    form = CampaignAdminForm
 
 
 class BannerImageInline(admin.StackedInline):
@@ -81,6 +101,15 @@ class BannerImageInline(admin.StackedInline):
 
 class BannerCampaignAdmin(admin.ModelAdmin):
     inlines = [BannerImageInline]
+    form = CampaignAdminForm
+
+
+class AlertCampaignAdmin(admin.ModelAdmin):
+    form = CampaignAdminForm
+
+
+class CalendarCampaignAdmin(admin.ModelAdmin):
+    form = CampaignAdminForm
 
 
 class NewsThumbInline(admin.StackedInline):
@@ -170,9 +199,9 @@ admin.site.register(SpecialArticle, SpecialArticleAdmin)
 
 admin.site.register(BannerCampaign, BannerCampaignAdmin)
 
-admin.site.register(AlertCampaign)
+admin.site.register(AlertCampaign, AlertCampaignAdmin)
 
-admin.site.register(CalendarCampaign)
+admin.site.register(CalendarCampaign, CalendarCampaignAdmin)
 
 admin.site.register(HomePageCampaign, HomePageCampaignAdmin)
 
