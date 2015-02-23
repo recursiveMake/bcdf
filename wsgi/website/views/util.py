@@ -74,6 +74,8 @@ def alert_campaign(request):
 def viewed_campaign(request):
     """list of viewed campaigns on current page"""
     slug = ''
+    if not request.resolver_match:
+        return []
     if request.resolver_match.args:
         slug = request.resolver_match.args[0]
     elif request.resolver_match.kwargs:
