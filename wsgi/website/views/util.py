@@ -111,7 +111,7 @@ def education_years():
     return sorted([date.year for date in article_dates], reverse=True)
 
 
-def render(request, template, context):
+def render(request, template, context, **kwargs):
     update_context(request, context)
-    response = shortcut_render(request, template, context)
+    response = shortcut_render(request, template, context, **kwargs)
     return update_response(request, response)
