@@ -2,6 +2,11 @@ from django.db import models
 import os
 
 
+class DocumentManager(models.Manager):
+    def get_queryset(self):
+        return super(DocumentManager, self).get_queryset().exclude(is_published=False)
+
+
 # Create your models here.
 class Document(models.Model):
     NEWS = 'NE'
@@ -24,6 +29,10 @@ class Document(models.Model):
     title = models.CharField(max_length=256)
     author = models.CharField(max_length=128)
     pub_date = models.DateField('date published')
+    is_published = models.BooleanField(default=False)
+
+    dev_objects = models.Manager()
+    objects = DocumentManager()
 
     class Meta:
         abstract = True
@@ -38,6 +47,10 @@ class Campaign(models.Model):
     article_namespace = models.CharField(max_length=64, blank=True)
     article_slug = models.CharField(max_length=64, blank=True)
     slug = models.CharField(max_length=64, unique=True)
+    is_published = models.BooleanField(default=False)
+
+    dev_objects = models.Manager()
+    objects = DocumentManager()
 
     class Meta:
         abstract = True
