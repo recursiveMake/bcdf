@@ -10,6 +10,8 @@
             <div class="alert alert-danger alert-dismissable" style="margin-top:0px;">
             {% elif 'success' in message.tags %}
             <div class="alert alert-success alert-dismissable" style="margin-top:0px;">
+            {% elif 'warning' in message.tags %}
+            <div class="alert alert-warning alert-dismissable" style="margin-top:0px;">
             {% else %}
             <div class="alert alert-dismissable" style="margin-top:0px;">
             {% endif %}
@@ -20,6 +22,8 @@
                 <strong>Error: </strong>
                 {% elif 'success' in message.tags %}
                 <strong>Success: </strong>
+                {% elif 'warning' in message.tags %}
+                <strong>Warning: </strong>
                 {% endif %}
                 {{ message }}
             </div>

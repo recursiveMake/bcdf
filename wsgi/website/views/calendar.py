@@ -25,7 +25,7 @@ def update_article(article, calendar_item):
 
 
 def calendar_index(request):
-    calendar_list = CalendarCampaign.objects.all().filter(
+    calendar_list = CalendarCampaign.objects.published(request.production).filter(
         expiry__gte=datetime.date.today()).order_by('expiry')
     article_list = []
     for item in calendar_list:

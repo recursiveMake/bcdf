@@ -7,7 +7,7 @@ from website.views.util import render, paginate
 
 
 def gallery_index(request):
-    article_list = GalleryArticle.objects.all().order_by('-pub_date')
+    article_list = GalleryArticle.objects.published(request.production).order_by('-pub_date')
     article_list = paginate(request, article_list)
     context = {
         'article_list': article_list,
@@ -18,13 +18,13 @@ def gallery_index(request):
 
 
 def gallery_article(request, article_id):
-    article = get_object_or_404(GalleryArticle, slug=article_id)
+    article = get_object_or_404(GalleryArticle.objects.published(request.production), slug=article_id)
     context = {'article': article}
     return render(request, 'website/gallery/article.html', context)
 
 
 def gallery_xml(request, article_id):
-    response = get_object_or_404(GalleryArticle, slug=article_id)
+    response = get_object_or_404(GalleryArticle.objects.published(request.production), slug=article_id)
     context = {
         'article': response
     }

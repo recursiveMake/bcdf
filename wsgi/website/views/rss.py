@@ -12,10 +12,10 @@ def rss_index(request):
 
 def rss_limit(request, count=None):
     count = int(count) if count else None
-    news_article_list = NewsArticle.objects.all().order_by('-pub_date')[:count]
-    gallery_article_list = GalleryArticle.objects.all().order_by('-pub_date')[:count]
-    educational_article_list = EducationalArticle.objects.all().order_by('-pub_date')[:count]
-    newsletter_article_list = NewsLetter.objects.all().order_by('-pub_date')[:count]
+    news_article_list = NewsArticle.objects.published(request.production).order_by('-pub_date')[:count]
+    gallery_article_list = GalleryArticle.objects.published(request.production).order_by('-pub_date')[:count]
+    educational_article_list = EducationalArticle.objects.published(request.production).order_by('-pub_date')[:count]
+    newsletter_article_list = NewsLetter.objects.published(request.production).order_by('-pub_date')[:count]
     article_list = sorted(
         list(news_article_list) + list(gallery_article_list)
         + list(educational_article_list) + list(newsletter_article_list),
@@ -48,7 +48,7 @@ def rss_feed_limit(request, feed, count=None):
 
 
 def photos_xml(request, count=None):
-    article_list = GalleryArticle.objects.all().order_by('-pub_date')[:count]
+    article_list = GalleryArticle.objects.published(request.production).order_by('-pub_date')[:count]
     context = {
         'article_list': article_list
     }
@@ -56,7 +56,7 @@ def photos_xml(request, count=None):
 
 
 def education_xml(request, count=None):
-    article_list = EducationalArticle.objects.all().order_by('-pub_date')[:count]
+    article_list = EducationalArticle.objects.published(request.production).order_by('-pub_date')[:count]
     context = {
         'article_list': article_list
     }
@@ -64,7 +64,7 @@ def education_xml(request, count=None):
 
 
 def news_xml(request, count=None):
-    article_list = NewsArticle.objects.all().order_by('-pub_date')[:count]
+    article_list = NewsArticle.objects.published(request.production).order_by('-pub_date')[:count]
     context = {
         'article_list': article_list
     }
@@ -72,7 +72,7 @@ def news_xml(request, count=None):
 
 
 def newsletter_xml(request, count=None):
-    article_list = NewsLetter.objects.all().order_by('-pub_date')[:count]
+    article_list = NewsLetter.objects.published(request.production).order_by('-pub_date')[:count]
     context = {
         'article_list': article_list
     }

@@ -3,8 +3,11 @@ import os
 
 
 class DocumentManager(models.Manager):
-    def get_queryset(self):
-        return super(DocumentManager, self).get_queryset().exclude(is_published=False)
+    def published(self, only_published=True):
+        if only_published:
+            return self.exclude(is_published=False)
+        else:
+            return self
 
 
 # Create your models here.
@@ -31,7 +34,6 @@ class Document(models.Model):
     pub_date = models.DateField('date published')
     is_published = models.BooleanField(default=False)
 
-    dev_objects = models.Manager()
     objects = DocumentManager()
 
     class Meta:
@@ -49,7 +51,6 @@ class Campaign(models.Model):
     slug = models.CharField(max_length=64, unique=True)
     is_published = models.BooleanField(default=False)
 
-    dev_objects = models.Manager()
     objects = DocumentManager()
 
     class Meta:

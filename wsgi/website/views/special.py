@@ -15,11 +15,11 @@ import random
 
 
 def home_index(request):
-    banner_campaigns = BannerCampaign.objects.all().filter(
+    banner_campaigns = BannerCampaign.objects.published(request.production).filter(
         Q(expiry__gte=datetime.today()) |
         Q(expiry__isnull=True)
     )
-    home_page_campaigns = HomePageCampaign.objects.all().filter(
+    home_page_campaigns = HomePageCampaign.objects.published(request.production).filter(
         Q(expiry__gte=datetime.today()) |
         Q(expiry__isnull=True)
     )

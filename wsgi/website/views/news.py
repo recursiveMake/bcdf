@@ -7,7 +7,7 @@ from django.shortcuts import get_object_or_404
 
 
 def news_index(request):
-    article_list = NewsArticle.objects.all().order_by('-pub_date')
+    article_list = NewsArticle.objects.published(request.production).order_by('-pub_date')
     article_list = paginate(request, article_list)
     context = {
         'article_list': article_list,
@@ -18,7 +18,7 @@ def news_index(request):
 
 
 def news_index_by_year(request, year):
-    article_list = NewsArticle.objects.all().order_by('-pub_date')
+    article_list = NewsArticle.objects.published(request.production).order_by('-pub_date')
     article_list = article_list.filter(pub_date__year=year)
     article_list = paginate(request, article_list)
     context = {
@@ -30,6 +30,6 @@ def news_index_by_year(request, year):
 
 
 def news_article(request, article_id):
-    response = get_object_or_404(NewsArticle, slug=article_id)
+    response = get_object_or_404(NewsArticle.objects.published(request.production), slug=article_id)
     (request, context) = article_parse(request, response)
     return render(request, 'website/news/article.html', context)
