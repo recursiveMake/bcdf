@@ -42,9 +42,42 @@ def parse_text(content):
         if split_content[x].startswith(':safe:'):
             split_content[x] = split_content[x].replace(':safe:', '')
             split_content[x] = mark_safe(split_content[x])
+        # we really need to get MarkDown in here
+        elif split_content[x].startswith(':table:'):
+            split_content[x] = split_content[x].replace(':table:', '')
+            split_content[x] = parse_table(split_content[x])
+            split_content[x] = mark_safe(split_content[x])
         else:
             split_content[x] = escape(split_content[x])
     return split_content
+
+
+def parse_table(content):
+    rows = []
+    for row in content.split("\r\n"):
+        if row:
+            rows.append(row.split('|'))
+
+    table = '<table class="table table-striped">'
+
+    # title
+    table += '<thead><tr>'
+    if len(rows) > 0:
+        for cell in rows[0]:
+            table += '<th>' + cell + '</th>'
+    table += '</tr></thead>'
+
+    # body
+    table += '<tbody>'
+    if len(rows) > 1:
+        for row in rows[1:]:
+            table += '<tr>'
+            for cell in row:
+                table += '<td>' + cell + '</td>'
+            table += '</tr>'
+    table += '</tbody>'
+    table += '</table>'
+    return table
 
 
 def update_context(request, context):
