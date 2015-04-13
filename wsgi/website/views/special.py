@@ -24,8 +24,8 @@ def home_index(request):
         Q(expiry__isnull=True)
     )
     n = home_page_campaigns.count()
-    if n > 4:
-        indices = sorted(random.sample(range(0, n), 4))
+    if n > 8:
+        indices = sorted(random.sample(range(0, n), 8))
         home_page_campaigns = [home_page_campaigns[idx] for idx in indices]
     context = {
         'banner_campaigns': banner_campaigns,
