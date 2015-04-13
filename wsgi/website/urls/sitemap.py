@@ -27,7 +27,7 @@ class CustomSitemap(GenericSitemap):
 class IndexSitemap(CustomSitemap):
 
     def items(self):
-        return ['news', 'gallery', 'education', 'newsletter']
+        return ['news', 'gallery', 'education', 'newsletter', 'calendar']
 
     def location(self, obj):
         return reverse(obj + ':' + 'index')
