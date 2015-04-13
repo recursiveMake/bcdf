@@ -49,7 +49,7 @@
             <a href="#" class="dropdown-toggle" data-toggle="dropdown">News<b class="caret"></b></a>
             <ul class="dropdown-menu">
             <li class="dropdown-header">News</li>
-              <li><a href="{% url 'news:index' %}">New Articles</a></li>
+              <li><a href="{% url 'news:index' %}">Recent Articles</a></li>
               <li><a href="{% url 'calendar:index'%}">Upcoming Events</a></li>
               <li><a href="{% url 'newsletter:index' %}">Newsletter</a></li>
               <li><a href="{% url 'news:article' 'bcdf-in-news' %}">BCDF In the News</a></li>
@@ -60,27 +60,50 @@
               {% endfor %}
             </ul>
           </li>
-
         <li class="dropdown">
-          <a href="#" class="dropdown-toggle" data-toggle="dropdown">Site Navigation<b class="caret"></b></a>
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown">Educational<b class="caret"></b></a>
+            <ul class="dropdown-menu">
+                <li class="dropdown-header">Education</li>
+                <li><a href="{% url 'education:index' %}">Recent Articles</a></li>
+                <li class="divider"></li>
+                <li class="dropdown-header">Archives</li>
+                {% for year in education_years %}
+                <li><a href="{% url 'education:year_index' year %}">{{ year }}</a></li>
+                {% endfor %}
+            </ul>
+        </li>
+        <li class="dropdown">
+            <a href="#" class="dropdown-toggle visible-sm-block" data-toggle="dropdown">Site Nav<b class="caret"></b></a>
+            <ul class="dropdown-menu">
+                <li class="dropdown-header">Multimedia</li>
+                <li><a href="{% url 'gallery:index' %}">Photos</a></li>
+                <li><a href="#">Videos</a></li>
+                <li class="divider"></li>
+                <li class="dropdown-header">Information</li>
+                <li><a href="{% url 'special:about'%}">About</a></li>
+                <li><a href="{% url 'special:contact' %}">Contact</a></li>
+                <li class="divider"></li>
+                <li><a href="{% url 'special:funding'%}">Funding</a></li>
+                <li><a href="{% url 'special:donate'%}">Donate</a></li>
+            </ul>
+        </li>
+        <li class="dropdown">
+            <a href="#" class="dropdown-toggle hidden-sm" data-toggle="dropdown">Multimedia<b class="caret"></b></a>
+            <ul class="dropdown-menu">
+                <li><a href="{% url 'gallery:index' %}">Photos</a></li>
+                <li><a href="#">Videos</a></li>
+            </ul>
+        </li>
+        <li class="dropdown">
+          <a href="#" class="dropdown-toggle hidden-sm" data-toggle="dropdown">Information<b class="caret"></b></a>
           <ul class="dropdown-menu">
-                          <li><a href="{% url 'special:about'%}">About</a></li>
-          <li><a href="{% url 'special:contact' %}">Contact</a></li>
-        <li class="divider"></li>
-        <li class="dropdown-header">Educational</li>
-        <li><a href="{% url 'education:index' %}">Recent</a></li>
-        {% for year in education_years %}
-        <li><a href="{% url 'education:year_index' year %}">{{ year }}</a></li>
-        {% endfor %}
-        <li class="divider"></li>
-        <li class="dropdown-header">Multimedia</li>
-        <li><a href="{% url 'gallery:index' %}">Photos</a></li>
-        <li class="divider"></li>
-        <li><a href="{% url 'special:funding'%}">Funding</a></li>
-        <li><a href="{% url 'special:donate'%}">Donate</a></li>
-
-      </ul>
-      </li>
+              <li><a href="{% url 'special:about'%}">About</a></li>
+              <li><a href="{% url 'special:contact' %}">Contact</a></li>
+              <li class="divider"></li>
+              <li><a href="{% url 'special:funding'%}">Funding</a></li>
+              <li><a href="{% url 'special:donate'%}">Donate</a></li>
+          </ul>
+        </li>
       </ul>
         <form class="navbar-form navbar-right"
               method="get" action="http://www.google.com/search"
