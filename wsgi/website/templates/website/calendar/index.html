@@ -2,3 +2,16 @@
 {% block title %}BCDF Upcoming Events{% endblock %}
 {% block description %}Upcoming Events by the BCDF{% endblock %}
 {% block keywords %}calendar, BCDF, diabetes, cancer{% endblock %}
+
+{% block content %}
+    <div class="row">
+        <div class="col-md-12">
+            <h1>
+                Upcoming events
+            </h1>
+            <p class="intro">View upcoming events from the BCDF on this updated calendar page.</p>
+            <p class="end-story-links"></p>
+        </div>
+    </div>
+    {{ block.super }}
+{% endblock %}
