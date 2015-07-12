@@ -6,4 +6,4 @@
 
 # start cache
 cd $OPENSHIFT_DATA_DIR/installs/memcached/bin
-./memcached -d -s $OPENSHIFT_TMP_DIR/cache_file.sock
+./memcached -d -s ${OPENSHIFT_TMP_DIR}cache_file.sock
