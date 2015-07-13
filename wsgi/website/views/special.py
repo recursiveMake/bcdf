@@ -4,8 +4,6 @@ __author__ = 'adonis'
 from website.models import SpecialArticle, BannerCampaign, HomePageCampaign
 from website.forms import ContactForm
 from website.views.util import render, article_parse
-from utils.recaptcha_keys import RecaptchaKey
-from utils import recaptcha, ip
 from django.core.mail import send_mail
 from django.contrib import messages
 from django.db.models import Q
@@ -38,32 +36,20 @@ def contact_form(request):
     if request.method == 'POST':
         form = ContactForm(request.POST)
         if form.is_valid():
-            keys = RecaptchaKey(request)
-            captcha_resp = recaptcha.submit(
-                form.cleaned_data['recaptcha_challenge_field'],
-                form.cleaned_data['recaptcha_response_field'],
-                keys.private_key,
-                ip.get_client_ip(request)
+            send_mail(
+                subject='Contact Page message',
+                message=form.cleaned_data['comments'],
+                from_email=form.cleaned_data['email'],
+                recipient_list=['bcdfoundation@gmail.com', 'adelia@bovellcancerdiabetesfoundation.org']
             )
-            if captcha_resp.is_valid:
-                send_mail(
-                    subject='Contact Page message',
-                    message=form.cleaned_data['comments'],
-                    from_email=form.cleaned_data['email'],
-                    recipient_list=['bcdfoundation@gmail.com', 'adelia@bovellcancerdiabetesfoundation.org']
-                )
-                messages.success(request, "Thank you for your email.")
-                return redirect('home:index')
-            else:
-                messages.error(request, "Invalid reCAPTCHA response.")
+            messages.success(request, "Thank you for your email.")
+            return redirect('home:index')
         else:
-            messages.error(request, "Invalid form data.")
+            messages.error(request, "Invalid form data. Did you complete the captcha?")
     else:
         form = ContactForm()
-    keys = RecaptchaKey(request)
     context = {
-        'form': form,
-        'recaptcha': recaptcha.displayhtml(public_key=keys.public_key)
+        'form': form
     }
     return render(request, 'website/special/contact.html', context)
 

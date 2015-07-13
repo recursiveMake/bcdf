@@ -2,6 +2,7 @@ __author__ = 'adonis'
 
 
 from django import forms
+from captcha.fields import ReCaptchaField
 
 
 class ContactForm(forms.Form):
@@ -38,8 +39,7 @@ class ContactForm(forms.Form):
             }
         )
     )
-    recaptcha_challenge_field = forms.CharField(widget=forms.HiddenInput())
-    recaptcha_response_field = forms.CharField(widget=forms.HiddenInput())
+    captcha = ReCaptchaField(public_key=None, private_key=None)
 
 
 class SearchForm(forms.Form):

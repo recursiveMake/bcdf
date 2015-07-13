@@ -190,7 +190,8 @@ INSTALLED_APPS = (
     # 'django.contrib.admindocs',
     'website',
     'django.contrib.sitemaps',
-    'compressor'
+    'compressor',
+    'captcha'
 )
 
 # A sample logging configuration. The only tangible logging
@@ -267,3 +268,8 @@ else:
     }
 
 TEST_RUNNER = 'django.test.runner.DiscoverRunner'
+
+NOCAPTCHA = True
+RECAPTCHA_USE_SSL = True
+RECAPTCHA_PUBLIC_KEY = '6LdvXfYSAAAAAGaa5s5R56bs1xrDxm1LtUHJZ4cV'
+RECAPTCHA_PRIVATE_KEY = '6LdvXfYSAAAAAOZsVp-FUX9reQZyzvo3qaj-hLti'

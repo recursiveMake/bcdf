@@ -23,14 +23,6 @@
                     {% endfor %}
                     <div class="row">
                         <div class="form-group">
-                            <label class="col-md-2 control-label" for="recaptcha-challenge-field">Are you human?</label>
-                            <div class="col-md-8">
-                                {% render_as_template recaptcha %}
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="form-group">
                             <label class="col-md-2 control-label" for="submit"></label>
                             <div class="col-md-offset-1 col-md-2">
                                 <button id="submit" name="submit" class="btn btn-primary" >Send Message</button>
@@ -41,8 +33,10 @@
             </form>
         </div>
         <div class="col-md-12">
-            <p class="end-story-links"><a href="{% url 'news:article' 'recaptcha' %}">
-                What is reCAPTCHA, and why do I have to fill it?
+            <p class="end-story-links">
+                <a href="{% url 'news:article' 'recaptcha' %}">
+                    What is reCAPTCHA, and why do I have to fill it?
+                </a>
             </p>
         </div>
 {% endblock %}
