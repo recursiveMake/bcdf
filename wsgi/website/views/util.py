@@ -1,6 +1,6 @@
 __author__ = 'adonis'
 
-from website.models import AlertCampaign, EducationalArticle, NewsArticle
+from website.models import AlertCampaign, EducationalArticle, NewsArticle, NewsLetter
 from django.utils.safestring import mark_safe
 from django.utils.html import escape
 from datetime import datetime, timedelta
@@ -84,6 +84,7 @@ def update_context(request, context):
     """adds fields to context for templates"""
     context['alert_campaign'] = alert_campaign(request)
     context['news_years'] = news_years()
+    context['newsletter_years'] = newsletter_years()
     context['education_years'] = education_years()
     return context
 
@@ -138,6 +139,12 @@ def news_years():
     article_dates = NewsArticle.objects.dates('pub_date','year')
     return sorted([date.year for date in article_dates], reverse=True)
     # return [x for x in range(2014, 2007, -1)]
+
+
+def newsletter_years():
+    """get list of years with newsletters"""
+    newsletter_dates = NewsLetter.objects.dates('pub_date', 'year')
+    return sorted([date.year for date in newsletter_dates], reverse=True)
 
 
 def education_years():
