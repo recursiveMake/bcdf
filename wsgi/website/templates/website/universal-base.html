@@ -129,6 +129,9 @@
     <div class="container stretch">
     {% block main_content_block %}
     <div class="col-md-12 stretch {% block main_content_lg_size %}{% endblock %}" role="main">
+        <div class="alert alert-info">
+            The <strong>Diabetes in the Limelight Jamboree</strong> is almost here. Only <span id="time"></span> remaining. Remember to WEAR BLUE!
+        </div>
         {% block message_block %}{% endblock %}
         {% block alert_block %}{% endblock %}
         {% block content_block %}{% endblock %}
@@ -144,6 +147,39 @@
   {% compress js %}
   <script src="{% static 'js/jquery.js' %}?1.11.1"></script>
   <script src="{% static 'js/bootstrap.min.js' %}?3.2.0"></script>
+  <script type="text/javascript">
+  function startTimer(display) {
+      var jamboreeDate = new Date(2015, 10, 6, 10, 0, 0, 0), diff, days, hours, minutes, seconds;
+      var currentDate;
+
+      function timer() {
+          var message = "";
+          currentDate = Date.now();
+          diff = (jamboreeDate - currentDate) / 1000;
+          days = (diff / (60 * 60 * 24)) | 0;
+          diff = (diff % (60 * 60 * 24)) | 0;
+          hours = (diff / (60 * 60)) | 0;
+          diff = (diff % (60 * 60)) | 0;
+          minutes = (diff / 60 ) | 0;
+          seconds = (diff % 60 ) | 0;
+          seconds = seconds < 10 ? "0" + seconds : seconds;
+
+          message += days > 0 ? days + " days, " : "";
+          message += hours > 0 ? hours + " hours, " : "";
+          message += minutes > 0 ? minutes + " minutes and " : "";
+          message += seconds + " seconds";
+          display.textContent = message;
+      };
+      timer();
+      setInterval(timer, 1000);
+  };
+
+  window.onload = function() {
+      var display = document.querySelector('#time');
+      startTimer(display);
+  }
+
+  </script>
   {% endcompress %}
   {% block post_scripts %}{% endblock %}
 
