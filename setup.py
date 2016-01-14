@@ -4,7 +4,7 @@ from setuptools import setup
 
 setup(
     name='BCDF',
-    version='1.0',
+    version='1.1',
     description='BCDF Web App',
     author='Adonis Bovell',
     author_email='yoshimitsu12@gmail.com',
