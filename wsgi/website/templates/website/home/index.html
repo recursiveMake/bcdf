@@ -57,6 +57,7 @@
 
 {% block content %}
 {% for campaign in home_page_campaigns %}
+{% if forloop.first %}<div class="row">{% endif %}
 <div class="col-md-3">
     <img class="front-page" src="{{ campaign.image.image.url }}" alt="{{ campaign.image.alt }}" title="{{ campaign.title}}" />
     <h1 style="text-align:center;">{{ campaign.title }}</h1>
@@ -67,5 +68,6 @@
             {{ campaign.button_text }}</a>
     </p>
 </div>
+{% if not forloop.first and forloop.counter0|divisibleby:4 or forloop.last  %}</div>{% endif %}
 {% endfor %}
 {% endblock %}
