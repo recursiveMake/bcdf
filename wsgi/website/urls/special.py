@@ -8,6 +8,9 @@ urlpatterns = patterns('',
     # /about/
     url(r'^about/$', views.special_article, {'article_id': 'about'}, name='about'),
 
+    # /special/slug
+    url(r'^special/(?P<article_id>[A-Za-z0-9\-_]+)$', views.special_article, name='special'),
+
     # /calendar/
     # url(r'^calendar/$', views.special_article, {'article_id': 'calendar'}, name='calendar'),
 
