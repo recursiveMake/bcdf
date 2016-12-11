@@ -4,7 +4,7 @@
     <channel>
         <title>Bovell Cancer Diabetes Foundation Video Gallery</title>
         <description>Video Gallery from the Bovell Cancer Diabetes Foundation</description>
-        <link>http://{{ request.get_host }}{% url 'video:article' article.slug %}</link>
+        <link>http://{{ request.get_host }}{% url 'video:index' %}</link>
         <ttl>60</ttl>
         <atom:link href="{{ request.build_absolute_uri }}" rel="self" type="application/rss+xml" />
         <image>
