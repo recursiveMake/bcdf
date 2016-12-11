@@ -130,6 +130,7 @@ class GalleryArticle(Document):
 
 class VideoArticle(Document):
     type = models.CharField(max_length=2, choices=Document.DocumentTypes, default=Document.VIDEO)
+    video_url = models.CharField(max_length=256, default="https://www.youtube.com/embed/WmERztRWLEk")
 
 
 class SpecialArticle(Document):

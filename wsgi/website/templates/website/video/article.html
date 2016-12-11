@@ -3,3 +3,10 @@
 {% block description %}Video article from the BCDF{% endblock %}
 {% block keywords %}videos{% endblock %}
 
+{% block article_content_foot %}
+    <div class="row">
+    <div class="col-md-offset-2 col-md-8">
+    <iframe width="560" height="315" src="{{ article.video_url }}" frameborder="0" allowfullscreen></iframe>
+    </div>
+    </div>
+{% endblock %}
