@@ -64,7 +64,7 @@ def videos_xml(request, count=None):
     context = {
         'article_list': article_list
     }
-    return render(request, 'website/rss/video.xml')
+    return render(request, 'website/rss/video.xml', context)
 
 
 def education_xml(request, count=None):

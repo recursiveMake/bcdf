@@ -22,7 +22,7 @@
                 <description>{{ article.articlecontent.blurb }}</description>
                 <link>http://{{ request.get_host }}{% url 'video:article' article.slug %}</link>
                 <guid isPermaLink="false">{{ article.slug }}</guid>
-                <pubDate>{{ article.pub_date|date: "D, j M Y" }} 00:00:00 EST</pubDate>
+                <pubDate>{{ article.pub_date|date:"D, j M Y" }} 00:00:00 EST</pubDate>
             </item>
         {% endfor %}
 
