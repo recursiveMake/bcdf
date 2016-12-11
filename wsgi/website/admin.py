@@ -3,7 +3,8 @@ __author__ = 'adonis'
 from django import forms
 from django.contrib import admin
 from django.core.urlresolvers import reverse, NoReverseMatch
-from website.models import ArticleContent, ArticleFile, Thumb, Image, GalleryImage, SpecialImage
+from website.models import ArticleContent, ArticleFile, Thumb, Image, GalleryImage, SpecialImage, \
+    VideoArticle
 from website.models import EducationalArticle, NewsArticle, GalleryArticle, NewsLetter, SpecialArticle
 from website.models import BannerCampaign, AlertCampaign, HomePageCampaign, CalendarCampaign
 
@@ -22,13 +23,13 @@ class SpecialImageInline(admin.StackedInline):
 
 class SpecialThumbInline(admin.StackedInline):
     model = Thumb
-    exclude = ('newsletter', 'news_article', 'educational_article', 'gallery_article')
+    exclude = ('newsletter', 'news_article', 'educational_article', 'gallery_article', 'video_article')
     extra = 1
 
 
 class SpecialContentInline(admin.StackedInline):
     model = ArticleContent
-    exclude = ('news_article', 'educational_article', 'gallery_article')
+    exclude = ('news_article', 'educational_article', 'gallery_article', 'video_article')
     extra = 1
 
 
@@ -50,13 +51,13 @@ class GalleryImageInline(admin.StackedInline):
 
 class GalleryThumbInline(admin.StackedInline):
     model = Thumb
-    exclude = ('newsletter', 'news_article', 'educational_article', 'special_article')
+    exclude = ('newsletter', 'news_article', 'educational_article', 'special_article', 'video_article')
     extra = 1
 
 
 class GalleryContentInline(admin.StackedInline):
     model = ArticleContent
-    exclude = ('news_article', 'educational_article', 'special_article')
+    exclude = ('news_article', 'educational_article', 'special_article', 'video_article')
     extra = 1
 
 
@@ -114,7 +115,7 @@ class CalendarCampaignAdmin(admin.ModelAdmin):
 
 class NewsThumbInline(admin.StackedInline):
     model = Thumb
-    exclude = ('newsletter', 'gallery_article', 'educational_article', 'special_article')
+    exclude = ('newsletter', 'gallery_article', 'educational_article', 'special_article', 'video_article')
     extra = 1
 
 
@@ -126,7 +127,7 @@ class NewsImageInline(admin.StackedInline):
 
 class NewsArticleContentInline(admin.StackedInline):
     model = ArticleContent
-    exclude = ('gallery_article', 'educational_article', 'special_article')
+    exclude = ('gallery_article', 'educational_article', 'special_article', 'video_article')
     extra = 1
 
 
@@ -141,9 +142,26 @@ class NewsArticleAdmin(admin.ModelAdmin):
     exclude = ('type', )
 
 
+class VideoThumbInline(admin.StackedInline):
+    model = Thumb
+    exclude = ('newsletter', 'gallery_article', 'educational_article', 'special_article', 'news_article')
+    extra = 1
+
+
+class VideoArticleContentInline(admin.StackedInline):
+    model = ArticleContent
+    exclude = ('gallery_article', 'educational_article', 'special_article', 'news_article')
+    extra = 1
+
+
+class VideoArticleAdmin(admin.ModelAdmin):
+    inlines = [VideoArticleContentInline, VideoThumbInline]
+    exclude = ('type', )
+
+
 class EducationalThumbInline(admin.StackedInline):
     model = Thumb
-    exclude = ('newsletter', 'news_article', 'gallery_article', 'special_article')
+    exclude = ('newsletter', 'news_article', 'gallery_article', 'special_article', 'video_article')
     extra = 1
 
 
@@ -161,7 +179,7 @@ class EducationalMultiImageInline(admin.StackedInline):
 
 class EducationalArticleContentInline(admin.StackedInline):
     model = ArticleContent
-    exclude = ('news_article', 'gallery_article', 'special_article')
+    exclude = ('news_article', 'gallery_article', 'special_article', 'video_article')
     extra = 1
 
 
@@ -179,7 +197,7 @@ class EducationalArticleAdmin(admin.ModelAdmin):
 
 class NewsLetterThumbInline(admin.StackedInline):
     model = Thumb
-    exclude = ('news_article', 'gallery_article', 'educational_article', 'special_article')
+    exclude = ('news_article', 'gallery_article', 'educational_article', 'special_article', 'video_article')
 
 
 class NewsLetterAdmin(admin.ModelAdmin):
@@ -205,4 +223,4 @@ admin.site.register(CalendarCampaign, CalendarCampaignAdmin)
 
 admin.site.register(HomePageCampaign, HomePageCampaignAdmin)
 
-
+admin.site.register(VideoArticle, VideoArticleAdmin)
