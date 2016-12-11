@@ -7,7 +7,8 @@ from django.contrib.sitemaps.views import sitemap as django_sitemap
 from django.core.urlresolvers import reverse
 from django.conf.urls import patterns, url
 from django.db.models import Q
-from website.models import NewsArticle, EducationalArticle, GalleryArticle, SpecialArticle, NewsLetter
+from website.models import NewsArticle, EducationalArticle, GalleryArticle, SpecialArticle, NewsLetter, \
+    VideoArticle
 
 
 class CustomSitemap(GenericSitemap):
@@ -36,7 +37,10 @@ class IndexSitemap(CustomSitemap):
 class SpecialSitemap(CustomSitemap):
 
     def location(self, obj):
-        return reverse(self.namespace + obj.slug)
+        if obj.slug in ('about', 'donate', 'funding'):
+            return reverse(self.namespace + obj.slug)
+        else:
+            return reverse(self.namespace + 'special', args=(obj.slug, ))
 
 
 def sitemap_view(request):
@@ -89,6 +93,16 @@ def sitemap_view(request):
         priority=0.75,
         changefreq="monthly"
     )
+    video_sitemap = CustomSitemap(
+        site=Site(domain=request.get_host()),
+        namespace='video:article',
+        info_dict={
+            'queryset': VideoArticle.objects.published(request.production),
+            'date_field': 'pub_date'
+        },
+        priority=0.75,
+        changefreq="monthly"
+    )
     special_sitemap = SpecialSitemap(
         site=Site(domain=request.get_host()),
         namespace='special:',
@@ -105,6 +119,7 @@ def sitemap_view(request):
         'education': education_sitemap,
         'newsletter': newsletter_sitemap,
         'gallery': gallery_sitemap,
+        'video': video_sitemap,
         'flatpages': special_sitemap
     }
     return django_sitemap(request, sitemaps)
