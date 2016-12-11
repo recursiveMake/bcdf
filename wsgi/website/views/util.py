@@ -32,7 +32,7 @@ def article_parse(request, response):
 
 def parse_text(content):
     # separate paragraphs
-    split_content = content.replace('\r', '').split("\n\n")
+    split_content = content.split("\r\n\r\n")
 
     # remove empty paragraphs
     split_content = [x for x in split_content if x]
