@@ -17,6 +17,7 @@ class Document(models.Model):
     EDUCATION = 'ED'
     SPECIAL = 'SP'
     GALLERY = 'GL'
+    VIDEO = 'VD'
     IMAGE = 'IM'
     UNKNOWN = 'UN'
     DocumentTypes = (
@@ -26,6 +27,7 @@ class Document(models.Model):
         (SPECIAL, 'Special Article'),
         (NEWSLETTER, 'Newsletter'),
         (IMAGE, 'Image'),
+        (VIDEO, 'Video'),
         (UNKNOWN, 'Unknown Type')
     )
     slug = models.SlugField(max_length=64, unique=True)
@@ -126,6 +128,10 @@ class GalleryArticle(Document):
     type = models.CharField(max_length=2, choices=Document.DocumentTypes, default=Document.GALLERY)
 
 
+class VideoArticle(Document):
+    type = models.CharField(max_length=2, choices=Document.DocumentTypes, default=Document.VIDEO)
+
+
 class SpecialArticle(Document):
     STANDARD = 'ST'
     MULTI_IMAGE = 'MI'
@@ -176,6 +182,7 @@ class Thumb(ImageBase):
     news_article = models.OneToOneField(NewsArticle, blank=True, null=True)
     educational_article = models.OneToOneField(EducationalArticle, blank=True, null=True)
     gallery_article = models.OneToOneField(GalleryArticle, blank=True, null=True)
+    video_article = models.OneToOneField(VideoArticle, blank=True, null=True)
     special_article = models.OneToOneField(SpecialArticle, blank=True, null=True)
 
 
@@ -188,6 +195,7 @@ class ArticleContent(models.Model):
     news_article = models.OneToOneField(NewsArticle, blank=True, null=True)
     educational_article = models.OneToOneField(EducationalArticle, blank=True, null=True)
     gallery_article = models.OneToOneField(GalleryArticle, blank=True, null=True)
+    video_article = models.OneToOneField(VideoArticle, blank=True, null=True)
     special_article = models.OneToOneField(SpecialArticle, blank=True, null=True)
 
     def __unicode__(self):
