@@ -8,6 +8,7 @@ if os.environ.has_key('OPENSHIFT_REPO_DIR'):
     ON_OPENSHIFT = True
 
 PROJECT_DIR = os.path.dirname(os.path.realpath(__file__))
+BASE_DIR = os.path.join(PROJECT_DIR, os.pardir, os.pardir)
 
 if ON_OPENSHIFT:
     DEBUG = False
@@ -42,7 +43,7 @@ else:
     DATABASES = {
         'default': {
             'ENGINE': 'django.db.backends.sqlite3',  # Add 'postgresql_psycopg2', 'postgresql', 'mysql', 'sqlite3' or 'oracle'.
-            'NAME': os.path.join('/openshift', 'bcdf.db'),  # Or path to database file if using sqlite3.
+            'NAME': os.path.join(BASE_DIR, 'openshift', 'bcdf.db'),  # Or path to database file if using sqlite3.
             'USER': '',                      # Not used with sqlite3.
             'PASSWORD': '',                  # Not used with sqlite3.
             'HOST': '',                      # Set to empty string for localhost. Not used with sqlite3.
@@ -93,7 +94,7 @@ USE_L10N = True
 if ON_OPENSHIFT:
     MEDIA_ROOT = os.path.join(os.environ.get('OPENSHIFT_DATA_DIR', ''), 'media')
 else:
-    MEDIA_ROOT = os.path.join('/openshift', 'media')
+    MEDIA_ROOT = os.path.join(BASE_DIR, 'openshift', 'media')
 
 
 # URL that handles the media served from MEDIA_ROOT. Make sure to use a
@@ -108,7 +109,7 @@ MEDIA_URL = '/media/'
 if ON_OPENSHIFT:
     STATIC_ROOT = os.path.join(PROJECT_DIR, '..', 'static')
 else:
-    STATIC_ROOT = os.path.join('/openshift', 'static')
+    STATIC_ROOT = os.path.join(BASE_DIR, 'openshift', 'static')
 
 # URL prefix for static files.
 # Example: "http://media.lawrence.com/static/"
@@ -128,7 +129,7 @@ STATICFILES_DIRS = (
 
 if not ON_OPENSHIFT:
     STATICFILES_DIRS = (
-        os.path.join(PROJECT_DIR, '..', 'static'),
+        os.path.join(PROJECT_DIR, os.pardir, 'static'),
     )
 
 # List of finder classes that know how to find static files in
