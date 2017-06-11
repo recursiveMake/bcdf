@@ -15,6 +15,9 @@ if ON_OPENSHIFT:
 else:
     sys.path.append(os.path.join(os.path.dirname(os.path.realpath(__file__)), 'wsgi'))
 
+if ON_OPENSHIFT:
+    os.environ['HTTPS'] = "on"
+
 virtenv = os.environ['APPDIR'] + '/virtenv/'
 os.environ['PYTHON_EGG_CACHE'] = os.path.join(virtenv, 'lib/python2.6/site-packages')
 virtualenv = os.path.join(virtenv, 'bin/activate_this.py')

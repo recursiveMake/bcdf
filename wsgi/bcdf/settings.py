@@ -280,3 +280,7 @@ if ON_OPENSHIFT:
     CHALLENGE_DATA_FILE = os.path.join(os.environ['OPENSHIFT_DATA_DIR'], 'challenge.json')
 else:
     CHALLENGE_DATA_FILE = os.path.join(BASE_DIR, 'openshift', 'challenge.json')
+
+if not DEBUG:
+    SESSION_COOKIE_SECURE = True
+    CSRF_COOKIE_SECURE = True
