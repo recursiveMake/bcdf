@@ -10,8 +10,8 @@
     <meta http-equiv="content-type" content="text/html; charset=utf-8">
     <meta http-equiv="Expires" content="Tue, 01 Jan 1980 1:00:00 GMT">
     <meta http-equiv="Pragma" content="no-cache">
-    <link rel="shortcut icon" href="http://{{ request.get_host }}{% static "images/favicon.ico" %}" type="image/x-icon">
-    <link rel="alternate" type="application/rss+xml" title="RSS 2.0" href="http://{{request.get_host}}{% url 'rss:index' %}">
+    <link rel="shortcut icon" href="http{% if request.is_secure %}s{% endif %}://{{ request.get_host }}{% static "images/favicon.ico" %}" type="image/x-icon">
+    <link rel="alternate" type="application/rss+xml" title="RSS 2.0" href="https://{{request.get_host}}{% url 'rss:index' %}">
 
     <!-- CSS -->
     {% compress css %}

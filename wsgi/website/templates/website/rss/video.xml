@@ -4,23 +4,23 @@
     <channel>
         <title>Bovell Cancer Diabetes Foundation Video Gallery</title>
         <description>Video Gallery from the Bovell Cancer Diabetes Foundation</description>
-        <link>http://{{ request.get_host }}{% url 'video:index' %}</link>
+        <link>http{% if request.is_secure %}s{% endif %}://{{ request.get_host }}{% url 'video:index' %}</link>
         <ttl>60</ttl>
         <atom:link href="{{ request.build_absolute_uri }}" rel="self" type="application/rss+xml" />
         <image>
             <title>Bovell Cancer Diabetes Foundation Videos</title>
             <description>Video feed from the Bovell Cancer Diabetes Foundation</description>
-            <url>http://{{ request.get_host }}{% static "images/logo-shield.jpg" %}</url>
+            <url>http{% if request.is_secure %}s{% endif %}://{{ request.get_host }}{% static "images/logo-shield.jpg" %}</url>
             <width>85</width>
             <height>110</height>
-            <link>http://{{ request.get_host }}{% url 'video:index' %}</link>
+            <link>http{% if request.is_secure %}s{% endif %}://{{ request.get_host }}{% url 'video:index' %}</link>
         </image>
 
         {% for article in article_list %}
             <item>
                 <title>{{ article.title }}</title>
                 <description>{{ article.articlecontent.blurb }}</description>
-                <link>http://{{ request.get_host }}{% url 'video:article' article.slug %}</link>
+                <link>http{% if request.is_secure %}s{% endif %}://{{ request.get_host }}{% url 'video:article' article.slug %}</link>
                 <guid isPermaLink="false">{{ article.slug }}</guid>
                 <pubDate>{{ article.pub_date|date:"D, j M Y" }} 00:00:00 EST</pubDate>
             </item>
