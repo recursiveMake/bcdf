@@ -274,3 +274,9 @@ NOCAPTCHA = True
 RECAPTCHA_USE_SSL = True
 RECAPTCHA_PUBLIC_KEY = '6LdvXfYSAAAAAGaa5s5R56bs1xrDxm1LtUHJZ4cV'
 RECAPTCHA_PRIVATE_KEY = '6LdvXfYSAAAAAOZsVp-FUX9reQZyzvo3qaj-hLti'
+
+# Let's Encrypt Challenge Responses
+if ON_OPENSHIFT:
+    CHALLENGE_DATA_FILE = os.path.join(os.environ['OPENSHIFT_DATA_DIR'], 'challenge.json')
+else:
+    CHALLENGE_DATA_FILE = os.path.join(BASE_DIR, 'openshift', 'challenge.json')

@@ -39,3 +39,8 @@ if [ ! -d $OPENSHIFT_DATA_DIR/installs/memcached/bin ]; then
     make
     make install
 fi
+
+# Create Let's Encrypt Challenge responses
+if [ ! -f $OPENSHIFT_DATA_DIR/challenge.json ]; then
+    echo {} > $OPENSHIFT_DATA_DIR/challenge.json
+fi

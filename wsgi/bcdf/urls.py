@@ -30,6 +30,9 @@ urlpatterns = patterns('',
     url(r'^calendar/', include('website.urls.calendar', namespace='calendar')),
     url(r'^sitemap\.xml', include('website.urls.sitemap', namespace='sitemap')),
     url(r'^', include('website.urls.special', namespace="special")),
+
+    # Let's Encrypt
+    url(r'^.well-known/acme-challenge/', include('website.urls.encryption', namespace="encryption")),
 )
 
 

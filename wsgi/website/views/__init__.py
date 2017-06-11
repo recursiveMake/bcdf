@@ -10,3 +10,4 @@ from website.views.rss import *
 from website.views.newsletter import *
 from website.views.calendar import *
 from website.views.video import *
+from website.views.encryption import *

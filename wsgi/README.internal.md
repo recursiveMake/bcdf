@@ -7,4 +7,5 @@ If running locally, for testing, several folders need to be available.
     - `cp backup/${HASH}/app-root/data/bcdf.db web/openshift`
     - `cp backup/${HASH}/app-root/data/media web/openshift/media`
     - `mkdir web/openshift/static`
+    - `echo {} > web/openshift/challenge.json`
 * Run django app
