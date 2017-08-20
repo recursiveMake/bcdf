@@ -40,7 +40,11 @@ def contact_form(request):
                 subject='Contact Page message',
                 message=form.cleaned_data['comments'],
                 from_email=form.cleaned_data['email'],
-                recipient_list=['bcdfoundation@gmail.com', 'adelia@bovellcancerdiabetesfoundation.org']
+                recipient_list=[
+                    'bcdfoundation@gmail.com',
+                    'adelia@bovellcancerdiabetesfoundation.org',
+                    'bovellcancerdiabetesfoundation@gmail.com'
+                ]
             )
             messages.success(request, "Thank you for your email.")
             return redirect('home:index')
