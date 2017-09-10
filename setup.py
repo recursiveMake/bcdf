@@ -12,8 +12,8 @@ setup(
     install_requires=[
         'Django==1.8.18',
         'Pillow==2.7.0',
-        'django_compressor==1.4',
         'python-memcached==1.53',
-        'django-recaptcha==1.0.4'
+        'django-recaptcha==1.0.4',
+        'psycopg2==2.7.3.1'
     ],
 )

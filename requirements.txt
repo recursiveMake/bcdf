@@ -1,0 +1,33 @@
+# web
+Django==1.8.18
+Pillow==2.7.0
+django-appconf==1.0.2
+python-memcached==1.53
+django-recaptcha==1.0.4
+psycopg2==2.7.3.1
+
+# aws
+awsebcli==3.10.6
+blessed==1.14.2
+boto3==1.4.7
+botocore==1.7.3
+cement==2.8.2
+colorama==0.3.7
+django-storages==1.6.5
+docker-py==1.7.2
+dockerpty==0.4.1
+docopt==0.6.2
+docutils==0.14
+futures==3.1.1
+jmespath==0.9.3
+pathspec==0.5.0
+python-dateutil==2.6.1
+PyYAML==3.12
+requests==2.9.1
+s3transfer==0.1.11
+semantic-version==2.5.0
+six==1.10.0
+tabulate==0.7.5
+termcolor==1.1.0
+wcwidth==0.1.7
+websocket-client==0.44.0
