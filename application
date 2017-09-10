@@ -1,30 +1,9 @@
 #!/usr/bin/env python
 
 import os
-import sys
 
-
-ON_OPENSHIFT = False
-if os.environ.has_key('OPENSHIFT_REPO_DIR'):
-    ON_OPENSHIFT = True
 
 os.environ['DJANGO_SETTINGS_MODULE'] = 'bcdf.settings'
-
-if ON_OPENSHIFT:
-    sys.path.append(os.path.join(os.environ['OPENSHIFT_REPO_DIR'], 'wsgi'))
-else:
-    sys.path.append(os.path.join(os.path.dirname(os.path.realpath(__file__)), 'wsgi'))
-
-if ON_OPENSHIFT:
-    os.environ['HTTPS'] = "on"
-
-virtenv = os.environ['APPDIR'] + '/virtenv/'
-os.environ['PYTHON_EGG_CACHE'] = os.path.join(virtenv, 'lib/python2.6/site-packages')
-virtualenv = os.path.join(virtenv, 'bin/activate_this.py')
-try:
-    execfile(virtualenv, dict(__file__=virtualenv))
-except:
-    pass
 
 from django.core.wsgi import get_wsgi_application
 application = get_wsgi_application()
