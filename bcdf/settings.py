@@ -3,14 +3,14 @@
 import os
 
 # a setting to determine whether we are running on OpenShift
-ON_OPENSHIFT = False
-if os.environ.has_key('OPENSHIFT_REPO_DIR'):
-    ON_OPENSHIFT = True
+ON_AWS = False
+if os.environ.has_key('AWS'):
+    ON_AWS = True
 
 PROJECT_DIR = os.path.dirname(os.path.realpath(__file__))
 BASE_DIR = os.path.join(PROJECT_DIR, os.pardir, os.pardir)
 
-if ON_OPENSHIFT:
+if ON_AWS:
     DEBUG = False
 else:
     DEBUG = True
@@ -25,18 +25,16 @@ ADMINS = (
 )
 MANAGERS = ADMINS
 
-if ON_OPENSHIFT:
-    # os.environ['OPENSHIFT_MYSQL_DB_*'] variables can be used with databases created
-    # with rhc cartridge add (see /README in this git repo)
+if ON_AWS:
     DATABASES = {
         'default': {
-            'ENGINE': 'django.db.backends.sqlite3', # # Add 'postgresql_psycopg2', 'mysql', 'sqlite3' or 'oracle'.
-            'NAME': os.path.join(os.environ['OPENSHIFT_DATA_DIR'], 'bcdf.db'), # Or path to database file if using sqlite3.
+            'ENGINE': 'django.db.backends.postgresql_psycopg2',
+            'NAME': os.environ.get('RDS_DB_NAME'), 
             # The following settings are not used with sqlite3:
-            'HOST': '',
-            'PORT': '',
-            'USER': '',
-            'PASSWORD': ''
+            'HOST': os.environ.get('RDS_HOSTNAME'),
+            'PORT': os.environ.get('RDS_PORT'),
+            'USER': os.environ.get('RDS_USERNAME'),
+            'PASSWORD': os.environ.get('RDS_PASSWORD')
         }
     }
 else:
@@ -54,16 +52,7 @@ else:
 
 # Hosts/domain names that are valid for this site; required if DEBUG is False
 # See https://docs.djangoproject.com/en/1.5/ref/settings/#allowed-hosts
-if ON_OPENSHIFT:
-    ALLOWED_HOSTS = [
-        'web-bcdf.rhcloud.com',
-        'bovellfoundation.org',
-        'www.bovellfoundation.org',
-        'bovellcancerdiabetesfoundation.org',
-        'www.bovellcancerdiabetesfoundation.org'
-    ]
-else:
-    ALLOWED_HOSTS = ['*']
+ALLOWED_HOSTS = ['*']
 
 
 # Local time zone for this installation. Choices can be found here:
@@ -91,46 +80,49 @@ USE_L10N = True
 
 # Absolute filesystem path to the directory that will hold user-uploaded files.
 # Example: "/home/media/media.lawrence.com/media/"
-if ON_OPENSHIFT:
-    MEDIA_ROOT = os.path.join(os.environ.get('OPENSHIFT_DATA_DIR', ''), 'media')
+if ON_AWS:
+    MEDIA_ROOT = ''
 else:
     MEDIA_ROOT = os.path.join(BASE_DIR, 'openshift', 'media')
 
+AWS_STATIC_STORAGE_BUCKET_NAME = 'bcdf-bucket'
+AWS_MEDIA_STORAGE_BUCKET_NAME = 'bcdf-media-bucket'
+AWS_QUERYSTRING_AUTH = False
+S3_URL_TEMPLATE = 'https://%s.s3.amazonaws.com/'
+
+AWS_ACCESS_KEY_ID = os.environ.get('AWS_ACCESS_KEY_ID', '')
+AWS_SECRET_ACCESS_KEY = os.environ.get('AWS_SECRET_ACCESS_KEY', '')
+AWS_S3_REGION_NAME = os.environ.get('AWS_S3_REGION_NAME', 'us-east-1')
 
 # URL that handles the media served from MEDIA_ROOT. Make sure to use a
 # trailing slash.
 # Examples: "http://media.lawrence.com/media/", "http://example.com/media/"
-MEDIA_URL = '/media/'
+if ON_AWS:
+    DEFAULT_FILE_STORAGE = 'bcdf.custom_storages.MediaStorage'
+    MEDIA_URL = S3_URL_TEMPLATE % AWS_MEDIA_STORAGE_BUCKET_NAME
+else:
+    MEDIA_URL = '/media/'
 
 # Absolute path to the directory static files should be collected to.
 # Don't put anything in this directory yourself; store your static files
 # in apps' "static/" subdirectories and in STATICFILES_DIRS.
 # Example: "/home/media/media.lawrence.com/static/"
-if ON_OPENSHIFT:
-    STATIC_ROOT = os.path.join(PROJECT_DIR, '..', 'static')
+if ON_AWS:
+    STATICFILES_STORAGE = 'bcdf.custom_storages.StaticStorage'
+    STATIC_URL = S3_URL_TEMPLATE % AWS_STATIC_STORAGE_BUCKET_NAME
 else:
     STATIC_ROOT = os.path.join(BASE_DIR, 'openshift', 'static')
-
-# URL prefix for static files.
-# Example: "http://media.lawrence.com/static/"
-STATIC_URL = '/static/'
+    # URL prefix for static files.
+    # Example: "http://media.lawrence.com/static/"
+    STATIC_URL = '/static/'
+    STATICFILES_DIRS = (
+        os.path.join(PROJECT_DIR, os.pardir, 'static'),
+    )
 
 # URL prefix for admin static files -- CSS, JavaScript and images.
 # Make sure to use a trailing slash.
 # Examples: "http://foo.com/static/admin/", "/static/admin/".
 ADMIN_MEDIA_PREFIX = '/static/admin/'
-
-# Additional locations of static files
-STATICFILES_DIRS = (
-    # Put strings here, like "/home/html/static" or "C:/www/django/static".
-    # Always use forward slashes, even on Windows.
-    # Don't forget to use absolute paths, not relative paths.
-)
-
-if not ON_OPENSHIFT:
-    STATICFILES_DIRS = (
-        os.path.join(PROJECT_DIR, os.pardir, 'static'),
-    )
 
 # List of finder classes that know how to find static files in
 # various locations.
@@ -138,20 +130,10 @@ STATICFILES_FINDERS = (
     'django.contrib.staticfiles.finders.FileSystemFinder',
     'django.contrib.staticfiles.finders.AppDirectoriesFinder',
     #'django.contrib.staticfiles.finders.DefaultStorageFinder',
-    'compressor.finders.CompressorFinder'
 )
 
-# Make a dictionary of default keys
-default_keys = { 'SECRET_KEY': 'vm4rl5*ymb@2&d_(gc$gb-^twq9w(u69hi--%$5xrh!xk(t%hw' }
-
-# Replace default keys with dynamic values if we are in OpenShift
-use_keys = default_keys
-if ON_OPENSHIFT:
-    import openshiftlibs
-    use_keys = openshiftlibs.openshift_secure(default_keys)
-
 # Make this unique, and don't share it with anybody.
-SECRET_KEY = use_keys['SECRET_KEY']
+SECRET_KEY = os.environ.get('DJANGO_SECRET_KEY', 'vm4rl5*ymb@2&d_(gc$gb-^twq9w(u69hi--%$5xrh!xk(t%hw')
 
 # List of callables that know how to import templates from various sources.
 TEMPLATE_LOADERS = (
@@ -186,13 +168,13 @@ INSTALLED_APPS = (
     'django.contrib.messages',
     'django.contrib.staticfiles',
     # Uncomment the next line to enable the admin:
-    'django.contrib.admin',
+    # 'django.contrib.admin',
     # Uncomment the next line to enable admin documentation:
     # 'django.contrib.admindocs',
     'website',
     'django.contrib.sitemaps',
-    'compressor',
-    'captcha'
+    'captcha',
+    'storages'
 )
 
 # A sample logging configuration. The only tangible logging
@@ -200,7 +182,7 @@ INSTALLED_APPS = (
 # the site admins on every HTTP 500 error.
 # See http://docs.djangoproject.com/en/dev/topics/logging for
 # more details on how to customize your logging configuration.
-if ON_OPENSHIFT:
+if ON_AWS:
     LOGGING = {
         'version': 1,
         'disable_existing_loggers': False,
@@ -229,36 +211,28 @@ TEMPLATE_CONTEXT_PROCESSORS = (
     "django.core.context_processors.request",
 )
 
-if not ON_OPENSHIFT:
+if not ON_AWS:
     TEMPLATE_CONTEXT_PROCESSORS += ("django.core.context_processors.debug", )
 
-if ON_OPENSHIFT:
-    DEFAULT_FROM_EMAIL = os.environ['EMAIL_USER']
-    SERVER_EMAIL = os.environ['EMAIL_USER']
+if ON_AWS:
+    DEFAULT_FROM_EMAIL = os.environ.get('EMAIL_USER', 'root@localhost')
+    SERVER_EMAIL = os.environ.get('EMAIL_USER', 'root@localhost')
     EMAIL_USE_TLS = False
     EMAIL_HOST = 'smtpout.secureserver.net'
     EMAIL_PORT = 80
-    EMAIL_HOST_USER = os.environ['EMAIL_USER']
-    EMAIL_HOST_PASSWORD = os.environ['EMAIL_PASS']
+    EMAIL_HOST_USER = os.environ.get('EMAIL_USER', 'root')
+    EMAIL_HOST_PASSWORD = os.environ.get('EMAIL_PASS', '')
 
-if ON_OPENSHIFT:
-    COMPRESS_ENABLED = True
-else:
-    COMPRESS_ENABLED = False
-
-COMPRESS_CSS_FILTERS = (
-    'compressor.filters.css_default.CssAbsoluteFilter',
-    'compressor.filters.cssmin.CSSMinFilter',
-)
-
-if ON_OPENSHIFT:
+if ON_AWS:
+    # TODO: Configure memcached
     CACHES = {
         'default': {
-            'BACKEND': 'django.core.cache.backends.memcached.MemcachedCache',
-            'LOCATION': 'unix:' + os.path.join(
-                os.environ['OPENSHIFT_TMP_DIR'],
-                'cache_file.sock'
-            ),
+            'BACKEND': 'django.core.cache.backends.dummy.DummyCache'
+            # 'BACKEND': 'django.core.cache.backends.memcached.MemcachedCache',
+            # 'LOCATION': 'unix:' + os.path.join(
+            #     os.environ.get('OPENSHIFT_TMP_DIR'),
+            #     'cache_file.sock'
+            # ),
         }
     }
 else:
@@ -275,11 +249,6 @@ RECAPTCHA_USE_SSL = True
 RECAPTCHA_PUBLIC_KEY = '6LdvXfYSAAAAAGaa5s5R56bs1xrDxm1LtUHJZ4cV'
 RECAPTCHA_PRIVATE_KEY = '6LdvXfYSAAAAAOZsVp-FUX9reQZyzvo3qaj-hLti'
 
-# Let's Encrypt Challenge Responses
-if ON_OPENSHIFT:
-    CHALLENGE_DATA_FILE = os.path.join(os.environ['OPENSHIFT_DATA_DIR'], 'challenge.json')
-else:
-    CHALLENGE_DATA_FILE = os.path.join(BASE_DIR, 'openshift', 'challenge.json')
 
 if not DEBUG:
     SESSION_COOKIE_SECURE = True
