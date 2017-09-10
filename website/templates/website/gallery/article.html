@@ -1,15 +1,12 @@
 {% extends "website/base.html" %}
 {% load filters %}
 {% load staticfiles %}
-{% load compress %}
 
 {% block title %}BCDF Picture Gallery{% endblock %}
 {% block description %}Pictures from the BCDF{% endblock %}
 {% block keywords %}gallery, images, BCDF{% endblock %}
 {% block header %}
-{% compress css %}
 <link href="{% static "css/gallery.css" %}" rel="stylesheet">
-{% endcompress %}
 {% endblock %}
 {% block content %}
 {% if article %}

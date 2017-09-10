@@ -1,6 +1,5 @@
 {% extends "website/base.html" %}
 {% load staticfiles %}
-{% load compress %}
 {% block title %}{% endblock %}
 {% block description %}{% endblock %}
 {% block keywords %}{% endblock %}
@@ -8,9 +7,7 @@
 {% block comp_content_lg_size %}col-lg-3{% endblock %}
 
 {% block header %}
-{% compress js %}
 <script src="{% static 'js/twitter.js' %}"></script>
-{% endcompress %}
 {% endblock %}
 
 {% block scroll_spy %}data-spy="scroll" data-target="#scrollspy" data-offset="90"{% endblock %}

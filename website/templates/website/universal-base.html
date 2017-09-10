@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 {% load staticfiles %}
-{% load compress %}
 <html>
 <head lang="en">
     <title>{% block title %}{% endblock %}</title>
@@ -10,20 +9,16 @@
     <meta http-equiv="content-type" content="text/html; charset=utf-8">
     <meta http-equiv="Expires" content="Tue, 01 Jan 1980 1:00:00 GMT">
     <meta http-equiv="Pragma" content="no-cache">
-    <link rel="shortcut icon" href="http{% if request.is_secure %}s{% endif %}://{{ request.get_host }}{% static "images/favicon.ico" %}" type="image/x-icon">
+    <link rel="shortcut icon" href="{% static "images/favicon.ico" %}" type="image/x-icon">
     <link rel="alternate" type="application/rss+xml" title="RSS 2.0" href="https://{{request.get_host}}{% url 'rss:index' %}">
 
     <!-- CSS -->
-    {% compress css %}
     <link href="{% static 'css/bootstrap.css' %}?3.2.0" rel="stylesheet">
     <link href="{% static 'css/custom.css' %}" rel="stylesheet">
-    {% endcompress %}
 
     <!-- JavaScript -->
-    {% compress js %}
     <script src="{% static 'js/cookie.js' %}"></script>
     <script src="{% static 'js/facebook.js' %}"></script>
-    {% endcompress %}
     {% block header %}{% endblock %}
 
 </head>
@@ -141,10 +136,8 @@
     {% endblock %}
     </div>
   <!-- Bootstrap JavaScript -->
-  {% compress js %}
   <script src="{% static 'js/jquery.js' %}?1.11.1"></script>
   <script src="{% static 'js/bootstrap.min.js' %}?3.2.0"></script>
-  {% endcompress %}
   {% block post_scripts %}{% endblock %}
 
 </body>
