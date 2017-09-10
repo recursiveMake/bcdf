@@ -1,12 +1,12 @@
 from django.conf.urls import patterns, include, url
 from django.conf import settings
 from django.conf.urls.static import static
-import os
 import website
 
 # Uncomment the next two lines to enable the admin:
-from django.contrib import admin
-admin.autodiscover()
+if not settings.ON_AWS:
+    from django.contrib import admin
+    admin.autodiscover()
 
 
 urlpatterns = patterns('',
@@ -15,10 +15,10 @@ urlpatterns = patterns('',
     # url(r'^bcdf/', include('bcdf.foo.urls')),
 
     # Uncomment the admin/doc line below to enable admin documentation:
-    url(r'^admin/doc/', include('django.contrib.admindocs.urls')),
+    # url(r'^admin/doc/', include('django.contrib.admindocs.urls')),
 
     # Uncomment the next line to enable the admin:
-    url(r'^admin/', include(admin.site.urls)),
+    # url(r'^admin/', include(admin.site.urls)),
 
     url(r'^$', include('website.urls.home', namespace="home")),
     url(r'^news/', include('website.urls.news', namespace="news")),
@@ -30,9 +30,6 @@ urlpatterns = patterns('',
     url(r'^calendar/', include('website.urls.calendar', namespace='calendar')),
     url(r'^sitemap\.xml', include('website.urls.sitemap', namespace='sitemap')),
     url(r'^', include('website.urls.special', namespace="special")),
-
-    # Let's Encrypt
-    url(r'^.well-known/acme-challenge/', include('website.urls.encryption', namespace="encryption")),
 )
 
 
@@ -40,9 +37,5 @@ handler404 = website.views.handle404
 
 handler500 = website.views.handle500
 
-ON_OPENSHIFT = False
-if os.environ.has_key('OPENSHIFT_REPO_DIR'):
-    ON_OPENSHIFT = True
-
-if not ON_OPENSHIFT:
+if not settings.ON_AWS:
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
