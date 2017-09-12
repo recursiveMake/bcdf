@@ -8,7 +8,7 @@ if os.environ.has_key('AWS'):
     ON_AWS = True
 
 PROJECT_DIR = os.path.dirname(os.path.realpath(__file__))
-BASE_DIR = os.path.join(PROJECT_DIR, os.pardir, os.pardir)
+BASE_DIR = os.path.join(PROJECT_DIR, os.pardir)
 
 if ON_AWS:
     DEBUG = False
@@ -25,30 +25,16 @@ ADMINS = (
 )
 MANAGERS = ADMINS
 
-if ON_AWS:
-    DATABASES = {
-        'default': {
-            'ENGINE': 'django.db.backends.postgresql_psycopg2',
-            'NAME': os.environ.get('RDS_DB_NAME'), 
-            # The following settings are not used with sqlite3:
-            'HOST': os.environ.get('RDS_HOSTNAME'),
-            'PORT': os.environ.get('RDS_PORT'),
-            'USER': os.environ.get('RDS_USERNAME'),
-            'PASSWORD': os.environ.get('RDS_PASSWORD')
-        }
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'NAME': os.environ.get('RDS_DB_NAME', 'bcdf-db'),
+        'HOST': os.environ.get('RDS_HOSTNAME', 'localhost'),
+        'PORT': os.environ.get('RDS_PORT', '5432'),
+        'USER': os.environ.get('RDS_USERNAME', 'bcdf'),
+        'PASSWORD': os.environ.get('RDS_PASSWORD')
     }
-else:
-    DATABASES = {
-        'default': {
-            'ENGINE': 'django.db.backends.sqlite3',  # Add 'postgresql_psycopg2', 'postgresql', 'mysql', 'sqlite3' or 'oracle'.
-            'NAME': os.path.join(BASE_DIR, 'openshift', 'bcdf.db'),  # Or path to database file if using sqlite3.
-            'USER': '',                      # Not used with sqlite3.
-            'PASSWORD': '',                  # Not used with sqlite3.
-            'HOST': '',                      # Set to empty string for localhost. Not used with sqlite3.
-            'PORT': '',                      # Set to empty string for default. Not used with sqlite3.
-        }
-    }
-
+}
 
 # Hosts/domain names that are valid for this site; required if DEBUG is False
 # See https://docs.djangoproject.com/en/1.5/ref/settings/#allowed-hosts
@@ -83,16 +69,17 @@ USE_L10N = True
 if ON_AWS:
     MEDIA_ROOT = ''
 else:
-    MEDIA_ROOT = os.path.join(BASE_DIR, 'openshift', 'media')
+    MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
-AWS_STATIC_STORAGE_BUCKET_NAME = 'bcdf-bucket'
-AWS_MEDIA_STORAGE_BUCKET_NAME = 'bcdf-media-bucket'
-AWS_QUERYSTRING_AUTH = False
-S3_URL_TEMPLATE = 'https://%s.s3.amazonaws.com/'
+if ON_AWS:
+    AWS_STATIC_STORAGE_BUCKET_NAME = 'bcdf-bucket'
+    AWS_MEDIA_STORAGE_BUCKET_NAME = 'bcdf-media-bucket'
+    AWS_QUERYSTRING_AUTH = False
+    S3_URL_TEMPLATE = 'https://%s.s3.amazonaws.com/'
 
-AWS_ACCESS_KEY_ID = os.environ.get('AWS_ACCESS_KEY_ID', '')
-AWS_SECRET_ACCESS_KEY = os.environ.get('AWS_SECRET_ACCESS_KEY', '')
-AWS_S3_REGION_NAME = os.environ.get('AWS_S3_REGION_NAME', 'us-east-1')
+    AWS_ACCESS_KEY_ID = os.environ.get('AWS_ACCESS_KEY_ID', '')
+    AWS_SECRET_ACCESS_KEY = os.environ.get('AWS_SECRET_ACCESS_KEY', '')
+    AWS_S3_REGION_NAME = os.environ.get('AWS_S3_REGION_NAME', 'us-east-1')
 
 # URL that handles the media served from MEDIA_ROOT. Make sure to use a
 # trailing slash.
@@ -111,7 +98,6 @@ if ON_AWS:
     STATICFILES_STORAGE = 'bcdf.custom_storages.StaticStorage'
     STATIC_URL = S3_URL_TEMPLATE % AWS_STATIC_STORAGE_BUCKET_NAME
 else:
-    STATIC_ROOT = os.path.join(BASE_DIR, 'openshift', 'static')
     # URL prefix for static files.
     # Example: "http://media.lawrence.com/static/"
     STATIC_URL = '/static/'
