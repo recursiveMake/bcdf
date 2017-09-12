@@ -10,16 +10,6 @@ if not settings.ON_AWS:
 
 
 urlpatterns = patterns('',
-    # Examples:
-    # url(r'^$', 'bcdf.views.home', name='home'),
-    # url(r'^bcdf/', include('bcdf.foo.urls')),
-
-    # Uncomment the admin/doc line below to enable admin documentation:
-    # url(r'^admin/doc/', include('django.contrib.admindocs.urls')),
-
-    # Uncomment the next line to enable the admin:
-    # url(r'^admin/', include(admin.site.urls)),
-
     url(r'^$', include('website.urls.home', namespace="home")),
     url(r'^news/', include('website.urls.news', namespace="news")),
     url(r'^education/', include('website.urls.education', namespace="education")),
@@ -31,6 +21,12 @@ urlpatterns = patterns('',
     url(r'^sitemap\.xml', include('website.urls.sitemap', namespace='sitemap')),
     url(r'^', include('website.urls.special', namespace="special")),
 )
+
+if settings.DEPLOY:
+    urlpatterns += patterns('',
+        url(r'^admin/doc/', include('django.contrib.admindocs.urls')),
+        url(r'^admin/', include(admin.site.urls)),
+    )
 
 
 handler404 = website.views.handle404

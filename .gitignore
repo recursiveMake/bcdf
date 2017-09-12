@@ -5,6 +5,8 @@
 *~
 .project
 .pydevproject
+.idea/
+media/
 env
 
 # Elastic Beanstalk Files

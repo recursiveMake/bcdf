@@ -7,6 +7,10 @@ ON_AWS = False
 if os.environ.has_key('AWS'):
     ON_AWS = True
 
+DEPLOY = False
+if os.environ.has_key('DEPLOY'):
+    DEPLOY = True
+
 PROJECT_DIR = os.path.dirname(os.path.realpath(__file__))
 BASE_DIR = os.path.join(PROJECT_DIR, os.pardir)
 
@@ -153,15 +157,17 @@ INSTALLED_APPS = (
     'django.contrib.sites',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    # Uncomment the next line to enable the admin:
-    # 'django.contrib.admin',
-    # Uncomment the next line to enable admin documentation:
-    # 'django.contrib.admindocs',
     'website',
     'django.contrib.sitemaps',
     'captcha',
     'storages'
 )
+
+if DEPLOY:
+    INSTALLED_APPS += (
+        'django.contrib.admin',
+        'django.contrib.admindocs'
+    )
 
 # A sample logging configuration. The only tangible logging
 # performed by this configuration is to send an email to
