@@ -8,6 +8,7 @@
 .idea/
 media/
 env
+howto.md
 
 # Elastic Beanstalk Files
 .elasticbeanstalk/*
