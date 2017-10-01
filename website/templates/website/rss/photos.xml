@@ -4,25 +4,25 @@
     <channel>
         <title>Bovell Cancer Diabetes Foundation Photos</title>
         <description>Photo feed from the Bovell Cancer Diabetes Foundation</description>
-        <link>http{% if request.is_secure %}s{% endif %}://{{ request.get_host }}{% url 'gallery:index' %}</link>
+        <link>https://{{ request.get_host }}{% url 'gallery:index' %}</link>
         <ttl>60</ttl>
         <atom:link href="{{ request.build_absolute_uri }}" rel="self" type="application/rss+xml" />
         <image>
             <title>Bovell Cancer Diabetes Foundation Photos</title>
             <description>Photos feed from the Bovell Cancer Diabetes Foundation</description>
-            <url>http{% if request.is_secure %}s{% endif %}://{{ request.get_host }}{% static "images/logo-shield.jpg" %}</url>
+            <url>https://{{ request.get_host }}{% static "images/logo-shield.jpg" %}</url>
             <width>85</width>
             <height>110</height>
-            <link>http{% if request.is_secure %}s{% endif %}://{{ request.get_host }}{% url 'gallery:index' %}</link>
+            <link>https://{{ request.get_host }}{% url 'gallery:index' %}</link>
         </image>
 
         {% for article in article_list %}
             <item>
                 <title>{{ article.title }}</title>
                 <description>{{ article.articlecontent.blurb }}</description>
-                <link>http{% if request.is_secure %}s{% endif %}://{{ request.get_host }}{% url 'gallery:article' article.slug %}</link>
-                <image>http{% if request.is_secure %}s{% endif %}://{{ request.get_host }}{{ article.thumb.image.url }}</image>
-                <list>http{% if request.is_secure %}s{% endif %}://{{ request.get_host }}{% url 'gallery:xml' article.slug %}</list>
+                <link>https://{{ request.get_host }}{% url 'gallery:article' article.slug %}</link>
+                <image>https://{{ request.get_host }}{{ article.thumb.image.url }}</image>
+                <list>https://{{ request.get_host }}{% url 'gallery:xml' article.slug %}</list>
                 <guid isPermaLink="false">{{ article.slug }}</guid>
                 <pubDate>{{ article.pub_date|date:"D, j M Y" }} 00:00:00 EST</pubDate>
             </item>

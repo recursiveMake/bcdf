@@ -4,16 +4,16 @@
     <channel>
         <title>Bovell Cancer Diabetes Foundation Feed</title>
         <description>Feed from the Bovell Cancer Diabetes Foundation</description>
-        <link>http{% if request.is_secure %}s{% endif %}://{{ request.get_host }}</link>
+        <link>https://{{ request.get_host }}</link>
         <ttl>60</ttl>
         <atom:link href="{{ request.build_absolute_uri }}" rel="self" type="application/rss+xml" />
         <image>
             <title>Bovell Cancer Diabetes Foundation Feed</title>
             <description>News feed from the Bovell Cancer Diabetes Foundation</description>
-            <url>http{% if request.is_secure %}s{% endif %}://{{ request.get_host }}{% static "images/logo-shield.jpg" %}</url>
+            <url>https://{{ request.get_host }}{% static "images/logo-shield.jpg" %}</url>
             <width>85</width>
             <height>110</height>
-            <link>http{% if request.is_secure %}s{% endif %}://{{ request.get_host }}</link>
+            <link>https://{{ request.get_host }}</link>
         </image>
 
         {% for article in article_list %}
@@ -21,13 +21,13 @@
                 <title>{{ article.title }}</title>
                 <description>{{ article.articlecontent.blurb }}</description>
                 {% if article.type == article.NEWS %}
-                <link>http{% if request.is_secure %}s{% endif %}://{{ request.get_host }}{% url 'news:article' article.slug %}</link>
+                <link>https://{{ request.get_host }}{% url 'news:article' article.slug %}</link>
                 {% elif article.type == article.EDUCATION %}
-                <link>http{% if request.is_secure %}s{% endif %}://{{ request.get_host }}{% url 'education:article' article.slug %}</link>
+                <link>https://{{ request.get_host }}{% url 'education:article' article.slug %}</link>
                 {% elif article.type == article.GALLERY %}
-                <link>http{% if request.is_secure %}s{% endif %}://{{ request.get_host }}{% url 'gallery:article' article.slug %}</link>
+                <link>https://{{ request.get_host }}{% url 'gallery:article' article.slug %}</link>
                 {% elif article.type == article.NEWSLETTER %}
-                <link>http{% if request.is_secure %}s{% endif %}://{{ request.get_host }}{% url 'newsletter:article' article.slug %}</link>}
+                <link>https://{{ request.get_host }}{% url 'newsletter:article' article.slug %}</link>}
                 {% endif %}
                 <guid isPermaLink="false">{{ article.slug }}</guid>
                 <pubDate>{{ article.pub_date|date:"D, j M Y" }} 00:00:00 EST</pubDate>
