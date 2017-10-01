@@ -4,7 +4,7 @@ from django.conf.urls.static import static
 import website
 
 # Uncomment the next two lines to enable the admin:
-if not settings.ON_AWS:
+if settings.DEPLOY:
     from django.contrib import admin
     admin.autodiscover()
 
