@@ -1,9 +1,9 @@
 __author__ = 'adonis'
 
-from django.conf.urls import patterns, url, include
+from django.conf.urls import url, include
 from website import views
 
-urlpatterns = patterns('',
+urlpatterns = [
     # /news/
     url(r'^$', views.news_index, name='index'),
 
@@ -15,4 +15,4 @@ urlpatterns = patterns('',
 
     # /news/slug
     url(r'^(?P<article_id>[A-Za-z0-9\-_]+)$', views.news_article, name='article'),
-)
+]

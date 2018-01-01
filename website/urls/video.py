@@ -1,8 +1,8 @@
-from django.conf.urls import patterns, url
+from django.conf.urls import url
 
 from website import views
 
-urlpatterns = patterns('',
+urlpatterns = [
     # /video/
     url(r'^$', views.video_index, name='index'),
 
@@ -11,4 +11,4 @@ urlpatterns = patterns('',
 
     # /video/xml/slug
     url(r'^xml/(?P<article_id>[A-Za-z0-9\-_]+)$', views.video_xml, name='xml')
-)
+]

@@ -1,9 +1,9 @@
 __author__ = 'adonis'
 
-from django.conf.urls import patterns, url
+from django.conf.urls import url
 from website import views
 
-urlpatterns = patterns('',
+urlpatterns = [
 
     # /about/
     url(r'^about/$', views.special_article, {'article_id': 'about'}, name='about'),
@@ -30,4 +30,4 @@ urlpatterns = patterns('',
     url(r'^(?P<feed>[A-Za-z]+).xml/(?P<count>\d{1,2})$', views.rss_feed_limit, name='rss_limit'),
 
     url(r'^newsletter.php$', views.news_newsletter, name='newsletter')
-)
+]

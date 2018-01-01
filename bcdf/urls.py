@@ -1,4 +1,4 @@
-from django.conf.urls import patterns, include, url
+from django.conf.urls import include, url
 from django.conf import settings
 from django.conf.urls.static import static
 import website
@@ -9,8 +9,8 @@ if settings.DEPLOY:
     admin.autodiscover()
 
 
-urlpatterns = patterns('',
-    url(r'^$', include('website.urls.home', namespace="home")),
+urlpatterns = [
+    url(r'^', include('website.urls.home', namespace="home")),
     url(r'^news/', include('website.urls.news', namespace="news")),
     url(r'^education/', include('website.urls.education', namespace="education")),
     url(r'^rss/', include('website.urls.rss', namespace="rss")),
@@ -20,13 +20,13 @@ urlpatterns = patterns('',
     url(r'^calendar/', include('website.urls.calendar', namespace='calendar')),
     url(r'^sitemap\.xml', include('website.urls.sitemap', namespace='sitemap')),
     url(r'^', include('website.urls.special', namespace="special")),
-)
+]
 
 if settings.DEPLOY:
-    urlpatterns += patterns('',
+    urlpatterns += [
         url(r'^admin/doc/', include('django.contrib.admindocs.urls')),
         url(r'^admin/', include(admin.site.urls)),
-    )
+    ]
 
 
 handler404 = website.views.handle404

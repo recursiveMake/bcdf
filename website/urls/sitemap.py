@@ -5,7 +5,7 @@ from django.contrib.sitemaps import GenericSitemap
 from django.contrib.sites.models import Site
 from django.contrib.sitemaps.views import sitemap as django_sitemap
 from django.core.urlresolvers import reverse
-from django.conf.urls import patterns, url
+from django.conf.urls import url
 from django.db.models import Q
 from website.models import NewsArticle, EducationalArticle, GalleryArticle, SpecialArticle, NewsLetter, \
     VideoArticle
@@ -125,7 +125,6 @@ def sitemap_view(request):
     return django_sitemap(request, sitemaps)
 
 
-urlpatterns = patterns(
-    '',
+urlpatterns = [
     url(r'^$', sitemap_view, name='index'),
-)
+]
