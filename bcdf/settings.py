@@ -73,7 +73,7 @@ USE_L10N = True
 if ON_AWS:
     MEDIA_ROOT = ''
 else:
-    MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+    MEDIA_ROOT = os.path.join(BASE_DIR, 'local', 'media')
 
 if ON_AWS:
     AWS_STATIC_STORAGE_BUCKET_NAME = 'bcdf-bucket'
@@ -106,7 +106,7 @@ else:
     # Example: "http://media.lawrence.com/static/"
     STATIC_URL = '/static/'
     STATICFILES_DIRS = (
-        os.path.join(PROJECT_DIR, os.pardir, 'static'),
+        os.path.join(BASE_DIR, 'static'),
     )
 
 # URL prefix for admin static files -- CSS, JavaScript and images.
