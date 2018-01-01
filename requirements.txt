@@ -7,10 +7,10 @@ django-recaptcha==1.0.4
 psycopg2==2.7.3.1
 
 # aws
-awsebcli==3.10.6
+awsebcli==3.12.1
 blessed==1.14.2
 boto3==1.4.7
-botocore==1.7.3
+botocore==1.8.21
 cement==2.8.2
 colorama==0.3.7
 django-storages==1.6.5
@@ -26,8 +26,8 @@ PyYAML==3.12
 requests==2.9.1
 s3transfer==0.1.11
 semantic-version==2.5.0
-six==1.10.0
+six==1.11.0
 tabulate==0.7.5
 termcolor==1.1.0
 wcwidth==0.1.7
-websocket-client==0.44.0
+websocket-client==0.46.0
