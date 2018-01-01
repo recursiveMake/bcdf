@@ -1,26 +1,17 @@
 # -*- coding: utf-8 -*-
-# Django settings for OpenShift project.
+# Django settings for AWS project.
 import os
 
-# a setting to determine whether we are running on OpenShift
-ON_AWS = False
-if os.environ.has_key('AWS'):
-    ON_AWS = True
-
-DEPLOY = False
-if os.environ.has_key('DEPLOY'):
-    DEPLOY = True
-
-PROJECT_DIR = os.path.dirname(os.path.realpath(__file__))
-BASE_DIR = os.path.join(PROJECT_DIR, os.pardir)
-
-if ON_AWS:
-    DEBUG = False
-else:
-    DEBUG = True
+# a setting to determine whether we are running on AWS
+ON_AWS = 'AWS' in os.environ
+DEPLOY = 'DEPLOY' in os.environ
+DEBUG = not ON_AWS
 
 if DEBUG:
     print("WARNING: The DEBUG environment is set to True.")
+
+PROJECT_DIR = os.path.dirname(os.path.realpath(__file__))
+BASE_DIR = os.path.join(PROJECT_DIR, os.pardir)
 
 ADMINS = (
     ('adonis', 'yoshimitsu12@gmail.com'),
@@ -68,10 +59,7 @@ USE_L10N = True
 
 # Absolute filesystem path to the directory that will hold user-uploaded files.
 # Example: "/home/media/media.lawrence.com/media/"
-if ON_AWS:
-    MEDIA_ROOT = ''
-else:
-    MEDIA_ROOT = os.path.join(BASE_DIR, 'local', 'media')
+MEDIA_ROOT = '' if ON_AWS else os.path.join(BASE_DIR, 'local', 'media')
 
 if ON_AWS:
     AWS_STATIC_STORAGE_BUCKET_NAME = 'bcdf-bucket'
