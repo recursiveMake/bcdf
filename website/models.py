@@ -52,6 +52,7 @@ class Campaign(models.Model):
     article_slug = models.CharField(max_length=64, blank=True)
     slug = models.CharField(max_length=64, unique=True)
     is_published = models.BooleanField(default=False)
+    priority = models.PositiveSmallIntegerField(default=3)
 
     objects = DocumentManager()
 
