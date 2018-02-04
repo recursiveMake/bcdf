@@ -16,15 +16,11 @@ def home_index(request):
     banner_campaigns = BannerCampaign.objects.published(request.production).filter(
         Q(expiry__gte=datetime.today()) |
         Q(expiry__isnull=True)
-    )
+    ).order_by('priority')
     home_page_campaigns = HomePageCampaign.objects.published(request.production).filter(
         Q(expiry__gte=datetime.today()) |
         Q(expiry__isnull=True)
-    )
-    n = home_page_campaigns.count()
-    if n > 8:
-        indices = sorted(random.sample(range(0, n), 8))
-        home_page_campaigns = [home_page_campaigns[idx] for idx in indices]
+    ).order_by('priority')[:8]
     context = {
         'banner_campaigns': banner_campaigns,
         'home_page_campaigns': home_page_campaigns

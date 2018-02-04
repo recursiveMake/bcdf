@@ -94,7 +94,7 @@ def alert_campaign(request):
     campaigns = AlertCampaign.objects.filter(
         Q(expiry__gte=datetime.today()) |
         Q(expiry__isnull=True)
-    )
+    ).order_by('priority')
     for cookie in request.COOKIES:
         campaigns = campaigns.exclude(slug=cookie)
     viewed_campaigns = viewed_campaign(request)
