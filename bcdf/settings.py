@@ -222,6 +222,7 @@ else:
 
 if ON_AWS:
     SECURE_SSL_REDIRECT = True
+    os.environ['HTTPS'] = "on"
 
 TEST_RUNNER = 'django.test.runner.DiscoverRunner'
 
