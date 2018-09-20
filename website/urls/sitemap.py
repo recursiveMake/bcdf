@@ -5,6 +5,7 @@ from django.contrib.sitemaps import GenericSitemap
 from django.contrib.sites.models import Site
 from django.contrib.sitemaps.views import sitemap as django_sitemap
 from django.core.urlresolvers import reverse
+from django.conf import settings
 from django.conf.urls import url
 from django.db.models import Q
 from website.models import NewsArticle, EducationalArticle, GalleryArticle, SpecialArticle, NewsLetter, \
@@ -19,7 +20,8 @@ class CustomSitemap(GenericSitemap):
         super(CustomSitemap, self).__init__(*args, **kwargs)
 
     def get_urls(self, page=1, site=None, protocol=None):
-        return super(CustomSitemap, self).get_urls(page, self.site, protocol=None)
+        protocol = 'https' if settings.ON_AWS else None
+        return super(CustomSitemap, self).get_urls(page, self.site, protocol=protocol)
 
     def location(self, obj):
         return reverse(self.namespace, args=(obj.slug, ))

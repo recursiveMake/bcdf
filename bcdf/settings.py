@@ -220,11 +220,6 @@ else:
         }
     }
 
-if ON_AWS:
-    SECURE_SSL_REDIRECT = True
-    SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
-    os.environ['HTTPS'] = "on"
-
 TEST_RUNNER = 'django.test.runner.DiscoverRunner'
 
 NOCAPTCHA = True
