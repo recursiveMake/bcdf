@@ -220,6 +220,9 @@ else:
         }
     }
 
+if ON_AWS:
+    SECURE_SSL_REDIRECT = True
+
 TEST_RUNNER = 'django.test.runner.DiscoverRunner'
 
 NOCAPTCHA = True
