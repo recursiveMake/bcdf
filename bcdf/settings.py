@@ -25,7 +25,10 @@ DATABASES = {
         'HOST': os.environ.get('RDS_HOSTNAME', 'localhost'),
         'PORT': os.environ.get('RDS_PORT', '5432'),
         'USER': os.environ.get('RDS_USERNAME', 'bcdf'),
-        'PASSWORD': os.environ.get('RDS_PASSWORD')
+        'PASSWORD': os.environ.get('RDS_PASSWORD'),
+        'OPTIONS': {
+            'sslmode': 'require'
+        }
     }
 }
 
