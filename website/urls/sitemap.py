@@ -59,7 +59,7 @@ def sitemap_view(request):
         site=Site(domain=request.get_host()),
         namespace='news:article',
         info_dict={
-            'queryset': NewsArticle.objects.published(request.production),
+            'queryset': NewsArticle.objects.published(request.production).order_by('-pub_date'),
             'date_field': 'pub_date'
         },
         priority=0.75,
@@ -69,7 +69,7 @@ def sitemap_view(request):
         site=Site(domain=request.get_host()),
         namespace='education:article',
         info_dict={
-            'queryset': EducationalArticle.objects.published(request.production),
+            'queryset': EducationalArticle.objects.published(request.production).order_by('-pub_date'),
             'date_field': 'pub_date'
         },
         priority=0.75,
@@ -79,7 +79,7 @@ def sitemap_view(request):
         site=Site(domain=request.get_host()),
         namespace='newsletter:article',
         info_dict={
-            'queryset': NewsLetter.objects.published(request.production),
+            'queryset': NewsLetter.objects.published(request.production).order_by('-pub_date'),
             'date_field': 'pub_date'
         },
         priority=0.75,
@@ -89,7 +89,7 @@ def sitemap_view(request):
         site=Site(domain=request.get_host()),
         namespace='gallery:article',
         info_dict={
-            'queryset': GalleryArticle.objects.published(request.production),
+            'queryset': GalleryArticle.objects.published(request.production).order_by('-pub_date'),
             'date_field': 'pub_date'
         },
         priority=0.75,
@@ -99,7 +99,7 @@ def sitemap_view(request):
         site=Site(domain=request.get_host()),
         namespace='video:article',
         info_dict={
-            'queryset': VideoArticle.objects.published(request.production),
+            'queryset': VideoArticle.objects.published(request.production).order_by('-pub_date'),
             'date_field': 'pub_date'
         },
         priority=0.75,
@@ -109,7 +109,7 @@ def sitemap_view(request):
         site=Site(domain=request.get_host()),
         namespace='special:',
         info_dict={
-            'queryset': SpecialArticle.objects.filter(~Q(slug__startswith='broken-')),
+            'queryset': SpecialArticle.objects.filter(~Q(slug__startswith='broken-')).order_by('-pub_date'),
             'date_field': 'pub_date'
         },
         priority=0.5,
