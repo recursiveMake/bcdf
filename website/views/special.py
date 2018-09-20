@@ -9,7 +9,6 @@ from django.contrib import messages
 from django.db.models import Q
 from django.shortcuts import redirect, get_object_or_404
 from datetime import datetime
-import random
 
 
 def home_index(request):
