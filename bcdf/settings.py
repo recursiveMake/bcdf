@@ -25,12 +25,12 @@ DATABASES = {
         'HOST': os.environ.get('RDS_HOSTNAME', 'localhost'),
         'PORT': os.environ.get('RDS_PORT', '5432'),
         'USER': os.environ.get('RDS_USERNAME', 'bcdf'),
-        'PASSWORD': os.environ.get('RDS_PASSWORD'),
-        'OPTIONS': {
-            'sslmode': 'require'
-        }
+        'PASSWORD': os.environ.get('RDS_PASSWORD')
     }
 }
+
+if ON_AWS:
+    DATABASES['default']['OPTIONS'] = {'sslmode': 'require'}
 
 # Hosts/domain names that are valid for this site; required if DEBUG is False
 # See https://docs.djangoproject.com/en/1.5/ref/settings/#allowed-hosts
