@@ -10,7 +10,7 @@ setup(
     author_email='yoshimitsu12@gmail.com',
     url='http://www.python.org/sigs/distutils-sig/',
     install_requires=[
-        'Django==1.11.20',
+        'Django==1.11.22',
         'Pillow==6.0.0',
         'python-memcached==1.59',
         'django-recaptcha==2.0.4',
