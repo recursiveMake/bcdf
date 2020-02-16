@@ -10,6 +10,14 @@ class ProductionServer(object):
 
     WARNING_MESSAGE = "On development server. Unpublished articles are visible"
 
+    def __init__(self, get_response):
+        self.get_response = get_response
+
+    def __call__(self, request):
+        self.process_request(request)
+        response = self.get_response(request)
+        return response
+
     @classmethod
     def process_request(cls, request):
         host = request.get_host()

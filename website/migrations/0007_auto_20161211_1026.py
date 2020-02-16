@@ -30,13 +30,13 @@ class Migration(migrations.Migration):
         migrations.AddField(
             model_name='articlecontent',
             name='video_article',
-            field=models.OneToOneField(null=True, blank=True, to='website.VideoArticle'),
+            field=models.OneToOneField(null=True, blank=True, on_delete=models.SET_NULL, to='website.VideoArticle'),
             preserve_default=True,
         ),
         migrations.AddField(
             model_name='thumb',
             name='video_article',
-            field=models.OneToOneField(null=True, blank=True, to='website.VideoArticle'),
+            field=models.OneToOneField(null=True, blank=True, on_delete=models.SET_NULL, to='website.VideoArticle'),
             preserve_default=True,
         ),
         migrations.AlterField(

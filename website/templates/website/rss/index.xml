@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
-{% load staticfiles %}
+{% load static %}
     <channel>
         <title>Bovell Cancer Diabetes Foundation Feed</title>
         <description>Feed from the Bovell Cancer Diabetes Foundation</description>

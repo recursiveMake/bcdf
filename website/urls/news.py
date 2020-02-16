@@ -2,6 +2,7 @@ __author__ = 'adonis'
 
 from django.conf.urls import url, include
 from website import views
+from website.urls.app_name import app_name
 
 urlpatterns = [
     # /news/

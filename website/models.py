@@ -148,8 +148,8 @@ class SpecialArticle(Document):
 class SpecialImage(models.Model):
     ''' Multiple image article, also used in Educational Articles
     '''
-    special_article = models.ForeignKey(SpecialArticle, blank=True, null=True)
-    educational_article = models.ForeignKey(EducationalArticle, blank=True, null=True)
+    special_article = models.ForeignKey(SpecialArticle, blank=True, null=True, on_delete=models.SET_NULL)
+    educational_article = models.ForeignKey(EducationalArticle, blank=True, null=True, on_delete=models.SET_NULL)
 
     image = models.ImageField(upload_to=os.path.join("images", "special"))
     title = models.CharField(max_length=128, blank=True)
@@ -158,7 +158,7 @@ class SpecialImage(models.Model):
 
 
 class GalleryImage(models.Model):
-    article = models.ForeignKey(GalleryArticle)
+    article = models.ForeignKey(GalleryArticle, on_delete=models.CASCADE)
     image = models.ImageField(upload_to=os.path.join('images', 'gallery'))
     description = models.CharField(max_length=512, blank=True)
     alt = models.CharField(max_length=64, blank=True)
@@ -170,22 +170,22 @@ class GalleryImage(models.Model):
 class Image(ImageBase):
     image = models.ImageField(upload_to=os.path.join('images', 'full_size'))
 
-    banner_campaign = models.OneToOneField(BannerCampaign, blank=True, null=True)
-    home_page_campaign = models.OneToOneField(HomePageCampaign, blank=True, null=True)
-    news_article = models.OneToOneField(NewsArticle, blank=True, null=True)
-    educational_article = models.OneToOneField(EducationalArticle, blank=True, null=True)
-    special_article = models.OneToOneField(SpecialArticle, blank=True, null=True)
+    banner_campaign = models.OneToOneField(BannerCampaign, blank=True, null=True, on_delete=models.SET_NULL)
+    home_page_campaign = models.OneToOneField(HomePageCampaign, blank=True, null=True, on_delete=models.SET_NULL)
+    news_article = models.OneToOneField(NewsArticle, blank=True, null=True, on_delete=models.SET_NULL)
+    educational_article = models.OneToOneField(EducationalArticle, blank=True, null=True, on_delete=models.SET_NULL)
+    special_article = models.OneToOneField(SpecialArticle, blank=True, null=True, on_delete=models.SET_NULL)
 
 
 class Thumb(ImageBase):
     image = models.ImageField(upload_to=os.path.join('images', 'thumbnails'))
 
-    newsletter = models.OneToOneField(NewsLetter, blank=True, null=True)
-    news_article = models.OneToOneField(NewsArticle, blank=True, null=True)
-    educational_article = models.OneToOneField(EducationalArticle, blank=True, null=True)
-    gallery_article = models.OneToOneField(GalleryArticle, blank=True, null=True)
-    video_article = models.OneToOneField(VideoArticle, blank=True, null=True)
-    special_article = models.OneToOneField(SpecialArticle, blank=True, null=True)
+    newsletter = models.OneToOneField(NewsLetter, blank=True, null=True, on_delete=models.SET_NULL)
+    news_article = models.OneToOneField(NewsArticle, blank=True, null=True, on_delete=models.SET_NULL)
+    educational_article = models.OneToOneField(EducationalArticle, blank=True, null=True, on_delete=models.SET_NULL)
+    gallery_article = models.OneToOneField(GalleryArticle, blank=True, null=True, on_delete=models.SET_NULL)
+    video_article = models.OneToOneField(VideoArticle, blank=True, null=True, on_delete=models.SET_NULL)
+    special_article = models.OneToOneField(SpecialArticle, blank=True, null=True, on_delete=models.SET_NULL)
 
 
 class ArticleContent(models.Model):
@@ -194,11 +194,11 @@ class ArticleContent(models.Model):
     end = models.CharField(max_length=512, blank=True)
     full = models.TextField(blank=True)
 
-    news_article = models.OneToOneField(NewsArticle, blank=True, null=True)
-    educational_article = models.OneToOneField(EducationalArticle, blank=True, null=True)
-    gallery_article = models.OneToOneField(GalleryArticle, blank=True, null=True)
-    video_article = models.OneToOneField(VideoArticle, blank=True, null=True)
-    special_article = models.OneToOneField(SpecialArticle, blank=True, null=True)
+    news_article = models.OneToOneField(NewsArticle, blank=True, null=True, on_delete=models.SET_NULL)
+    educational_article = models.OneToOneField(EducationalArticle, blank=True, null=True, on_delete=models.SET_NULL)
+    gallery_article = models.OneToOneField(GalleryArticle, blank=True, null=True, on_delete=models.SET_NULL)
+    video_article = models.OneToOneField(VideoArticle, blank=True, null=True, on_delete=models.SET_NULL)
+    special_article = models.OneToOneField(SpecialArticle, blank=True, null=True, on_delete=models.SET_NULL)
 
     def __unicode__(self):
         return self.blurb
@@ -208,6 +208,6 @@ class ArticleFile(models.Model):
     file = models.FileField(upload_to="files")
     blurb = models.CharField(max_length=256)
 
-    educational_article = models.ForeignKey(EducationalArticle, blank=True, null=True)
-    news_article = models.ForeignKey(NewsArticle, blank=True, null=True)
-    special_article = models.ForeignKey(SpecialArticle, blank=True, null=True)
+    educational_article = models.ForeignKey(EducationalArticle, blank=True, null=True, on_delete=models.SET_NULL)
+    news_article = models.ForeignKey(NewsArticle, blank=True, null=True, on_delete=models.SET_NULL)
+    special_article = models.ForeignKey(SpecialArticle, blank=True, null=True, on_delete=models.SET_NULL)

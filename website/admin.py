@@ -2,7 +2,7 @@ __author__ = 'adonis'
 
 from django import forms
 from django.contrib import admin
-from django.core.urlresolvers import reverse, NoReverseMatch
+from django.urls import reverse, NoReverseMatch
 from website.models import ArticleContent, ArticleFile, Thumb, Image, GalleryImage, SpecialImage, \
     VideoArticle
 from website.models import EducationalArticle, NewsArticle, GalleryArticle, NewsLetter, SpecialArticle

@@ -4,12 +4,13 @@ __author__ = 'adonis'
 from django.contrib.sitemaps import GenericSitemap
 from django.contrib.sites.models import Site
 from django.contrib.sitemaps.views import sitemap as django_sitemap
-from django.core.urlresolvers import reverse
+from django.urls import reverse
 from django.conf import settings
 from django.conf.urls import url
 from django.db.models import Q
 from website.models import NewsArticle, EducationalArticle, GalleryArticle, SpecialArticle, NewsLetter, \
     VideoArticle
+from website.urls.app_name import app_name
 
 
 class CustomSitemap(GenericSitemap):

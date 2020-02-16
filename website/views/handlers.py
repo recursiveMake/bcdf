@@ -7,7 +7,7 @@ from website.models import SpecialArticle
 from website.views.util import article_parse, render
 
 
-def handle404(request):
+def handle404(request, exception):
     messages.error(request, "The requested page was not found.")
     response = get_object_or_404(SpecialArticle, slug='broken-link')
     (request, context) = article_parse(request, response)
