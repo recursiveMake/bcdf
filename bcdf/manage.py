@@ -3,7 +3,7 @@ import os
 import sys
 
 ON_AWS = False
-if os.environ.has_key('AWS'):
+if 'AWS' in os.environ:
     ON_AWS = True
 
 if __name__ == "__main__":
