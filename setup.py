@@ -4,12 +4,13 @@ from setuptools import setup
 
 setup(
     name='BCDF',
-    version='2.1',
+    version='3.0',
     description='BCDF Web App',
     author='Adonis Bovell',
     author_email='yoshimitsu12@gmail.com',
     url='http://www.python.org/sigs/distutils-sig/',
     install_requires=[
+        'boto3==1.12.11',
         'Django==3.0.3',
         'Pillow==7.0.0',
         'python-memcached==1.59',
