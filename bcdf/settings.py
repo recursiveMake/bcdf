@@ -68,7 +68,7 @@ if ON_AWS:
     AWS_STATIC_STORAGE_BUCKET_NAME = 'bcdf-bucket'
     AWS_MEDIA_STORAGE_BUCKET_NAME = 'bcdf-media-bucket'
     AWS_QUERYSTRING_AUTH = False
-    S3_URL_TEMPLATE = 'https://%s.s3.amazonaws.com/'
+    S3_URL_TEMPLATE = 'https://{bucket}.s3.{region}.amazonaws.com/'
 
     AWS_ACCESS_KEY_ID = os.environ.get('AWS_ACCESS_KEY_ID', '')
     AWS_SECRET_ACCESS_KEY = os.environ.get('AWS_SECRET_ACCESS_KEY', '')
@@ -79,7 +79,7 @@ if ON_AWS:
 # Examples: "http://media.lawrence.com/media/", "http://example.com/media/"
 if ON_AWS:
     DEFAULT_FILE_STORAGE = 'bcdf.custom_storages.MediaStorage'
-    MEDIA_URL = S3_URL_TEMPLATE % AWS_MEDIA_STORAGE_BUCKET_NAME
+    MEDIA_URL = S3_URL_TEMPLATE.format(bucket=AWS_MEDIA_STORAGE_BUCKET_NAME, region=AWS_S3_REGION_NAME)
 else:
     MEDIA_URL = '/media/'
 
@@ -89,7 +89,7 @@ else:
 # Example: "/home/media/media.lawrence.com/static/"
 if ON_AWS:
     STATICFILES_STORAGE = 'bcdf.custom_storages.StaticStorage'
-    STATIC_URL = S3_URL_TEMPLATE % AWS_STATIC_STORAGE_BUCKET_NAME
+    STATIC_URL = S3_URL_TEMPLATE.format(bucket=AWS_STATIC_STORAGE_BUCKET_NAME, region=AWS_S3_REGION_NAME)
 else:
     # URL prefix for static files.
     # Example: "http://media.lawrence.com/static/"
