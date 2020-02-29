@@ -12,7 +12,7 @@ setup(
     install_requires=[
         'Django==3.0.3',
         'Pillow==7.0.0',
-        'python-memcached=1.59',
+        'python-memcached==1.59',
         'django-recaptcha==2.0.6',
         'django-storages==1.9.1',
         'psycopg2==2.8.4'
