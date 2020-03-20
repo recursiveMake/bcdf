@@ -41,7 +41,7 @@ class Document(models.Model):
     class Meta:
         abstract = True
 
-    def __unicode__(self):
+    def __str__(self):
         return self.title
 
 
@@ -59,7 +59,7 @@ class Campaign(models.Model):
     class Meta:
         abstract = True
 
-    def __unicode__(self):
+    def __str__(self):
         return self.title
 
 
@@ -80,7 +80,7 @@ class ImageBase(models.Model):
     class Meta:
         abstract = True
 
-    def __unicode__(self):
+    def __str__(self):
         return self.title
 
 
@@ -156,6 +156,9 @@ class SpecialImage(models.Model):
     description = models.CharField(max_length=1024, blank=True)
     alt = models.CharField(max_length=64, blank=True)
 
+    def __str__(self):
+        return self.description or 'SpecialImage Object'
+
 
 class GalleryImage(models.Model):
     article = models.ForeignKey(GalleryArticle, on_delete=models.CASCADE)
@@ -163,7 +166,7 @@ class GalleryImage(models.Model):
     description = models.CharField(max_length=512, blank=True)
     alt = models.CharField(max_length=64, blank=True)
 
-    def __unicode__(self):
+    def __str__(self):
         return self.description or 'GalleryImage Object'
 
 
@@ -200,7 +203,7 @@ class ArticleContent(models.Model):
     video_article = models.OneToOneField(VideoArticle, blank=True, null=True, on_delete=models.SET_NULL)
     special_article = models.OneToOneField(SpecialArticle, blank=True, null=True, on_delete=models.SET_NULL)
 
-    def __unicode__(self):
+    def __str__(self):
         return self.blurb
 
 
@@ -211,3 +214,6 @@ class ArticleFile(models.Model):
     educational_article = models.ForeignKey(EducationalArticle, blank=True, null=True, on_delete=models.SET_NULL)
     news_article = models.ForeignKey(NewsArticle, blank=True, null=True, on_delete=models.SET_NULL)
     special_article = models.ForeignKey(SpecialArticle, blank=True, null=True, on_delete=models.SET_NULL)
+
+    def __str__(self):
+        return self.blurb
