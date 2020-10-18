@@ -11,7 +11,7 @@ setup(
     url='http://www.python.org/sigs/distutils-sig/',
     install_requires=[
         'boto3==1.12.49',
-        'Django==3.0.10',
+        'Django==3.0.7',
         'Pillow==8.0.0',
         'python-memcached==1.59',
         'django-recaptcha==2.0.6',
