@@ -12,7 +12,7 @@ setup(
     install_requires=[
         'boto3==1.12.49',
         'Django==3.0.10',
-        'Pillow==8.0.0',
+        'Pillow==9.0.1',
         'python-memcached==1.59',
         'django-recaptcha==2.0.6',
         'django-storages==1.9.1',
