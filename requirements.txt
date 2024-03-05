@@ -1,7 +1,7 @@
 asgiref==3.2.10
 boto3==1.12.49
 botocore==1.15.49
-Django==3.0.10
+Django==3.2.25
 django-recaptcha==2.0.6
 django-storages==1.9.1
 docutils==0.15.2
